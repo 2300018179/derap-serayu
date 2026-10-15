@@ -65,62 +65,79 @@
         ===================================================== */
 
         .topbar {
+    height: 38px;
 
-            height: 36px;
+    background: #063f60;
 
-            padding: 0 4.5%;
+    color: white;
+}
 
-            background: #063f60;
+.topbar-inner {
+    width: min(1300px, calc(100% - 40px));
 
-            display: flex;
+    height: 100%;
 
-            align-items: center;
+    margin: auto;
 
-            justify-content: space-between;
+    display: flex;
 
-            color: white;
+    align-items: center;
 
-            font-size: 11px;
-        }
+    justify-content: space-between;
 
-        .top-left,
-        .top-right {
+    font-size: 10px;
 
-            display: flex;
+    font-weight: 600;
+}
 
-            align-items: center;
+.topbar-left,
+.topbar-right {
+    display: flex;
 
-            gap: 16px;
-        }
+    align-items: center;
 
-        .top-left span,
-        .top-right a {
+    gap: 17px;
+}
 
-            display: flex;
+.topbar-item {
+    display: flex;
 
-            align-items: center;
+    align-items: center;
 
-            gap: 6px;
+    gap: 6px;
 
-            color: rgba(255,255,255,.94);
-        }
+    white-space: nowrap;
+}
 
-        .top-right a {
-            transition: .2s;
-        }
+.topbar-item i {
+    color: #72e3fa;
+}
 
-        .top-right a:hover {
-            color: #70e3f7;
-        }
+.topbar-weather-icon {
+    font-size: 12px;
+}
 
-        .divider {
+.topbar-divider {
+    width: 1px;
 
-            width: 1px;
+    height: 13px;
 
-            height: 13px;
+    background: rgba(255,255,255,.25);
+}
 
-            background: rgba(255,255,255,.25);
-        }
+.topbar-right a {
+    color: white;
+
+    text-decoration: none;
+
+    opacity: .88;
+
+    transition: .2s;
+}
+
+.topbar-right a:hover {
+    color: #72e3fa;
+}
 
 
         /* =====================================================
@@ -300,7 +317,7 @@
 
         .login-page {
 
-            min-height: calc(100vh - 124px);
+            min-height: 100vh;
 
             position: relative;
 
@@ -314,17 +331,21 @@
 
                 linear-gradient(
                     90deg,
-                    rgba(3, 48, 68, .18),
-                    rgba(3, 48, 68, .04)
+                    rgba(3, 48, 68, .20),
+                    rgba(3, 48, 68, .06)
                 ),
 
                 url('{{ asset('images/bg-kawahsikidang-login.jpg') }}');
 
             background-size: cover;
 
-            background-position: center center;
+            background-position: center;
+
+            background-attachment: fixed;
 
             background-repeat: no-repeat;
+
+            overflow: hidden;
 
             padding: 45px 7%;
         }
@@ -1029,6 +1050,32 @@
             color: #065f7c;
         }
 
+        .back-to-home {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            font-size: 8px;
+
+            color: #8199a4;
+
+        }
+
+        .back-to-home a {
+
+            color: #078fba;
+
+            font-weight: 700;
+
+            margin-left: 4px;
+
+        }
+
+        .back-to-home a:hover {
+            color: #065f7c;
+        }
+
 
         /* =====================================================
            SECURITY NOTE
@@ -1227,153 +1274,6 @@
 
 
 <body>
-
-
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
-
-    <div class="topbar">
-
-        <div class="top-left">
-
-            <span>
-                <i class="fa-solid fa-cloud-sun"></i>
-                24°C
-            </span>
-
-            <div class="divider"></div>
-
-            <span>
-                <i class="fa-solid fa-location-dot"></i>
-                Banjarnegara
-            </span>
-
-            <div class="divider"></div>
-
-            <span>
-                <i class="fa-regular fa-calendar"></i>
-                {{ now()->translatedFormat('l, j F Y') }}
-            </span>
-
-        </div>
-
-
-        <div class="top-right">
-
-            <a href="#">
-                <i class="fa-solid fa-circle-info"></i>
-                PPID
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-globe"></i>
-                Layanan Publik
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-envelope"></i>
-                Kontak
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
-
-    <nav class="navbar">
-
-
-        <a href="/" class="logo">
-
-            <img
-                src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
-            >
-
-        </a>
-
-
-
-        <div class="nav-menu">
-
-            <a href="/" class="active">
-                Beranda
-            </a>
-
-            <a href="/cerita">
-                Cerita & Budaya
-            </a>
-
-            <a href="/opini">
-                Opini
-            </a>
-
-            <a href="/sosok">
-                Sosok
-            </a>
-
-            <a href="/sudut-kota">
-                Sudut Kota
-            </a>
-
-            <a href="/potensi">
-                Potensi
-            </a>
-
-            <a href="/teknologi">
-                Teknologi
-            </a>
-
-        </div>
-
-
-
-        <div class="nav-right">
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari berita, topik, atau kata kunci..."
-                >
-
-            </div>
-
-
-            <button class="menu-btn">
-
-                Menu
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
-
-        </div>
-
-    </nav>
-
-
-
     <!-- =====================================================
          LOGIN
     ====================================================== -->
@@ -1395,17 +1295,6 @@
             ================================================== -->
 
             <section class="login-intro">
-
-
-                <div class="intro-badge">
-
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-
-                    SELAMAT DATANG KEMBALI
-
-                </div>
-
-
 
                 <h1>
 
@@ -1520,12 +1409,14 @@
 
                 <div class="login-header">
 
-                    <div class="small-label">
+                    <a href="/" class="logo">
 
-                        AKSES AKUN
+                        <img
+                            src="{{ asset('images/logo.png') }}"
+                            alt="Derap Serayu"
+                        >
 
-                    </div>
-
+                    </a>
 
                     <h2>
 
@@ -1720,6 +1611,15 @@
 
                     </div>
 
+                    <div class="back-to-home">
+
+                        <a href="{{ route('home') }}">
+
+                            Kembali ke Beranda
+
+                        </a>
+
+                    </div>
 
                 </form>
 

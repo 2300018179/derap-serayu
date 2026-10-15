@@ -60,18 +60,18 @@
             content: "";
             position: absolute;
             inset: 0 0 auto;
-            height: max(100vh, 850px);
+            height: max(100vh, 690px);
             background:
                 linear-gradient(
                     180deg,
-                    rgba(224, 248, 254, .82),
-                    rgba(232, 249, 254, .90) 45%,
-                    rgba(244, 251, 253, .98) 100%
+                    rgba(220, 246, 251, .72),
+                    rgba(239, 249, 252, .92) 42%,
+                    #f5fbfd 100%
                 ),
-                url("{{ asset('images/gunung.jpg') }}");
+                url("{{ asset('images/bg-kebunteh.jpg') }}");
             background-size: cover;
             background-position: center top;
-            z-index: -1;
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -403,10 +403,11 @@
         }
 
         .hero-description {
-            color: var(--muted);
-            font-size: 15px;
-            max-width: 650px;
+            color: #063f5e;
+            font-size: 14px;
+            max-width: 560px;
             line-height: 1.6;
+            margin-top: 12px;
         }
 
         .hero-line {
@@ -1386,11 +1387,10 @@
         }
 
         .footer-link-column h3 {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 16px;
             color: #fff;
-            margin-bottom: 18px;
-            letter-spacing: .5px;
+            margin-bottom: 17px;
+            font-family: "Playfair Display", serif;
         }
 
         .footer-link-column a {
@@ -1407,87 +1407,110 @@
         }
 
         .footer-newsletter {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 24px 20px;
+
+            padding-left: 5px;
         }
 
         .newsletter-label {
-            font-size: 10px;
+
+            color: #55d9f4;
+
+            font-size: 7px;
+
             font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--cyan-light);
-            margin-bottom: 8px;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 9px;
         }
 
         .footer-newsletter h2 {
-            font-size: 16px;
-            color: #fff;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 6px;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 22px;
+
+            line-height: 1.25;
+
+            max-width: 280px;
         }
 
         .footer-newsletter h2 span {
-            color: var(--cyan-light);
+
+            color: #08b9df;
         }
 
         .footer-newsletter p {
-            font-size: 12px;
-            color: #8daec0;
-            margin-bottom: 14px;
-            line-height: 1.5;
+
+            color: #a6c6cf;
+
+            font-size: 8px;
+
+            line-height: 1.6;
+
+            margin-top: 8px;
+
+            max-width: 260px;
         }
 
         .newsletter-form {
+
+            height: 42px;
+
+            max-width: 280px;
+
+            margin-top: 13px;
+
+            padding: 3px 3px 3px 12px;
+
             display: flex;
-            gap: 8px;
+
+            align-items: center;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,.08);
+
+            border: 1px solid rgba(255,255,255,.12);
         }
 
         .newsletter-form input {
+
             flex: 1;
+
             min-width: 0;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
-            padding: 0 14px;
-            height: 38px;
-            color: #fff;
-            font-size: 12px;
+
+            border: 0;
+
             outline: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 8px;
         }
 
         .newsletter-form input::placeholder {
-            color: #8daec0;
+
+            color: #7ea5b1;
         }
 
         .newsletter-form button {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: var(--cyan);
+
+            width: 35px;
+
+            height: 35px;
+
             border: 0;
-            color: #fff;
+
+            border-radius: 9px;
+
+            background: #08b5dc;
+
+            color: white;
+
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            transition: background .2s;
-            flex-shrink: 0;
-        }
-
-        .newsletter-form button:hover {
-            background: var(--cyan-light);
-            color: var(--navy-dark);
-        }
-
-        .newsletter-feedback {
-            margin-top: 9px;
-            color: #a6e7f5;
-            font-size: 11px;
-            line-height: 1.5;
         }
 
         /* QUOTE */
@@ -1502,25 +1525,26 @@
 
         .footer-quote-mark {
             font-family: "Playfair Display", serif;
-            font-size: 40px;
-            color: var(--cyan);
-            line-height: 1;
-            margin-bottom: 4px;
+            font-size: 43px;
+            color: #08add5;
+            line-height: 25px;
         }
 
         .footer-quote {
+            max-width: 650px;
             font-family: "Playfair Display", serif;
-            font-size: 17px;
+            font-size: 21px;
             font-style: italic;
             color: #e0f2f7;
-            margin-bottom: 6px;
+            line-height: 1.5;
+            margin: 5px auto 9px;
         }
 
         .footer-quote-author {
-            font-size: 10px;
+            font-size: 7px;
             letter-spacing: 2px;
-            color: var(--cyan-light);
-            font-weight: 700;
+            color: rgba(255, 255, 255, .35);
+            font-weight: 800;
         }
 
         /* BOTTOM */
@@ -2208,21 +2232,49 @@
             {{-- JELAJAHI --}}
             <div class="footer-link-column">
                 <h3>Jelajahi</h3>
-                <a href="{{ route('home') }}">Beranda</a>
-                <a href="{{ route('articles.index') }}">Berita</a>
-                <a href="{{ route('cerita') }}">Cerita &amp; Budaya</a>
-                <a href="{{ route('sosok') }}">Sosok</a>
-                <a href="{{ route('opini') }}">Opini</a>
-                <a href="{{ route('sudut-kota') }}" aria-current="page">Sudut Kota</a>
+                <a href="{{ route('home') }}">
+                    Beranda
+                </a>
+
+                <a href="{{ route('about') }}">
+                    Tentang Kami
+                </a>
+
+                <a href="{{ route('articles.index') }}">
+                    Berita
+                </a>
             </div>
 
             {{-- INFORMASI --}}
             <div class="footer-link-column">
                 <h3>Informasi</h3>
-                <a href="{{ route('potensi') }}">Potensi</a>
-                <a href="{{ route('teknologi') }}">Teknologi</a>
-                <a href="{{ route('humor') }}">Humor</a>
-                <a href="{{ route('about') }}">Tentang Kami</a>
+                <a href="{{ route('cerita') }}">
+                    Cerita & Budaya
+                </a>
+
+                <a href="{{ route('opini') }}">
+                    Opini
+                </a>
+
+                <a href="{{ route('sosok') }}">
+                    Sosok
+                </a>
+
+                <a href="{{ route('sudut-kota') }}">
+                    Sudut Kota
+                </a>
+
+                <a href="{{ route('potensi') }}">
+                    Potensi
+                </a>
+
+                <a href="{{ route('teknologi') }}">
+                    Teknologi
+                </a>
+
+                <a href="{{ route('humor') }}">
+                    Humor
+                </a>
             </div>
 
             {{-- LAYANAN --}}
@@ -2237,12 +2289,29 @@
 
             {{-- NEWSLETTER --}}
             <div class="footer-newsletter">
-                <div class="newsletter-label">TETAP TERHUBUNG</div>
-                <h2>Cerita Banjarnegara, <span>langsung ke kamu.</span></h2>
-                <p>Dapatkan informasi dan cerita terbaru seputar Banjarnegara.</p>
+
+                <div class="newsletter-label">
+                    TETAP TERHUBUNG
+                </div>
+
+                <h2>
+
+                    Cerita Banjarnegara,
+                    <span>langsung ke kamu.</span>
+
+                </h2>
+
+                <p>
+
+                    Dapatkan informasi dan cerita terbaru
+                    seputar Banjarnegara.
+
+                </p>
+
 
                 <form class="newsletter-form" action="{{ route('newsletter.subscribe') }}" method="POST">
                     @csrf
+
                     <input
                         type="email"
                         name="email"
@@ -2252,9 +2321,11 @@
                         maxlength="255"
                         required
                     >
+
                     <button type="submit" aria-label="Daftar newsletter">
-                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
+
                 </form>
 
                 @if (session('newsletterStatus'))
@@ -2263,6 +2334,7 @@
                 @error('email')
                     <p class="newsletter-feedback" role="alert">{{ $message }}</p>
                 @enderror
+
             </div>
         </div>
 

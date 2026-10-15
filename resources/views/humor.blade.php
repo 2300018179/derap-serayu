@@ -336,7 +336,7 @@
             border: 1px solid #dceef4;
             border-radius: 18px;
             background: #fff;
-            color: var(--navy);
+            color: var(--cyan);
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
@@ -351,8 +351,8 @@
         }
 
         .sosok-account-actions .sosok-register-link {
-            background: var(--navy);
-            border-color: var(--navy);
+            background: var(--cyan);
+            border-color: var(--cyan);
             color: #fff;
         }
 
@@ -398,7 +398,7 @@
 
         .hero-description {
             font-size: 14px;
-            color: var(--muted);
+            color: #063f5e;
             max-width: 720px;
             line-height: 1.6;
         }
@@ -473,7 +473,6 @@
         .featured-badge i {
             color: #fcd34d;
         }
-
         .featured-body {
             padding: 26px 28px;
             display: flex;
@@ -1313,8 +1312,8 @@
            FOOTER
         ========================================================= */
         .home-footer {
-            background: linear-gradient(180deg, #052c42 0%, #021a28 100%);
-            color: #c5e6f3;
+            background: #03273d;
+            color: #fff;
             padding: 60px 6.5% 30px;
             position: relative;
             z-index: 10;
@@ -1327,148 +1326,178 @@
 
         .home-footer-grid {
             display: grid;
-            grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
-            gap: 40px;
-            margin-bottom: 50px;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr 1.6fr;
+            gap: 36px;
+            margin-bottom: 48px;
         }
 
-        .footer-brand img {
-            max-width: 170px;
+        .footer-brand {
+            display: block;
             margin-bottom: 16px;
         }
 
-        .footer-brand p {
+        .footer-logo-box img {
+            width: 180px;
+            max-height: 54px;
+            object-fit: contain;
+        }
+
+        .footer-description {
             font-size: 13px;
-            line-height: 1.7;
-            color: #9cbccc;
+            color: #8daec0;
+            line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .footer-socials {
+        .footer-social {
             display: flex;
+            align-items: center;
             gap: 12px;
         }
 
-        .footer-socials a {
-            width: 36px;
-            height: 36px;
+        .footer-social a {
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 14px;
-            transition: all .2s;
-        }
-
-        .footer-socials a:hover {
-            background: var(--cyan);
-            color: #fff;
-            transform: translateY(-3px);
-        }
-
-        .footer-col h4 {
-            font-family: "Playfair Display", serif;
-            font-size: 17px;
-            color: #fff;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .footer-col h4::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 24px;
-            height: 2px;
-            background: var(--cyan);
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .footer-links a {
             font-size: 13px;
-            color: #9cbccc;
-            transition: all .2s;
+            transition: background .2s, color .2s;
         }
 
-        .footer-links a:hover {
-            color: var(--cyan-light);
-            transform: translateX(4px);
-        }
-
-        .footer-newsletter h4 {
-            font-family: "Playfair Display", serif;
-            font-size: 17px;
+        .footer-social a:hover {
+            background: var(--cyan);
             color: #fff;
-            margin-bottom: 14px;
+        }
+
+        .footer-link-column h3 {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 17px;
+            font-family: "Playfair Display", serif;
+        }
+
+        .footer-link-column a {
+            display: block;
+            font-size: 13px;
+            color: #8daec0;
+            margin-bottom: 10px;
+            transition: color .2s, transform .2s;
+        }
+
+        .footer-link-column a:hover {
+            color: var(--cyan-light);
+            transform: translateX(3px);
+        }
+
+        .footer-newsletter {
+
+            padding-left: 5px;
+        }
+
+        .newsletter-label {
+
+            color: #55d9f4;
+
+            font-size: 7px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 9px;
+        }
+
+        .footer-newsletter h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 22px;
+
+            line-height: 1.25;
+
+            max-width: 280px;
+        }
+
+        .footer-newsletter h2 span {
+
+            color: #08b9df;
         }
 
         .footer-newsletter p {
-            font-size: 13px;
-            color: #9cbccc;
+
+            color: #a6c6cf;
+
+            font-size: 8px;
+
             line-height: 1.6;
-            margin-bottom: 16px;
+
+            margin-top: 8px;
+
+            max-width: 260px;
         }
 
         .newsletter-form {
+
+            height: 42px;
+
+            max-width: 280px;
+
+            margin-top: 13px;
+
+            padding: 3px 3px 3px 12px;
+
             display: flex;
-            position: relative;
+
+            align-items: center;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,.08);
+
+            border: 1px solid rgba(255,255,255,.12);
         }
 
         .newsletter-form input {
-            width: 100%;
-            height: 44px;
-            padding: 0 50px 0 16px;
-            border-radius: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            font-size: 12px;
-            outline: none;
-            transition: border-color .2s;
-        }
 
-        .newsletter-form input:focus {
-            border-color: var(--cyan);
+            flex: 1;
+
+            min-width: 0;
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 8px;
         }
 
         .newsletter-form input::placeholder {
-            color: #7193a5;
+
+            color: #7ea5b1;
         }
 
         .newsletter-form button {
-            position: absolute;
-            right: 4px;
-            top: 4px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--cyan);
-            border: none;
-            color: #fff;
+
+            width: 35px;
+
+            height: 35px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background: #08b5dc;
+
+            color: white;
+
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background .2s;
-        }
-
-        .newsletter-form button:hover {
-            background: var(--cyan-dark);
-        }
-
-        .newsletter-feedback {
-            font-size: 12px;
-            color: #34d399;
-            margin-top: 8px;
         }
 
         /* QUOTE */
@@ -1483,25 +1512,26 @@
 
         .footer-quote-mark {
             font-family: "Playfair Display", serif;
-            font-size: 40px;
-            color: var(--cyan);
-            line-height: 1;
-            margin-bottom: 4px;
+            font-size: 43px;
+            color: #08add5;
+            line-height: 25px;
         }
 
         .footer-quote {
+            max-width: 650px;
             font-family: "Playfair Display", serif;
-            font-size: 17px;
+            font-size: 21px;
             font-style: italic;
             color: #e0f2f7;
-            margin-bottom: 6px;
+            line-height: 1.5;
+            margin: 5px auto 9px;
         }
 
         .footer-quote-author {
-            font-size: 10px;
+            font-size: 7px;
             letter-spacing: 2px;
-            color: var(--cyan-light);
-            font-weight: 700;
+            color: rgba(255, 255, 255, .35);
+            font-weight: 800;
         }
 
         /* BOTTOM */
@@ -2056,81 +2086,264 @@
 
     {{-- FOOTER TERPADU DENGAN NEWSLETTER & POLICY --}}
     <footer class="home-footer">
-        <div class="home-footer-inner">
-            <div class="home-footer-grid">
-                <div class="footer-brand">
-                    <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu" onerror="this.style.display='none'">
-                    <p>
-                        Media informasi dan cerita Banjarnegara yang mengabarkan keindahan alam, kekayaan budaya, dinamika kota, potensi daerah, inovasi teknologi, hingga kelakar hangat masyarakat.
-                    </p>
-                    <div class="footer-socials">
-                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+
+    <div class="home-footer-inner">
+
+        <div class="home-footer-grid">
+
+
+            {{-- BRAND --}}
+
+            <div class="footer-brand-column">
+
+                <a href="{{ route('home') }}" class="footer-brand" aria-label="Derap Serayu, beranda">
+                    <div class="footer-logo-box">
+                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
                     </div>
+                </a>
+
+
+                <p class="footer-description">
+
+                    Media informasi dan cerita Banjarnegara
+                    yang menghadirkan berita, budaya, wisata,
+                    potensi, serta kisah dari masyarakat.
+
+                </p>
+
+
+                <div class="footer-social">
+
+                    <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                    <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+
                 </div>
 
-                <div class="footer-col">
-                    <h4>Jelajahi Rubrik</h4>
-                    <div class="footer-links">
-                        <a href="{{ route('home') }}">Beranda</a>
-                        <a href="{{ route('articles.index') }}">Semua Berita</a>
-                        <a href="{{ route('cerita') }}">Cerita &amp; Budaya</a>
-                        <a href="{{ route('sosok') }}">Sosok Inspiratif</a>
-                        <a href="{{ route('sudut-kota') }}">Sudut Kota</a>
-                        <a href="{{ route('potensi') }}">Potensi Daerah</a>
-                        <a href="{{ route('teknologi') }}">Inovasi &amp; Teknologi</a>
-                        <a href="{{ route('humor') }}">Humor &amp; Celoteh</a>
-                    </div>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Informasi Resmi</h4>
-                    <div class="footer-links">
-                        <a href="{{ route('about') }}">Tentang Kami</a>
-                        <a href="{{ route('information.editorial') }}">Pedoman Media Siber</a>
-                        <a href="{{ route('information.privacy') }}">Kebijakan Privasi</a>
-                        <a href="{{ route('information.terms') }}">Syarat &amp; Ketentuan</a>
-                        <a href="tel:+6281234567890">Kontak Redaksi</a>
-                    </div>
-                </div>
-
-                <div class="footer-newsletter">
-                    <h4>Langganan Kabar Serayu</h4>
-                    <p>Dapatkan rangkuman liputan inspiratif dan kabar terkini seputar Banjarnegara langsung di emailmu.</p>
-                    <form action="{{ route('newsletter.subscribe') }}" method="POST" class="newsletter-form">
-                        @csrf
-                        <input type="email" name="email" placeholder="Alamat email kamu..." required>
-                        <button type="submit" aria-label="Kirim"><i class="fa-solid fa-arrow-right"></i></button>
-                    </form>
-                    @if(session('newsletter_success'))
-                        <div class="newsletter-feedback"><i class="fa-solid fa-circle-check"></i> {{ session('newsletter_success') }}</div>
-                    @endif
-                </div>
             </div>
 
-            <div class="footer-quote-section">
-                <div class="footer-quote-mark">&ldquo;</div>
-                <div class="footer-quote">
-                    Guyonan yang tulus adalah jembatan persaudaraan terindah di antara sesama warga.
-                </div>
-                <div class="footer-quote-author">DERAP SERAYU &bull; SUARA BANJARNEGARA</div>
+
+
+            {{-- JELAJAHI --}}
+
+            <div class="footer-link-column">
+
+                <h3>
+                    Jelajahi
+                </h3>
+
+                <a href="{{ route('home') }}">
+                    Beranda
+                </a>
+
+                <a href="{{ route('about') }}">
+                    Tentang Kami
+                </a>
+
+                <a href="{{ route('articles.index') }}">
+                    Berita
+                </a>
+
             </div>
 
-            <div class="footer-bottom">
-                <div>&copy; {{ date('Y') }} Derap Serayu. Hak cipta dilindungi undang-undang.</div>
-                <div class="footer-policy">
-                    <a href="{{ route('information.privacy') }}">Kebijakan Privasi</a>
-                    <a href="{{ route('information.terms') }}">Syarat &amp; Ketentuan</a>
-                    <a href="{{ route('information.editorial') }}">Pedoman Media Siber</a>
-                </div>
-                <div class="footer-made">
-                    Dibuat dengan rasa bangga untuk <strong>Banjarnegara</strong> ♥
-                </div>
+
+
+            {{-- INFORMASI --}}
+
+            <div class="footer-link-column">
+
+                <h3>
+                    Informasi
+                </h3>
+
+                <a href="{{ route('cerita') }}">
+                    Cerita & Budaya
+                </a>
+
+                <a href="{{ route('opini') }}">
+                    Opini
+                </a>
+
+                <a href="{{ route('sosok') }}">
+                    Sosok
+                </a>
+
+                <a href="{{ route('sudut-kota') }}">
+                    Sudut Kota
+                </a>
+
+                <a href="{{ route('potensi') }}">
+                    Potensi
+                </a>
+
+                <a href="{{ route('teknologi') }}">
+                    Teknologi
+                </a>
+
+                <a href="{{ route('humor') }}">
+                    Humor
+                </a>
+
             </div>
+
+
+
+            {{-- LAYANAN --}}
+
+            <div class="footer-link-column">
+
+                <h3>
+                    Layanan
+                </h3>
+
+                <a href="https://ppid.banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer">
+                    PPID
+                </a>
+
+                <a href="https://www.instagram.com/mpp.banjarnegara/" target="_blank" rel="noopener noreferrer">
+                    Layanan Publik
+                </a>
+
+                <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer">
+                    Kontak
+                </a>
+
+                <a href="{{ route('login') }}">
+                    Masuk
+                </a>
+
+                <a href="{{ route('register.pembaca') }}">
+                    Daftar
+                </a>
+
+            </div>
+
+
+
+            {{-- NEWSLETTER --}}
+
+            <div class="footer-newsletter">
+
+                <div class="newsletter-label">
+                    TETAP TERHUBUNG
+                </div>
+
+                <h2>
+
+                    Cerita Banjarnegara,
+                    <span>langsung ke kamu.</span>
+
+                </h2>
+
+                <p>
+
+                    Dapatkan informasi dan cerita terbaru
+                    seputar Banjarnegara.
+
+                </p>
+
+
+                <form class="newsletter-form" action="{{ route('newsletter.subscribe') }}" method="POST">
+                    @csrf
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        placeholder="Masukkan email kamu"
+                        aria-label="Alamat email untuk newsletter"
+                        maxlength="255"
+                        required
+                    >
+
+                    <button type="submit" aria-label="Daftar newsletter">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </form>
+
+                @if (session('newsletterStatus'))
+                    <p class="newsletter-feedback" role="status">{{ session('newsletterStatus') }}</p>
+                @endif
+                @error('email')
+                    <p class="newsletter-feedback" role="alert">{{ $message }}</p>
+                @enderror
+
+            </div>
+
         </div>
-    </footer>
+
+
+
+        {{-- QUOTE --}}
+
+        <div class="footer-quote-section">
+
+            <div class="footer-quote-mark">
+                “
+            </div>
+
+            <div class="footer-quote">
+
+                Dari gunung hingga lembah,
+                setiap sudut Banjarnegara punya cerita.
+
+            </div>
+
+            <div class="footer-quote-author">
+
+                DERAP SERAYU — BANJARNEGARA
+
+            </div>
+
+        </div>
+
+
+
+        {{-- BOTTOM --}}
+
+        <div class="footer-bottom">
+
+            <div class="footer-copyright">
+
+                © {{ now()->year }} Derap Serayu.
+                Semua hak dilindungi.
+
+            </div>
+
+
+            <div class="footer-policy">
+
+                <a href="{{ route('information.privacy') }}">
+                    Kebijakan Privasi
+                </a>
+
+                <a href="{{ route('information.terms') }}">
+                    Syarat & Ketentuan
+                </a>
+
+                <a href="{{ route('information.editorial') }}">
+                    Pedoman Media Siber
+                </a>
+
+            </div>
+
+
+            <div class="footer-made">
+
+                Dibuat untuk
+                <strong>Banjarnegara</strong>
+                ♥️
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
 
     {{-- LIVE WEATHER SCRIPT DARI OPEN-METEO --}}
     <script>

@@ -120,9 +120,9 @@
             background:
                 linear-gradient(
                     180deg,
-                    rgba(4, 61, 88, .05) 0%,
-                    rgba(4, 61, 88, .12) 40%,
-                    rgba(238, 249, 252, .96) 100%
+                    rgba(220,246,251,.72) 0%,
+                    rgba(239,249,252,.92) 42%,
+                    #f5fbfd 100%
                 ),
                 url("{{ asset('images/bg-candiarjuna-home.jpg') }}");
 
@@ -1750,11 +1750,11 @@
 
     font-family: "Playfair Display", serif;
 
-    font-size: 17px;
+    font-size: 16px;
 
     color: white;
 
-    margin-bottom: 18px;
+    margin-bottom: 17px;
 }
 
 
@@ -3303,24 +3303,17 @@
                     Jelajahi
                 </h3>
 
-                <a href="{{ url('/') }}">
+                <a href="{{ route('home') }}">
                     Beranda
-                </a>
-
-                <a href="{{ route('articles.index') }}">
-                    Berita
-                </a>
-
-                <a href="{{ route('cerita') }}">
-                    Cerita & Budaya
                 </a>
 
                 <a href="{{ route('about') }}">
                     Tentang Kami
                 </a>
 
-                <a href="{{ route('opini') }}">Opini</a>
-                <a href="{{ route('humor') }}">Humor</a>
+                <a href="{{ route('articles.index') }}">
+                    Berita
+                </a>
 
             </div>
 
@@ -3332,6 +3325,14 @@
                 <h3>
                     Informasi
                 </h3>
+
+                <a href="{{ route('cerita') }}">
+                    Cerita & Budaya
+                </a>
+
+                <a href="{{ route('opini') }}">
+                    Opini
+                </a>
 
                 <a href="{{ route('sosok') }}">
                     Sosok
@@ -3345,14 +3346,12 @@
                     Potensi
                 </a>
 
-                <a href="{{ route('teknologi') }}">Teknologi</a>
-
-                <a href="{{ route('articles.index', ['q' => 'Pengumuman']) }}">
-                    Pengumuman
+                <a href="{{ route('teknologi') }}">
+                    Teknologi
                 </a>
 
-                <a href="{{ route('articles.index', ['q' => 'Agenda']) }}">
-                    Agenda
+                <a href="{{ route('humor') }}">
+                    Humor
                 </a>
 
             </div>

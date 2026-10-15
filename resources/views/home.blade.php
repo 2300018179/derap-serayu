@@ -3538,7 +3538,7 @@ body {
                     <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
                     <span>Masuk</span>
                 </a>
-                <a class="account-register" href="{{ route('register.pembaca') }}">
+                <a class="account-register" href="{{ route('register') }}">
                     Daftar
                 </a>
             @endauth

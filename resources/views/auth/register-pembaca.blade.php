@@ -1474,167 +1474,6 @@
 
 <body>
 
-
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
-
-    <div class="topbar">
-
-
-        <div class="top-left">
-
-            <span>
-                <i class="fa-solid fa-cloud-sun"></i>
-                24°C
-            </span>
-
-
-            <div class="divider"></div>
-
-
-            <span>
-                <i class="fa-solid fa-location-dot"></i>
-                Banjarnegara
-            </span>
-
-
-            <div class="divider"></div>
-
-
-            <span>
-                <i class="fa-regular fa-calendar"></i>
-
-                {{ now()->translatedFormat('l, j F Y') }}
-
-            </span>
-
-        </div>
-
-
-
-        <div class="top-right">
-
-            <a href="#">
-                <i class="fa-solid fa-circle-info"></i>
-                PPID
-            </a>
-
-
-            <a href="#">
-                <i class="fa-solid fa-globe"></i>
-                Layanan Publik
-            </a>
-
-
-            <a href="#">
-                <i class="fa-solid fa-envelope"></i>
-                Kontak
-            </a>
-
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
-
-    <nav class="navbar">
-
-
-        <a href="/" class="logo">
-
-            <img
-                src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
-            >
-
-        </a>
-
-
-
-        <div class="nav-menu">
-
-            <a href="/" class="active">
-                Beranda
-            </a>
-
-            <a href="/cerita">
-                Cerita & Budaya
-            </a>
-
-            <a href="/opini">
-                Opini
-            </a>
-
-            <a href="/sosok">
-                Sosok
-            </a>
-
-            <a href="/sudut-kota">
-                Sudut Kota
-            </a>
-
-            <a href="/potensi">
-                Potensi
-            </a>
-
-            <a href="/teknologi">
-                Teknologi
-            </a>
-
-        </div>
-
-
-
-        <div class="nav-right">
-
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari berita, topik, atau kata kunci..."
-                >
-
-            </div>
-
-
-            <button class="menu-btn">
-
-                Menu
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
-
-
-        </div>
-
-    </nav>
-
-
-
     <!-- =====================================================
          REGISTER PAGE
     ====================================================== -->
@@ -1775,7 +1614,14 @@
 
                 <div class="card-mountain"></div>
 
+                <a href="/" class="logo">
 
+                    <img
+                        src="{{ asset('images/logo.png') }}"
+                        alt="Derap Serayu"
+                    >
+
+                </a>
 
                 <!-- STEPS -->
 

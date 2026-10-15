@@ -109,7 +109,7 @@ input {
 
     content: "";
 
-    position: fixed;
+    position: absolute;
 
     inset: 0;
 
@@ -117,10 +117,9 @@ input {
 
         linear-gradient(
             180deg,
-            rgba(4, 61, 88, .05) 0%,
-            rgba(4, 61, 88, .12) 38%,
-            rgba(238, 249, 252, .76) 72%,
-            rgba(247, 252, 253, .9) 100%
+            rgba(220,246,251,.72) 0%,
+            rgba(239,249,252,.92) 42%,
+            #f5fbfd 100%
         ),
 
         url("{{ asset('images/bg-candii.jpg') }}");
@@ -560,9 +559,7 @@ input {
 
     line-height: 1.6;
 
-    color: #fff;
-
-    text-shadow: 0 1px 5px rgba(2, 44, 69, .82);
+    color: #063f5e;
 
     max-width: 560px;
 
@@ -1683,10 +1680,10 @@ input {
 
     font-family: "Playfair Display", serif;
 
-    font-size: 17px;
-
-    margin-bottom: 18px;
-
+    font-size: 16px;
+    
+    margin-bottom: 17px;
+    
 }
 
 
@@ -3000,6 +2997,10 @@ input {
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
 
+                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+
                 </div>
 
             </div>
@@ -3018,16 +3019,12 @@ input {
                     Beranda
                 </a>
 
-                <a href="{{ route('articles.index') }}">
-                    Berita
-                </a>
-
                 <a href="{{ route('about') }}">
                     Tentang Kami
                 </a>
 
-                <a href="{{ route('opini') }}">
-                    Opini
+                <a href="{{ route('articles.index') }}">
+                    Berita
                 </a>
 
             </div>
@@ -3039,10 +3036,17 @@ input {
             <div class="footer-link-column">
 
                 <h3>
-                    Rubrik
+                    Informasi
                 </h3>
 
-                <a href="{{ route('cerita') }}">Cerita &amp; Budaya</a>
+                <a href="{{ route('cerita') }}">
+                    Cerita & Budaya
+                </a>
+
+                <a href="{{ route('opini') }}">
+                    Opini
+                </a>
+
                 <a href="{{ route('sosok') }}">
                     Sosok
                 </a>
@@ -3051,9 +3055,17 @@ input {
                     Sudut Kota
                 </a>
 
-                <a href="{{ route('potensi') }}">Potensi</a>
-                <a href="{{ route('teknologi') }}">Teknologi</a>
-                <a href="{{ route('humor') }}">Humor</a>
+                <a href="{{ route('potensi') }}">
+                    Potensi
+                </a>
+
+                <a href="{{ route('teknologi') }}">
+                    Teknologi
+                </a>
+
+                <a href="{{ route('humor') }}">
+                    Humor
+                </a>
 
             </div>
 

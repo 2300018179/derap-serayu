@@ -29,7 +29,7 @@
             font: 15px/1.6 "DM Sans", sans-serif;
             background:
                 linear-gradient(180deg, rgba(220, 246, 251, .86), rgba(239, 249, 252, .94) 36%, #f5fbfd 100%),
-                url("{{ asset('images/bg-tambi.jpg') }}")
+                url("{{ asset('images/bg-sikunir-home.jpg') }}")
         }
 
         a { color: inherit; }
@@ -52,6 +52,488 @@
         .topbar-divider { width: 1px; height: 13px; background: rgba(255, 255, 255, .25); }
         .topbar-right a { color: #fff; text-decoration: none; opacity: .88; transition: .2s; }
         .topbar-right a:hover { color: #72e3fa; }
+
+        .main-header {
+    padding-top: 10px;
+
+    position: relative;
+
+    z-index: 20;
+}
+
+.header-card {
+    width: min(1300px, calc(100% - 40px));
+
+    min-height: 76px;
+
+    margin: auto;
+
+    padding: 8px 16px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(255,255,255,.88);
+
+    border:
+        1px solid
+        rgba(255,255,255,.95);
+
+    box-shadow:
+        0 15px 40px rgba(7,63,94,.10);
+
+    backdrop-filter: blur(18px);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-shrink: 0;
+
+    text-decoration: none;
+}
+
+.logo-area img {
+    width: 180px;
+
+    height: auto;
+
+    display: block;
+}
+
+.logo-fallback {
+    display: none;
+
+    align-items: center;
+
+    gap: 0;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    color: #073f5e;
+}
+
+.logo-fallback span {
+    color: #08add5;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.main-nav {
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+}
+
+.main-nav a {
+    padding:
+        11px 13px;
+
+    border-radius: 25px;
+
+    color: #073f5e;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition: .25s ease;
+}
+
+.main-nav a:hover {
+    background: #e8f8fc;
+
+    color: #08add5;
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown summary {
+    padding: 11px 13px;
+
+    border-radius: 25px;
+
+    color: #073f5e;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    list-style: none;
+
+    white-space: nowrap;
+
+    transition: .25s ease;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+.nav-dropdown summary:hover,
+.nav-dropdown[open] summary {
+    background: #e8f8fc;
+
+    color: #08add5;
+}
+
+.nav-dropdown-icon {
+    margin-right: 6px;
+
+    color: #08add5;
+}
+
+.nav-dropdown-chevron {
+    margin-left: 4px;
+
+    font-size: 9px;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    left: 0;
+
+    z-index: 10;
+
+    display: grid;
+
+    min-width: 190px;
+
+    padding: 8px;
+
+    border: 1px solid #e3f0f5;
+    border-radius: 14px;
+
+    background: white;
+
+    box-shadow: 0 15px 40px rgba(7, 63, 94, .16);
+}
+
+.nav-dropdown .nav-dropdown-menu a {
+    padding: 10px 12px;
+
+    border-radius: 9px;
+}
+
+.nav-dropdown .nav-dropdown-menu a:hover {
+    background: #e8f8fc;
+}
+
+.main-nav a.active {
+    background: #08add5;
+
+    color: white;
+
+    box-shadow:
+        0 8px 20px
+        rgba(8,173,213,.25);
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box {
+    width: 230px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        0 12px;
+
+    border-radius: 22px;
+
+    background: #f0f7fa;
+
+    color: #8ba2af;
+}
+
+.search-area {
+    width: 230px;
+
+    flex-shrink: 0;
+}
+
+.account-actions {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.account-actions a,
+.account-menu summary {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 40px;
+
+    padding: 0 13px;
+
+    border: 1px solid #dcecf2;
+    border-radius: 22px;
+
+    background: #fff;
+
+    color: #073f5e;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    list-style: none;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+.account-actions a:hover,
+.account-menu summary:hover,
+.account-menu[open] summary {
+    border-color: #08add5;
+
+    color: #08add5;
+}
+
+.account-actions .account-register {
+    border-color: #08add5;
+
+    background: #08add5;
+
+    color: #fff;
+}
+
+.account-actions .account-register:hover {
+    background: #078fb0;
+
+    color: #fff;
+}
+
+.account-menu {
+    position: relative;
+}
+
+.account-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.account-menu summary > i:first-child {
+    font-size: 14px;
+}
+
+.account-menu summary span {
+    max-width: 120px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.account-menu .account-dropdown {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    z-index: 30;
+
+    display: grid;
+
+    min-width: 210px;
+
+    padding: 8px;
+
+    border: 1px solid #e3f0f5;
+    border-radius: 14px;
+
+    background: #fff;
+
+    box-shadow: 0 15px 40px rgba(7, 63, 94, .16);
+}
+
+.account-menu .account-dropdown a,
+.account-menu .account-dropdown button {
+    justify-content: flex-start;
+
+    width: 100%;
+
+    min-height: 40px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: transparent;
+
+    text-align: left;
+}
+
+.account-menu .account-dropdown a:hover,
+.account-menu .account-dropdown button:hover {
+    background: #e8f8fc;
+}
+
+.account-menu .account-dropdown form {
+    margin: 0;
+}
+
+.account-menu .account-dropdown button {
+    cursor: pointer;
+
+    font: inherit;
+}
+
+.account-dropdown-name {
+    padding: 9px 12px 11px;
+
+    overflow: hidden;
+
+    color: #64849b;
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+}
+
+
+.search-box i {
+    color: #7895a4;
+
+    font-size: 13px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    color: #073f5e;
+}
+
+.search-box input::placeholder {
+    color: #9bb0bb;
+}
+
+.search-box button {
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #7895a4;
+
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    color: #08add5;
+}
+
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.menu-button {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #063f60;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition: .25s ease;
+
+    display: none;
+}
+
+.menu-button:hover {
+    background: #08add5;
+
+    transform: rotate(5deg);
+}
 
         .site-header { position: relative; z-index: 2; padding: 12px 0 0; }
         .header-card {
@@ -228,7 +710,80 @@
         .search button:hover { transform: translateY(-1px); box-shadow: 0 11px 22px rgba(8, 173, 213, .3); }
         .search button i { margin-right: 7px; }
         .search-error { margin: 11px 2px 0; color: #b42318; font-size: 13px; font-weight: 600; }
+        .search-area {
+            width: 230px;
 
+            flex-shrink: 0;
+        }
+        .search-box i {
+            color: #7895a4;
+
+            font-size: 13px;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            font-family: inherit;
+
+            font-size: 10px;
+
+            color: #073f5e;
+        }
+
+        .search-box input::placeholder {
+            color: #9bb0bb;
+        }
+
+        .search-box button {
+            padding: 0;
+
+            border: 0;
+
+            background: transparent;
+
+            color: #7895a4;
+
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            color: #08add5;
+        }
+        .search-box {
+            width: 230px;
+
+            height: 40px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                0 12px;
+
+            border-radius: 22px;
+
+            background: #f0f7fa;
+
+            color: #8ba2af;
+        }
+
+        .search-area {
+            width: 230px;
+
+            flex-shrink: 0;
+        }
         .content-section { margin-top: 36px; }
         .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
         .section-heading h2 { margin: 0; font: 700 clamp(23px, 3vw, 30px)/1.25 "Playfair Display", serif; }
@@ -370,7 +925,7 @@
             transition: .2s;
         }
         .footer-social a:hover { transform: translateY(-3px); background: #08add5; }
-        .footer-column h4 { margin: 0 0 17px; font: 700 16px "Playfair Display", serif; }
+        .footer-column h4 { margin: 0 0 17px; font: 16px "Playfair Display", serif; }
         .footer-column a { display: block; width: fit-content; margin-bottom: 10px; color: rgba(255, 255, 255, .65); font-size: 11px; text-decoration: none; transition: .2s; }
         .footer-column a:hover { transform: translateX(3px); color: #72e3fa; }
         .footer-newsletter-label { color: #72e3fa; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
@@ -393,7 +948,7 @@
         .footer-quote { padding: 35px 15px; text-align: center; }
         .footer-quote-mark { color: #08add5; font: 43px/25px "Playfair Display", serif; }
         .footer-quote p { max-width: 650px; margin: 5px auto 9px; font: italic 21px/1.5 "Playfair Display", serif; }
-        .footer-quote small { color: rgba(255, 255, 255, .55); font-size: 9px; font-weight: 800; letter-spacing: 2px; }
+        .footer-quote small { color: rgba(255, 255, 255, .35); font-size: 7px; font-weight: 800; letter-spacing: 2px; }
         .footer-bottom {
             display: flex;
             align-items: center;
@@ -517,55 +1072,173 @@
         </div>
     </div>
 
-    <header class="site-header">
-        <div class="header-card">
-            <a class="brand" href="{{ route('home') }}" aria-label="Derap Serayu, beranda">
-                <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Derap Serayu"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                >
-                <span class="brand-name">Derap<span>Serayu</span></span>
+    <header class="main-header">
+
+    <div class="header-card">
+
+
+        {{-- Logo --}}
+
+        <a
+            href="{{ url('/') }}"
+            class="logo-area"
+        >
+
+            <img
+                src="{{ asset('images/logo.png') }}"
+                alt="Derap Serayu"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div class="logo-fallback">
+                Derap<span>Serayu</span>
+            </div>
+
+        </a>
+
+
+        {{-- Navigation --}}
+
+        <nav class="main-nav" id="mainNavigation">
+
+            <a href="{{ route('home') }}">
+                Beranda
             </a>
 
-            <nav class="main-nav" aria-label="Navigasi utama">
-                <a href="{{ route('home') }}">Beranda</a>
-                <a class="active" href="{{ route('articles.index') }}" aria-current="page">Berita</a>
-                <a href="{{ route('about') }}">Tentang Kami</a>
-                <details class="nav-dropdown">
-                    <summary><i class="fa-solid fa-water" aria-hidden="true"></i> Jelajahi <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
-                    <div class="nav-dropdown-menu">
-                        <a href="{{ route('cerita') }}">Cerita &amp; Budaya</a>
-                        <a href="{{ route('opini') }}">Opini</a>
-                        <a href="{{ route('sosok') }}">Sosok</a>
-                        <a href="{{ route('sudut-kota') }}">Sudut Kota</a>
-                        <a href="{{ route('potensi') }}">Potensi</a>
-                        <a href="{{ route('teknologi') }}">Teknologi</a>
-                        <a href="{{ route('humor') }}">Humor</a>
+            <a href="{{ route('articles.index') }}" class="active">
+                Berita
+            </a>
+
+            <a href="{{ route('about') }}">
+                Tentang Kami
+            </a>
+
+            <details class="nav-dropdown">
+                <summary>
+                    <i class="fa-solid fa-water nav-dropdown-icon" aria-hidden="true"></i>
+                    Jelajahi
+                    <i class="fa-solid fa-chevron-down nav-dropdown-chevron" aria-hidden="true"></i>
+                </summary>
+
+                <div class="nav-dropdown-menu">
+                    <a href="{{ route('cerita') }}">Cerita & Budaya</a>
+                    <a href="{{ route('opini') }}">Opini</a>
+                    <a href="{{ route('sosok') }}">Sosok</a>
+                    <a href="{{ route('sudut-kota') }}">Sudut Kota</a>
+                    <a href="{{ route('potensi') }}">Potensi</a>
+                    <a href="{{ route('teknologi') }}">Teknologi</a>
+                    <a href="{{ route('humor') }}">Humor</a>
+                </div>
+            </details>
+
+        </nav>
+
+
+        {{-- Search --}}
+
+        <div class="search-area">
+            <form
+                action="{{ route('articles.index') }}"
+                method="GET"
+                class="search-box"
+                role="search"
+                aria-label="Cari artikel"
+            >
+                <button type="submit" aria-label="Cari">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                </button>
+
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ old('q', request('q')) }}"
+                    placeholder="Cari berita, topik, atau kata kunci..."
+                    aria-label="Cari berita, topik, atau kata kunci"
+                    maxlength="100"
+                >
+            </form>
+
+            @error('q')
+                <p class="search-error" role="alert">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Akun --}}
+
+        <div class="account-actions">
+            @auth
+                <details class="account-menu">
+                    <summary aria-label="Menu akun {{ auth()->user()->name }}" title="Menu akun">
+                        <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        <span>{{ auth()->user()->name }}</span>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </summary>
+
+                    <div class="account-dropdown">
+                        <div class="account-dropdown-name">
+                            {{ auth()->user()->email }}
+                        </div>
+
+                        @if (auth()->user()->role === 'reader')
+                            <a href="{{ route('pembaca.profile') }}">
+                                <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                Profil
+                            </a>
+                            <a href="{{ route('pembaca.saved.index') }}">
+                                <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+                                Artikel Tersimpan
+                            </a>
+                        @elseif (auth()->user()->role === 'writer')
+                            <a href="{{ route('penulis.dashboard') }}">
+                                <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                                Dasbor Penulis
+                            </a>
+                        @elseif (auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}">
+                                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                                Dasbor Admin
+                            </a>
+                        @endif
+
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">
+                                <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+                                Keluar
+                            </button>
+                        </form>
                     </div>
                 </details>
-            </nav>
-
-            <div class="account-actions">
-                @auth
-                    @if (auth()->user()->role === 'reader')
-                        <a href="{{ route('pembaca.profile') }}"><i class="fa-regular fa-user" aria-hidden="true"></i><span>Akun</span></a>
-                    @elseif (auth()->user()->role === 'writer')
-                        <a href="{{ route('penulis.dashboard') }}"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i><span>Dasbor</span></a>
-                    @elseif (auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Dasbor</span></a>
-                    @endif
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" aria-label="Keluar"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>Keluar</span></button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" aria-label="Masuk"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i><span>Masuk</span></a>
-                    <a class="register-link" href="{{ route('register.pembaca') }}">Daftar</a>
-                @endauth
-            </div>
+            @else
+                <a href="{{ route('login') }}" aria-label="Masuk">
+                    <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+                    <span>Masuk</span>
+                </a>
+                <a class="account-register" href="{{ route('register') }}">
+                    Daftar
+                </a>
+            @endauth
         </div>
-    </header>
+
+
+        {{-- Menu --}}
+
+        <button
+            class="menu-button"
+            type="button"
+            aria-label="Buka menu navigasi"
+            aria-expanded="false"
+            aria-controls="mainNavigation"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+    </div>
+
+</header>
 
     <main>
         <section class="hero" aria-labelledby="page-title">
@@ -575,34 +1248,6 @@
                 <p class="hero-description">Temukan kabar, gagasan, dan cerita terbaru yang dekat dengan kehidupan warga Banjarnegara.</p>
             </div>
         </section>
-
-        <div class="search-panel">
-            <label class="search-label" for="article-search">Cari berita dan cerita</label>
-            <form class="search" action="{{ route('articles.index') }}" method="GET" role="search">
-                @if ($category !== '')
-                    <input type="hidden" name="category" value="{{ $category }}">
-                @endif
-                <div class="search-field">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                    <input
-                        id="article-search"
-                        type="search"
-                        name="q"
-                        value="{{ old('q', request('q')) }}"
-                        placeholder="Cari judul, kategori, atau ringkasan..."
-                        aria-label="Cari artikel"
-                        maxlength="100"
-                    >
-                </div>
-                <button type="submit"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Cari</span></button>
-            </form>
-            @error('q')
-                <p class="search-error" role="alert">{{ $message }}</p>
-            @enderror
-            @error('category')
-                <p class="search-error" role="alert">{{ $message }}</p>
-            @enderror
-        </div>
 
         <section class="content-section" aria-labelledby="articles-heading">
             <div class="section-heading">
@@ -710,7 +1355,7 @@
                 </div>
 
                 <div class="footer-column">
-                    <h4>Rubrik</h4>
+                    <h4>Informasi</h4>
                     <a href="{{ route('cerita') }}">Cerita &amp; Budaya</a>
                     <a href="{{ route('opini') }}">Opini</a>
                     <a href="{{ route('sosok') }}">Sosok</a>

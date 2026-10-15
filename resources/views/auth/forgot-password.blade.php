@@ -31,7 +31,7 @@
                     rgba(3, 48, 68, .20),
                     rgba(3, 48, 68, .06)
                 ),
-                url("{{ asset('images/bg-bendunganmrican-registerrrr.jpg') }}");
+                url("{{ asset('images/bg-kawahsikidang-login.jpg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -265,26 +265,22 @@
 
         .card {
             position: relative;
-            z-index: 3;
-            background: rgba(255,255,255,.96);
-            border: 1px solid rgba(255,255,255,.8);
-            border-radius: 24px;
-            padding: 38px;
+            background: rgba(249,253,255,.93);
+            border: 1px solid rgba(255,255,255,.80);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 38px 40px 31px;
             color: #193847;
-            box-shadow: 0 25px 70px rgba(0,0,0,.24);
-        }
-
-        .card-label {
-            color: #08add5;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            box-shadow: 
+                0 75px 70px rgba(0,38,57,.28),
+                inset 0 1px 0px rgba(255,255,255,.90);
+            overflow: hidden;
         }
 
         .card h2 {
             font-family: 'Playfair Display', serif;
-            color: #063f60;
+            color: #08add5;
             font-size: 30px;
             margin-bottom: 10px;
         }
@@ -294,24 +290,6 @@
             font-size: 13px;
             line-height: 1.7;
             margin-bottom: 28px;
-        }
-
-        /* ================= ICON ================= */
-
-        .reset-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
-            background: rgba(8,173,213,.10);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 22px;
-        }
-
-        .reset-icon i {
-            font-size: 25px;
-            color: #08add5;
         }
 
         /* ================= FORM ================= */
@@ -369,17 +347,25 @@
 
         .submit-btn {
             width: 100%;
-            height: 49px;
+            height: 48px;
             border: none;
-            border-radius: 12px;
-            background: #063f60;
+            border-radius: 25px;
+            background: linear-gradient(
+                100deg,
+                #08a8d0,
+                #08b8df
+            );
             color: white;
-            font-family: inherit;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: .2s;
+            transition: .25s;
             margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            box-shadow: 0 10px 25px rgba(8,173,213,.25);
         }
 
         .submit-btn:hover {
@@ -432,6 +418,24 @@
             color: #7b8d95;
             font-size: 10px;
             line-height: 1.6;
+        }
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            width: 245px;
+        }
+
+        .logo img {
+
+            width: 190px;
+
+            height: auto;
+
+            display: block;
         }
 
         /* ================= RESPONSIVE ================= */
@@ -493,118 +497,6 @@
 </head>
 
 <body>
-
-    <!-- TOP BAR -->
-    <div class="topbar">
-
-        <div class="top-left">
-            <span>
-                <i class="fa-solid fa-location-dot"></i>
-                Banjarnegara
-            </span>
-
-            <span>
-                <i class="fa-solid fa-cloud-sun"></i>
-                24°C
-            </span>
-
-            <span>
-                Selasa, 6 Oktober 2026
-            </span>
-        </div>
-
-        <div class="top-right">
-            <a href="#">PPID</a>
-            <a href="#">Layanan Publik</a>
-            <a href="#">Kontak</a>
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-twitter"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-tiktok"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- NAVBAR -->
-    <nav class="navbar">
-
-        <a href="/" class="brand">
-
-            <img src="{{ asset('images/logo-derap-serayu.png') }}"
-                 alt="Derap Serayu">
-
-        </a>
-
-
-        <div class="nav-menu">
-            <a href="/" class="active">
-                Beranda
-            </a>
-
-            <a href="/cerita">
-                Cerita & Budaya
-            </a>
-
-            <a href="/opini">
-                Opini
-            </a>
-
-            <a href="/sosok">
-                Sosok
-            </a>
-
-            <a href="/sudut-kota">
-                Sudut Kota
-            </a>
-
-            <a href="/potensi">
-                Potensi
-            </a>
-
-            <a href="/teknologi">
-                Teknologi
-            </a>
-        </div>
-
-
-        <div style="display:flex; align-items:center; gap:12px;">
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari..."
-                >
-            </div>
-
-            <button class="menu-btn">
-                Menu
-            </button>
-
-        </div>
-
-    </nav>
-
-
     <!-- MAIN -->
     <main class="main">
 
@@ -641,13 +533,14 @@
         <!-- FORM CARD -->
         <section class="card">
 
-            <div class="reset-icon">
-                <i class="fa-solid fa-key"></i>
-            </div>
+            <a href="/" class="logo">
 
-            <div class="card-label">
-                RESET PASSWORD
-            </div>
+                <img
+                    src="{{ asset('images/logo.png') }}"
+                    alt="Derap Serayu"
+                >
+
+            </a>
 
             <h2>
                 Pulihkan akunmu
@@ -710,10 +603,6 @@
             <div class="back-login">
 
                 <i class="fa-solid fa-arrow-left"></i>
-
-                <span>
-                    Ingat kata sandi?
-                </span>
 
                 <a href="{{ route('login') }}">
                     Kembali ke Login

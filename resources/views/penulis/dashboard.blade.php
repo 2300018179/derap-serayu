@@ -1175,7 +1175,7 @@
 
     <aside class="sidebar" id="sidebar">
         <a href="{{ url('/') }}" class="brand">
-            <img src="{{ asset('images/logo-derap-serayu.png') }}" alt="Logo Derap Serayu"
+            <img src="{{ asset('images/logo-logo.png') }}" alt="Logo Derap Serayu"
                  onerror="this.style.display='none'">
             <div>
                 <div class="brand-name">Derap<span>Serayu</span></div>
@@ -1204,19 +1204,9 @@
                 <span>Lihat Website</span>
             </a>
 
-            <div class="nav-caption">AKUN</div>
-
         </nav>
 
         <div class="side-spacer"></div>
-
-        <div class="profile">
-            <div class="avatar">A</div>
-            <div>
-                <strong>{{ auth()->check() ? auth()->user()->name : 'Annisa Dwi Lestari' }}</strong>
-                <small>Penulis</small>
-            </div>
-        </div>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf

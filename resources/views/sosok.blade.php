@@ -72,22 +72,22 @@
 
             inset: 0 0 auto;
 
-            height: max(100vh, 850px);
+            height: max(100vh, 690px);
 
             background:
                 linear-gradient(
                     180deg,
-                    rgba(225,248,254,.08),
-                    rgba(231,248,253,.28) 48%,
-                    rgba(244,251,253,.94) 100%
+                    rgba(220,246,251,.72),
+                    rgba(239,249,252,.92) 42%,
+                    #f5fbfd 100%
                 ),
-                url("{{ asset('images/gunung.jpg') }}");
+                url("{{ asset('images/atasawan.jpg') }}");
 
             background-size: cover;
 
             background-position: center top;
 
-            z-index: -1;
+            z-index: 0;
 
             pointer-events: none;
         }
@@ -547,15 +547,15 @@
 
             font-family: "Playfair Display", serif;
 
-            color: #fff;
+            color: #063f5e;
 
-            text-shadow: 0 1px 5px rgba(2,44,69,.82);
+            font-size: 14px;
 
-            font-size: 17px;
+            line-height: 1.6;
 
-            line-height: 1.55;
+            max-width: 560px;
 
-            max-width: 530px;
+            margin-top: 12px;
         }
 
         .hero-line {
@@ -1585,7 +1585,7 @@
 
             font-size: 16px;
 
-            margin-bottom: 15px;
+            margin-bottom: 17px;
         }
 
         .footer-link-column a {
@@ -2905,24 +2905,12 @@
                     Beranda
                 </a>
 
+                <a href="{{ route('about') }}">
+                    Tentang Kami
+                </a>
+
                 <a href="{{ route('articles.index') }}">
                     Berita
-                </a>
-
-                <a href="{{ route('cerita') }}">
-                    Cerita & Budaya
-                </a>
-
-                <a href="{{ route('sosok') }}" aria-current="page">
-                    Sosok
-                </a>
-
-                <a href="{{ route('opini') }}">
-                    Opini
-                </a>
-
-                <a href="{{ route('sudut-kota') }}">
-                    Sudut Kota
                 </a>
 
             </div>
@@ -2936,6 +2924,22 @@
                 <h3>
                     Informasi
                 </h3>
+
+                <a href="{{ route('cerita') }}">
+                    Cerita & Budaya
+                </a>
+
+                <a href="{{ route('opini') }}">
+                    Opini
+                </a>
+
+                <a href="{{ route('sosok') }}">
+                    Sosok
+                </a>
+
+                <a href="{{ route('sudut-kota') }}">
+                    Sudut Kota
+                </a>
 
                 <a href="{{ route('potensi') }}">
                     Potensi

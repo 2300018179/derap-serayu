@@ -230,7 +230,7 @@
         ===================================================== */
 
         .register-hero {
-            min-height: calc(100vh - 118px);
+            min-height: 100vh;
 
             position: relative;
 
@@ -239,21 +239,24 @@
             background-image:
                 linear-gradient(
                     90deg,
-                    rgba(4, 39, 55, .78) 0%,
-                    rgba(4, 39, 55, .56) 45%,
-                    rgba(4, 39, 55, .38) 100%
+                    rgba(3, 48, 68, .20),
+                    rgba(3, 48, 68, .06),
                 ),
-                url('{{ asset('images/bg-telagawarna-registerr.jpg') }}');
+                url('{{ asset('images/bg-kawahsikidang-login.jpg') }}');
 
             background-size: cover;
 
             background-position: center;
 
+            background-attachment: fixed;
+
+            background-repeat: no-repeat;
+
             display: flex;
             align-items: center;
             justify-content: center;
 
-            padding: 70px 25px;
+            padding: 45px 7%;
         }
 
 
@@ -679,40 +682,6 @@
             text-decoration: underline;
         }
 
-
-        /* =====================================================
-           MINI TAGS
-        ===================================================== */
-
-        .mini-tags {
-            margin-top: 25px;
-
-            display: flex;
-
-            justify-content: center;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-        }
-
-        .mini-tag {
-            padding: 6px 11px;
-
-            border-radius: 20px;
-
-            background: rgba(255,255,255,.09);
-
-            border: 1px solid rgba(255,255,255,.14);
-
-            color: rgba(255,255,255,.68);
-
-            font-size: 9px;
-
-            backdrop-filter: blur(8px);
-        }
-
-
         /* =====================================================
            RESPONSIVE
         ===================================================== */
@@ -817,150 +786,6 @@
 
 <body>
 
-
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
-
-    <div class="topbar">
-
-        <div class="top-left">
-
-            <span>
-                <i class="fa-solid fa-cloud-sun"></i>
-                24°C
-            </span>
-
-            <div class="divider"></div>
-
-            <span>
-                <i class="fa-solid fa-location-dot"></i>
-                Banjarnegara
-            </span>
-
-            <div class="divider"></div>
-
-            <span>
-                <i class="fa-regular fa-calendar"></i>
-                {{ now()->translatedFormat('l, j F Y') }}
-            </span>
-
-        </div>
-
-
-        <div class="top-right">
-
-            <a href="#">
-                <i class="fa-solid fa-circle-info"></i>
-                PPID
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-globe"></i>
-                Layanan Publik
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-envelope"></i>
-                Kontak
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
-
-    <nav class="navbar">
-
-
-        <a href="/" class="logo">
-
-            <img
-                src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
-            >
-
-        </a>
-
-
-        <div class="nav-menu">
-
-            <a href="/" class="active">
-                Beranda
-            </a>
-
-            <a href="/cerita">
-                Cerita & Budaya
-            </a>
-
-            <a href="/opini">
-                Opini
-            </a>
-
-            <a href="/sosok">
-                Sosok
-            </a>
-
-            <a href="/sudut-kota">
-                Sudut Kota
-            </a>
-
-            <a href="/potensi">
-                Potensi
-            </a>
-
-            <a href="/teknologi">
-                Teknologi
-            </a>
-
-        </div>
-
-
-        <div class="nav-right">
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari berita, topik, atau kata kunci..."
-                >
-
-            </div>
-
-
-            <button class="menu-btn">
-
-                Menu
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
-
-        </div>
-
-    </nav>
-
-
-
     <!-- =====================================================
          REGISTER HERO
     ====================================================== -->
@@ -977,19 +802,6 @@
 
 
         <div class="register-content">
-
-
-            <!-- Location -->
-
-            <div class="location-label">
-
-                <i class="fa-solid fa-mountain-sun"></i>
-
-                BANJARNEGARA • JAWA TENGAH
-
-            </div>
-
-
 
             <!-- Title -->
 
@@ -1146,31 +958,6 @@
                 </a>
 
             </div>
-
-
-
-            <!-- Tags -->
-
-            <div class="mini-tags">
-
-                <div class="mini-tag">
-                    #DerapSerayu
-                </div>
-
-                <div class="mini-tag">
-                    #Banjarnegara
-                </div>
-
-                <div class="mini-tag">
-                    #CeritaLokal
-                </div>
-
-                <div class="mini-tag">
-                    #SuaraMuda
-                </div>
-
-            </div>
-
 
         </div>
 
