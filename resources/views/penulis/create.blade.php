@@ -994,13 +994,6 @@
     </nav>
 
     <div class="sidebar-bottom">
-        <div class="user-card">
-            <div class="avatar">A</div>
-            <div class="user-info">
-                <div class="user-name">{{ auth()->user()->name ?? 'Annisa Dwi Lestari' }}</div>
-                <div class="user-role">penulis</div>
-            </div>
-        </div>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="logout">
@@ -1032,9 +1025,6 @@
             <h1>TULIS BERITA BARU</h1>
             <p class="subtitle">Bagikan cerita menarik untuk pembaca Serayu.</p>
         </div>
-        <a href="{{ route('penulis.dashboard') }}" class="back-link">
-            <i class="fa-solid fa-arrow-left"></i> Kembali
-        </a>
     </header>
 
     @if(session('success'))
