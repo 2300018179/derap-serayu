@@ -3437,6 +3437,10 @@ body {
                 Tentang Kami
             </a>
 
+            <a href="{{ route('galeri') }}">
+                Galeri
+            </a>
+
             <details class="nav-dropdown">
                 <summary>
                     <i class="fa-solid fa-water nav-dropdown-icon" aria-hidden="true"></i>
@@ -3971,7 +3975,7 @@ body {
 
                     <i class="fa-solid fa-chart-line"></i>
 
-                    <h2>Kategori Populer</h2>
+                    <h2>Artikel Random</h2>
                 </div>
 
                 @forelse ($trendingCategories as $category)

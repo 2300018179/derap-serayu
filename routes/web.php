@@ -15,6 +15,7 @@ use App\Http\Controllers\ReaderAccountController;
 use App\Http\Controllers\SosokController;
 use App\Http\Controllers\SudutKotaController;
 use App\Http\Controllers\TeknologiController;
+use App\Http\Controllers\GaleriController;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +96,8 @@ Route::get('/', [HomeController::class, 'index'])
 
 Route::view('/tentang-kami', 'about')
     ->name('about');
+
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
 Route::get('/informasi/{page}', [InformationPageController::class, 'show'])
     ->whereIn('page', ['privasi', 'syarat-ketentuan', 'pedoman-media-siber'])

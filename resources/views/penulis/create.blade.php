@@ -967,6 +967,78 @@
             .title-input { font-size: 16px; }
             .editor-area { min-height: 250px; padding: 15px; }
         }
+
+        .top-spacer {
+            flex: 1;
+        }
+
+        .top-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 18px;
+            border-left: 1px solid #e1eef7;
+            white-space: nowrap;
+        }
+
+        .notification-button {
+            position: relative;
+            border: 0;
+            color: var(--navy);
+            background: transparent;
+            font-size: 20px;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #ef5361;
+            color: white;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .sun {
+            color: #ffad1f;
+            font-size: 23px;
+        }
+
+        .weather strong,
+        .user-top strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .weather small,
+        .user-top small {
+            display: block;
+            margin-top: 3px;
+            color: #7294ad;
+            font-size: 10px;
+        }
+
+        .user-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            background: var(--navy);
+            font-weight: 800;
+        }
     </style>
 </head>
 <body>
@@ -1009,13 +1081,32 @@
             <i class="fa-solid fa-pen-nib"></i>
             <span>Ruang Kerja Penulis</span>
         </div>
-        <div class="topbar-user">
-            <div class="avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}</div>
-            <div>
-                <strong>{{ auth()->user()->name ?? 'Annisa Dwi Lestari' }}</strong>
-                <small>Penulis</small>
+
+        <div class="top-spacer"></div>
+
+            <div class="top-item">
+                <a class="notification-button" href="{{ route('penulis.articles.index') }}"
+                   aria-label="Lihat status artikel">
+                    <i class="fa-regular fa-bell"></i>
+                </a>
             </div>
-        </div>
+
+            <div class="top-item weather">
+                <i class="fa-solid fa-sun sun"></i>
+                <div>
+                    <strong>24°C</strong>
+                    <small>Banjarnegara</small>
+                </div>
+            </div>
+
+            <div class="top-item user-top">
+                <div class="user-avatar">A</div>
+                <div class="user-text">
+                    <strong>{{ auth()->check() ? auth()->user()->name : 'Annisa Dwi Lestari' }}</strong>
+                    <small>Penulis</small>
+                </div>
+                <i class="fa-solid fa-chevron-down" style="font-size:10px"></i>
+            </div>
     </div>
 
     <div class="page-content">

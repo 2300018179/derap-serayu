@@ -141,107 +141,125 @@
         /* TOP NAVBAR */
 
         .topbar {
-            height: 80px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            height: 70px;
+            padding: 0 30px;
             display: flex;
             align-items: center;
             gap: 22px;
-            padding: 0 27px;
-            background: rgba(255,255,255,.97);
-            border-bottom: 1px solid #e0eff7;
+            background: rgba(255,255,255,.96);
+            border-bottom: 1px solid #e2f0f8;
         }
 
-        .search-box {
-            height: 43px;
-            max-width: 560px;
-            flex: 1;
+        .menu-toggle {
+            display: none;
+            border: 0;
+            background: none;
+            color: var(--navy);
+            font-size: 20px;
+        }
+
+        .search {
+            width: min(520px, 48%);
+            height: 39px;
+            border: 1px solid #cde5f7;
+            border-radius: 13px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 0 16px;
-            border: 1px solid #cfe7f7;
-            border-radius: 13px;
-            color: #7196b0;
+            padding: 0 14px;
+            gap: 10px;
             background: white;
+            box-shadow: 0 2px 7px rgba(31, 104, 152, .03);
         }
 
-        .search-box i {
-            font-size: 16px;
+        .search i {
+            color: #6e9abb;
+            font-size: 14px;
         }
 
-        .search-box input {
-            width: 100%;
+        .search input {
             min-width: 0;
+            width: 100%;
             border: 0;
             outline: none;
             color: var(--text);
             background: transparent;
-            font-size: 13px;
-        }
-
-        .topbar-weather {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            padding-left: 22px;
-            border-left: 1px solid #e1edf4;
-        }
-
-        .weather-icon {
-            color: #ffad19;
-            font-size: 24px;
-        }
-
-        .weather-info strong {
-            display: block;
             font-size: 12px;
         }
 
-        .weather-info span {
-            display: block;
-            margin-top: 2px;
-            color: var(--muted);
-            font-size: 10px;
+        .search input::placeholder {
+            color: #84a4bd;
         }
 
-        .profile {
+        .top-spacer {
+            flex: 1;
+        }
+
+        .top-item {
             display: flex;
             align-items: center;
-            gap: 11px;
-            padding-left: 20px;
-            border-left: 1px solid #e1edf4;
-        }
-
-        .avatar {
-            width: 41px;
-            height: 41px;
-            flex-shrink: 0;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background: var(--navy);
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .profile strong {
-            display: block;
-            max-width: 150px;
-            overflow: hidden;
-            color: var(--navy);
-            font-size: 12px;
-            text-overflow: ellipsis;
+            gap: 10px;
+            padding-left: 18px;
+            border-left: 1px solid #e1eef7;
             white-space: nowrap;
         }
 
-        .profile span {
+        .notification-button {
+            position: relative;
+            border: 0;
+            color: var(--navy);
+            background: transparent;
+            font-size: 20px;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #ef5361;
+            color: white;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .sun {
+            color: #ffad1f;
+            font-size: 23px;
+        }
+
+        .weather strong,
+        .user-top strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .weather small,
+        .user-top small {
             display: block;
             margin-top: 3px;
-            color: var(--muted);
+            color: #7294ad;
             font-size: 10px;
+        }
+
+        .user-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            background: var(--navy);
+            font-weight: 800;
         }
 
         /* PAGE CONTENT */
@@ -999,34 +1017,40 @@
 
         {{-- TOPBAR --}}
         <header class="topbar">
-            <div class="search-box">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Buka menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <form class="search" id="searchForm" method="GET" action="{{ route('penulis.articles.index') }}">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text"
-                       placeholder="Cari artikel, topik, atau kata kunci..."
-                       aria-label="Pencarian artikel"
-                       id="quickSearch">
+                <input type="search" id="searchInput" name="search" aria-label="Cari artikel penulis"
+                       placeholder="Cari artikel, topik, atau kata kunci...">
+            </form>
+
+            <div class="top-spacer"></div>
+
+            <div class="top-item">
+                <a class="notification-button" href="{{ route('penulis.articles.index') }}"
+                   aria-label="Lihat status artikel">
+                    <i class="fa-regular fa-bell"></i>
+                </a>
             </div>
 
-            <div class="topbar-weather">
-                <i class="fa-solid fa-sun weather-icon"></i>
-                <div class="weather-info">
+            <div class="top-item weather">
+                <i class="fa-solid fa-sun sun"></i>
+                <div>
                     <strong>24°C</strong>
-                    <span>Banjarnegara</span>
+                    <small>Banjarnegara</small>
                 </div>
             </div>
 
-            <div class="profile">
-                <div class="avatar">
-                    {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
+            <div class="top-item user-top">
+                <div class="user-avatar">A</div>
+                <div class="user-text">
+                    <strong>{{ auth()->check() ? auth()->user()->name : 'Annisa Dwi Lestari' }}</strong>
+                    <small>Penulis</small>
                 </div>
-
-                <div class="profile-info">
-                    <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                    <span>Penulis</span>
-                </div>
-
-                <i class="fa-solid fa-chevron-down"
-                   style="font-size:11px;color:#64869e"></i>
+                <i class="fa-solid fa-chevron-down" style="font-size:10px"></i>
             </div>
         </header>
 

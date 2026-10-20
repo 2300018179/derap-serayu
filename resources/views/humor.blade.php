@@ -320,47 +320,235 @@
             border: 0;
         }
 
-        .sosok-account-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .account-actions {
+    position: relative;
 
-        .sosok-account-actions a,
-        .sosok-account-actions button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            height: 36px;
-            padding: 0 13px;
-            border: 1px solid #dceef4;
-            border-radius: 18px;
-            background: #fff;
-            color: var(--cyan);
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all .2s;
-        }
+    display: flex;
 
-        .sosok-account-actions a:hover,
-        .sosok-account-actions button:hover {
-            border-color: var(--cyan);
-            color: var(--cyan-dark);
-        }
+    align-items: center;
 
-        .sosok-account-actions .sosok-register-link {
-            background: var(--cyan);
-            border-color: var(--cyan);
-            color: #fff;
-        }
+    gap: 8px;
 
-        .sosok-account-actions .sosok-register-link:hover {
-            background: var(--cyan-dark);
-            border-color: var(--cyan-dark);
-            color: #fff;
-        }
+    flex-shrink: 0;
+}
+
+.account-actions a,
+.account-menu summary {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 40px;
+
+    padding: 0 13px;
+
+    border: 1px solid #dcecf2;
+    border-radius: 22px;
+
+    background: #fff;
+
+    color: #073f5e;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    list-style: none;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+.account-actions a:hover,
+.account-menu summary:hover,
+.account-menu[open] summary {
+    border-color: #08add5;
+
+    color: #08add5;
+}
+
+.account-actions .account-register {
+    border-color: #08add5;
+
+    background: #08add5;
+
+    color: #fff;
+}
+
+.account-actions .account-register:hover {
+    background: #078fb0;
+
+    color: #fff;
+}
+
+.account-menu {
+    position: relative;
+}
+
+.account-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.account-menu summary > i:first-child {
+    font-size: 14px;
+}
+
+.account-menu summary span {
+    max-width: 120px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.account-menu .account-dropdown {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    z-index: 30;
+
+    display: grid;
+
+    min-width: 210px;
+
+    padding: 8px;
+
+    border: 1px solid #e3f0f5;
+    border-radius: 14px;
+
+    background: #fff;
+
+    box-shadow: 0 15px 40px rgba(7, 63, 94, .16);
+}
+
+.account-menu .account-dropdown a,
+.account-menu .account-dropdown button {
+    justify-content: flex-start;
+
+    width: 100%;
+
+    min-height: 40px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: transparent;
+
+    text-align: left;
+}
+
+.account-menu .account-dropdown a:hover,
+.account-menu .account-dropdown button:hover {
+    background: #e8f8fc;
+}
+
+.account-menu .account-dropdown form {
+    margin: 0;
+}
+
+.account-menu .account-dropdown button {
+    cursor: pointer;
+
+    font: inherit;
+}
+
+.account-dropdown-name {
+    padding: 9px 12px 11px;
+
+    overflow: hidden;
+
+    color: #64849b;
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+}
+
+
+.search-box i {
+    color: #7895a4;
+
+    font-size: 13px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    color: #073f5e;
+}
+
+.search-box input::placeholder {
+    color: #9bb0bb;
+}
+
+.search-box button {
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #7895a4;
+
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    color: #08add5;
+}
+
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.menu-button {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #063f60;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition: .25s ease;
+
+    display: none;
+}
+
+.menu-button:hover {
+    background: #08add5;
+
+    transform: rotate(5deg);
+}
 
         /* =========================================================
            HERO & FEATURED SECTION
@@ -1750,6 +1938,7 @@
                 <a href="{{ route('home') }}">Beranda</a>
                 <a href="{{ route('articles.index') }}">Berita</a>
                 <a href="{{ route('about') }}">Tentang Kami</a>
+                <a href="{{ route('galeri') }}">Galeri</a>
                 <details class="sosok-nav-dropdown">
                     <summary><i class="fa-solid fa-water" aria-hidden="true"></i> Jelajahi <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
                     <div class="sosok-nav-dropdown-menu">
@@ -1774,24 +1963,73 @@
                 <button type="submit">Cari</button>
             </form>
 
-            <div class="sosok-account-actions">
-                @auth
-                    @if (auth()->user()->role === 'reader')
-                        <a href="{{ route('pembaca.profile') }}"><i class="fa-regular fa-user" aria-hidden="true"></i><span>Akun</span></a>
-                    @elseif (auth()->user()->role === 'writer')
-                        <a href="{{ route('penulis.dashboard') }}"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i><span>Dasbor</span></a>
-                    @elseif (auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Dasbor</span></a>
-                    @endif
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" aria-label="Keluar"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>Keluar</span></button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" aria-label="Masuk"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i><span>Masuk</span></a>
-                    <a class="sosok-register-link" href="{{ route('register.pembaca') }}">Daftar</a>
-                @endauth
-            </div>
+            <div class="account-actions">
+            @auth
+                <details class="account-menu">
+                    <summary aria-label="Menu akun {{ auth()->user()->name }}" title="Menu akun">
+                        <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        <span>{{ auth()->user()->name }}</span>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </summary>
+
+                    <div class="account-dropdown">
+                        <div class="account-dropdown-name">
+                            {{ auth()->user()->email }}
+                        </div>
+
+                        @if (auth()->user()->role === 'reader')
+                            <a href="{{ route('pembaca.profile') }}">
+                                <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                Profil
+                            </a>
+                            <a href="{{ route('pembaca.saved.index') }}">
+                                <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+                                Artikel Tersimpan
+                            </a>
+                        @elseif (auth()->user()->role === 'writer')
+                            <a href="{{ route('penulis.dashboard') }}">
+                                <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                                Dasbor Penulis
+                            </a>
+                        @elseif (auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}">
+                                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                                Dasbor Admin
+                            </a>
+                        @endif
+
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">
+                                <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+                                Keluar
+                            </button>
+                        </form>
+                    </div>
+                </details>
+            @else
+                <a href="{{ route('login') }}" aria-label="Masuk">
+                    <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+                    <span>Masuk</span>
+                </a>
+                <a class="account-register" href="{{ route('register') }}">
+                    Daftar
+                </a>
+            @endauth
+        </div>
+
+
+        {{-- Menu --}}
+
+        <button
+            class="menu-button"
+            type="button"
+            aria-label="Buka menu navigasi"
+            aria-expanded="false"
+            aria-controls="mainNavigation"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
         </div>
     </header>
 

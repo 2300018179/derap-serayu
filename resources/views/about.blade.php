@@ -848,6 +848,10 @@
                 Tentang Kami
             </a>
 
+            <a href="{{ route('galeri') }}">
+                Galeri
+            </a>
+
             <details class="nav-dropdown">
                 <summary>
                     <i class="fa-solid fa-water nav-dropdown-icon" aria-hidden="true"></i>
