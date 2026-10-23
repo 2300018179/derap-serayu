@@ -47,21 +47,23 @@
         }
 
 
-        html,
-        body {
+        html {
             width: 100%;
             min-height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #063f60;
         }
 
 
         body {
-
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
             font-family: 'DM Sans', sans-serif;
-
             color: #073f5e;
-
-            background: #063f60;
-
+            background: transparent;
         }
 
 
@@ -362,10 +364,11 @@
 
         .register-page {
 
-            min-height: calc(100vh - 124px);
+            min-height: 100vh;
+            width: 100%;
 
             position: relative;
-
+            isolation: isolate;
             overflow: hidden;
 
             background-image:
@@ -378,12 +381,10 @@
                 url('{{ asset('images/bg-dieng-register.jpg') }}');
 
             background-size: cover;
-
-            background-position: center;
-
+            background-position: center center;
             background-repeat: no-repeat;
 
-            padding: 52px 7.5% 58px;
+            padding: 50px 7.5% 58px;
 
         }
 
@@ -460,23 +461,17 @@
         ====================================================== */
 
         .register-container {
-
+            width: 100%;
             max-width: 1260px;
-
-            min-height: 620px;
-
-            margin: auto;
+            min-height: 0;
+            margin: 0 auto;
 
             position: relative;
-
-            z-index: 5;
+            z-index: 1;
 
             display: grid;
-
             grid-template-columns: .88fr 1.12fr;
-
             align-items: center;
-
             gap: 60px;
 
         }
@@ -1337,6 +1332,7 @@
 
             .register-page {
 
+
                 padding-top: 40px;
 
             }
@@ -1379,9 +1375,9 @@
             }
 
             .register-page {
-
+                min-height: 100vh;  
                 padding: 35px 16px;
-
+                background-position: center center;
             }
 
             .intro h1 {

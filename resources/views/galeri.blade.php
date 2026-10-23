@@ -1088,380 +1088,393 @@
             background: #087e98;
         }
 
+        .photo-card[hidden] {
+            display: none !important;
+        }
+
+        .filter-button {
+            cursor: pointer;
+        }
+
+        .filter-button:focus-visible {
+            outline: 3px solid rgba(20, 169, 198, 0.45);
+            outline-offset: 3px;
+        }
+
         /* =========================
            FOOTER
         ========================= */
 
         .footer {
-    position: relative;
+            position: relative;
 
-    overflow: hidden;
+            overflow: hidden;
 
-    margin-top: 55px;
+            margin-top: 55px;
 
-    background: #03384f;
+            background: #03384f;
 
-    color: white;
-}
+            color: white;
+        }
 
-.footer-background {
-    position: absolute;
+        .footer-background {
+            position: absolute;
 
-    inset: 0;
+            inset: 0;
 
-    background:
-        url("{{ asset('images/bg-dieng-home.jpg') }}")
-        center bottom / cover no-repeat;
+            background:
+                url("{{ asset('images/bg-dieng-home.jpg') }}")
+                center bottom / cover no-repeat;
 
-    opacity: .45;
+            opacity: .45;
 
-    transform: scale(1.05);
-}
+            transform: scale(1.05);
+        }
 
-.footer-overlay {
-    position: absolute;
+        .footer-overlay {
+            position: absolute;
 
-    inset: 0;
+            inset: 0;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(3,48,68,.95),
-            rgba(2,35,49,.98)
-        );
-}
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(3,48,68,.95),
+                    rgba(2,35,49,.98)
+                );
+        }
 
-.footer-container {
-    position: relative;
+        .footer-container {
+            position: relative;
 
-    z-index: 2;
+            z-index: 2;
 
-    width: min(1300px, calc(100% - 40px));
+            width: min(1300px, calc(100% - 40px));
 
-    margin: auto;
+            margin: auto;
 
-    padding:
-        60px 0 20px;
-}
+            padding:
+                60px 0 20px;
+        }
 
-.footer-grid {
-    display: grid;
+        .footer-grid {
+            display: grid;
 
-    grid-template-columns:
-        1.6fr
-        .8fr
-        .8fr
-        .8fr
-        1.4fr;
+            grid-template-columns:
+                1.6fr
+                .8fr
+                .8fr
+                .8fr
+                1.4fr;
 
-    gap: 45px;
+            gap: 45px;
 
-    padding-bottom: 40px;
+            padding-bottom: 40px;
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.12);
-}
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.12);
+        }
 
 
-/* Footer Brand */
+        /* Footer Brand */
 
-.footer-logo img {
-    width: 180px;
+        .footer-logo img {
+            width: 180px;
 
-    height: auto;
+            height: auto;
 
-    display: block;
+            display: block;
 
-    padding: 0;
+            padding: 0;
 
-    background: transparent;
-}
+            background: transparent;
+        }
 
-.footer-description {
-    max-width: 300px;
+        .footer-description {
+            max-width: 300px;
 
-    margin-top: 15px;
+            margin-top: 15px;
 
-    color:
-        rgba(255,255,255,.57);
+            color:
+                rgba(255,255,255,.57);
 
-    font-size: 10px;
+            font-size: 10px;
 
-    line-height: 1.8;
-}
+            line-height: 1.8;
+        }
 
-.footer-social {
-    display: flex;
+        .footer-social {
+            display: flex;
 
-    gap: 8px;
+            gap: 8px;
 
-    margin-top: 18px;
-}
+            margin-top: 18px;
+        }
 
-.footer-social a,
-.footer-social span {
-    width: 34px;
-    height: 34px;
+        .footer-social a,
+        .footer-social span {
+            width: 34px;
+            height: 34px;
 
-    display: flex;
+            display: flex;
 
-    align-items: center;
-    justify-content: center;
+            align-items: center;
+            justify-content: center;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    color: white;
+            color: white;
 
-    text-decoration: none;
+            text-decoration: none;
 
-    background:
-        rgba(255,255,255,.09);
+            background:
+                rgba(255,255,255,.09);
 
-    transition: .2s;
-}
+            transition: .2s;
+        }
 
-.footer-social a:hover {
-    background: #08add5;
+        .footer-social a:hover {
+            background: #08add5;
 
-    transform: translateY(-3px);
-}
+            transform: translateY(-3px);
+        }
 
 
-/* Footer columns */
+        /* Footer columns */
 
-.footer-column h4 {
-    margin-bottom: 17px;
+        .footer-column h4 {
+            margin-bottom: 17px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            font-family:
+                "Playfair Display",
+                serif;
 
-    font-size: 16px;
-}
+            font-size: 16px;
+        }
 
-.footer-column a,
-.footer-column span {
-    display: block;
+        .footer-column a,
+        .footer-column span {
+            display: block;
 
-    width: fit-content;
+            width: fit-content;
 
-    margin-bottom: 10px;
+            margin-bottom: 10px;
 
-    color:
-        rgba(255,255,255,.53);
+            color:
+                rgba(255,255,255,.53);
 
-    text-decoration: none;
+            text-decoration: none;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    transition: .2s;
-}
+            transition: .2s;
+        }
 
-.footer-column a:hover {
-    color: #72e3fa;
+        .footer-column a:hover {
+            color: #72e3fa;
 
-    transform: translateX(3px);
-}
+            transform: translateX(3px);
+        }
 
 
-/* Newsletter */
+        /* Newsletter */
 
-.footer-newsletter-label {
-    color: #72e3fa;
+        .footer-newsletter-label {
+            color: #72e3fa;
 
-    font-size: 8px;
+            font-size: 8px;
 
-    font-weight: 800;
+            font-weight: 800;
 
-    letter-spacing: 1.5px;
-}
+            letter-spacing: 1.5px;
+        }
 
-.footer-newsletter h3 {
-    max-width: 280px;
+        .footer-newsletter h3 {
+            max-width: 280px;
 
-    margin-top: 8px;
+            margin-top: 8px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            font-family:
+                "Playfair Display",
+                serif;
 
-    font-size: 22px;
+            font-size: 22px;
 
-    line-height: 1.25;
-}
+            line-height: 1.25;
+        }
 
-.footer-newsletter h3 span {
-    color: #08add5;
-}
+        .footer-newsletter h3 span {
+            color: #08add5;
+        }
 
-.footer-newsletter p {
-    max-width: 270px;
+        .footer-newsletter p {
+            max-width: 270px;
 
-    margin:
-        10px 0 15px;
+            margin:
+                10px 0 15px;
 
-    color:
-        rgba(255,255,255,.52);
+            color:
+                rgba(255,255,255,.52);
 
-    font-size: 9px;
+            font-size: 9px;
 
-    line-height: 1.6;
-}
+            line-height: 1.6;
+        }
 
-.newsletter-form {
-    display: flex;
+        .newsletter-form {
+            display: flex;
 
-    max-width: 270px;
+            max-width: 270px;
 
-    padding: 4px;
+            padding: 4px;
 
-    border-radius: 12px;
+            border-radius: 12px;
 
-    background:
-        rgba(255,255,255,.08);
+            background:
+                rgba(255,255,255,.08);
 
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-}
+            border:
+                1px solid
+                rgba(255,255,255,.12);
+        }
 
-.newsletter-form input {
-    width: 100%;
+        .newsletter-form input {
+            width: 100%;
 
-    border: 0;
+            border: 0;
 
-    outline: 0;
+            outline: 0;
 
-    background: transparent;
+            background: transparent;
 
-    padding:
-        9px 10px;
+            padding:
+                9px 10px;
 
-    color: white;
+            color: white;
 
-    font-family: inherit;
+            font-family: inherit;
 
-    font-size: 9px;
-}
+            font-size: 9px;
+        }
 
-.newsletter-form input::placeholder {
-    color:
-        rgba(255,255,255,.38);
-}
+        .newsletter-form input::placeholder {
+            color:
+                rgba(255,255,255,.38);
+        }
 
-.newsletter-form button {
-    width: 35px;
-    height: 35px;
+        .newsletter-form button {
+            width: 35px;
+            height: 35px;
 
-    flex-shrink: 0;
+            flex-shrink: 0;
 
-    border: 0;
+            border: 0;
 
-    border-radius: 9px;
+            border-radius: 9px;
 
-    background: #08add5;
+            background: #08add5;
 
-    color: white;
+            color: white;
 
-    cursor: pointer;
-}
+            cursor: pointer;
+        }
 
 
-/* Footer Quote */
+        /* Footer Quote */
 
-.footer-quote {
-    text-align: center;
+        .footer-quote {
+            text-align: center;
 
-    padding:
-        35px 15px;
-}
+            padding:
+                35px 15px;
+        }
 
-.footer-quote-mark {
-    color: #08add5;
+        .footer-quote-mark {
+            color: #08add5;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            font-family:
+                "Playfair Display",
+                serif;
 
-    font-size: 43px;
+            font-size: 43px;
 
-    line-height: 25px;
-}
+            line-height: 25px;
+        }
 
-.footer-quote p {
-    max-width: 650px;
+        .footer-quote p {
+            max-width: 650px;
 
-    margin:
-        5px auto 9px;
+            margin:
+                5px auto 9px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            font-family:
+                "Playfair Display",
+                serif;
 
-    font-size: 21px;
+            font-size: 21px;
 
-    font-style: italic;
+            font-style: italic;
 
-    line-height: 1.5;
-}
+            line-height: 1.5;
+        }
 
-.footer-quote small {
-    color:
-        rgba(255,255,255,.35);
+        .footer-quote small {
+            color:
+                rgba(255,255,255,.35);
 
-    font-size: 7px;
+            font-size: 7px;
 
-    font-weight: 800;
+            font-weight: 800;
 
-    letter-spacing: 2px;
-}
+            letter-spacing: 2px;
+        }
 
 
-/* Footer Bottom */
+        /* Footer Bottom */
 
-.footer-bottom {
-    display: flex;
+        .footer-bottom {
+            display: flex;
 
-    align-items: center;
+            align-items: center;
 
-    justify-content: space-between;
+            justify-content: space-between;
 
-    gap: 20px;
+            gap: 20px;
 
-    padding-top: 20px;
+            padding-top: 20px;
 
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
+            border-top:
+                1px solid
+                rgba(255,255,255,.08);
 
-    color:
-        rgba(255,255,255,.37);
+            color:
+                rgba(255,255,255,.37);
 
-    font-size: 8px;
-}
+            font-size: 8px;
+        }
 
-.footer-bottom-links {
-    display: flex;
+        .footer-bottom-links {
+            display: flex;
 
-    gap: 17px;
-}
+            gap: 17px;
+        }
 
-.footer-bottom-links a,
-.footer-bottom-links span {
-    color:
-        rgba(255,255,255,.42);
+        .footer-bottom-links a,
+        .footer-bottom-links span {
+            color:
+                rgba(255,255,255,.42);
 
-    text-decoration: none;
-}
+            text-decoration: none;
+        }
 
-.footer-bottom-links a:hover {
-    color: #72e3fa;
-}
+        .footer-bottom-links a:hover {
+            color: #72e3fa;
+        }
 
-.footer-made strong {
-    color: #72e3fa;
-}
+        .footer-made strong {
+            color: #72e3fa;
+        }
 
         /* =========================
            RESPONSIVE
@@ -2734,7 +2747,7 @@
                 <div class="gallery-toolbar">
                     <div class="filter-list" aria-label="Filter kategori galeri">
                         <button class="filter-button active" type="button" data-filter="all">Semua</button>
-                        <button class="filter-button" type="button" data-filter="budaya">Cerita &Budaya</button>
+                        <button class="filter-button" type="button" data-filter="budaya">Cerita &amp;Budaya</button>
                         <button class="filter-button" type="button" data-filter="opini">Opini</button>
                         <button class="filter-button" type="button" data-filter="sosok">Sosok</button>
                         <button class="filter-button" type="button" data-filter="sudut-kota">Sudut Kota</button>
@@ -2743,7 +2756,7 @@
                         <button class="filter-button" type="button" data-filter="humor">Humor</button>
                     </div>
 
-                    <div class="gallery-count">
+                    <div class="gallery-count" id="galleryCount" aria-live="polite">
                         {{ $artikels->total() }} foto artikel
                     </div>
                 </div>
@@ -2756,7 +2769,7 @@
                                 ?? $artikel->category_name
                                 ?? (is_string($artikel->category ?? null) ? $artikel->category : 'Cerita');
 
-                            $kategoriLower = \Illuminate\Support\Str::lower($kategoriArtikel);
+                            $kategoriLower = \Illuminate\Support\Str::lower(trim($kategoriArtikel));
 
                             if (
                                 str_contains($kategoriLower, 'budaya') ||
@@ -2764,23 +2777,33 @@
                             ) {
                                 $kategoriFilter = 'budaya';
                                 $kategoriIkon = 'fa-masks-theater';
-                            } elseif (str_contains($kategoriLower, 'wisata')) {
-                                $kategoriFilter = 'wisata';
-                                $kategoriIkon = 'fa-leaf';
-                            } elseif (str_contains($kategoriLower, 'masyarakat')) {
-                                $kategoriFilter = 'masyarakat';
-                                $kategoriIkon = 'fa-people-group';
-                            } elseif (str_contains($kategoriLower, 'pendidikan')) {
-                                $kategoriFilter = 'pendidikan';
-                                $kategoriIkon = 'fa-graduation-cap';
-                            } elseif (str_contains($kategoriLower, 'ekonomi') || str_contains($kategoriLower, 'potensi')) {
-                                $kategoriFilter = 'ekonomi';
+                            } elseif (str_contains($kategoriLower, 'opini')) {
+                                $kategoriFilter = 'opini';
+                                $kategoriIkon = 'fa-comments';
+                            } elseif (str_contains($kategoriLower, 'sosok')) {
+                                $kategoriFilter = 'sosok';
+                                $kategoriIkon = 'fa-user-group';
+                            } elseif (
+                                str_contains($kategoriLower, 'sudut kota') ||
+                                str_contains($kategoriLower, 'sudut-kota') ||
+                                str_contains($kategoriLower, 'sudut_kota') 
+                            ) {
+                                $kategoriFilter = 'sudut-kota';
+                                $kategoriIkon = 'fa-city';
+                            } elseif (
+                                str_contains($kategoriLower, 'potensi') || 
+                                str_contains($kategoriLower, 'ekonomi')
+                            ) {
+                                $kategoriFilter = 'potensi';
                                 $kategoriIkon = 'fa-chart-line';
-                            } elseif (str_contains($kategoriLower, 'alam') || str_contains($kategoriLower, 'lingkungan')) {
-                                $kategoriFilter = 'alam';
-                                $kategoriIkon = 'fa-mountain-sun';
+                            } elseif (str_contains($kategoriLower, 'teknologi')) {
+                                $kategoriFilter = 'teknologi';
+                                $kategoriIkon = 'fa-microchip';
+                            } elseif (str_contains($kategoriLower, 'humor')) {
+                                $kategoriFilter = 'humor';
+                                $kategoriIkon = 'fa-face-laugh';
                             } else {
-                                $kategoriFilter = 'all';
+                                $kategoriFilter = 'lainnya';
                                 $kategoriIkon = 'fa-images';
                             }
 
@@ -2870,7 +2893,6 @@
     <div class="footer-background"></div>
 
     <div class="footer-overlay"></div>
-
 
     <div class="footer-container">
 
@@ -3219,132 +3241,122 @@
 
 </footer>
 
-    <script>
-        
-document.addEventListener('DOMContentLoaded', function () {
-    /* =========================
-       MENU RESPONSIF
-    ========================= */
-    const menuButton = document.querySelector('.menu-button');
-    const mainNav = document.getElementById('mainNavigation');
-
-    if (menuButton && mainNav) {
-        menuButton.addEventListener('click', function () {
-            const isOpen = mainNav.classList.toggle('open');
-
-            menuButton.setAttribute(
-                'aria-expanded',
-                String(isOpen)
-            );
-
-            menuButton.setAttribute(
-                'aria-label',
-                isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'
-            );
-
-            const icon = menuButton.querySelector('i');
-
-            if (icon) {
-                icon.className = isOpen
-                    ? 'fa-solid fa-xmark'
-                    : 'fa-solid fa-bars';
-            }
-        });
-
-        /* Tutup menu setelah tautan dipilih di layar kecil */
-        mainNav.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                mainNav.classList.remove('open');
-                menuButton.setAttribute('aria-expanded', 'false');
-
-                const icon = menuButton.querySelector('i');
-
-                if (icon) {
-                    icon.className = 'fa-solid fa-bars';
-                }
-            });
-        });
-
-        /* Tutup dropdown menu ketika klik di luar area navigasi */
-        document.addEventListener('click', function (event) {
-            if (
-                !mainNav.contains(event.target) &&
-                !menuButton.contains(event.target)
-            ) {
-                mainNav.classList.remove('open');
-                menuButton.setAttribute('aria-expanded', 'false');
-
-                const icon = menuButton.querySelector('i');
-
-                if (icon) {
-                    icon.className = 'fa-solid fa-bars';
-                }
-            }
-        });
-    }
-
-    /* =========================
-       FILTER KATEGORI GALERI
-    ========================= */
-    const filterButtons = document.querySelectorAll('.filter-button');
-    const photoCards = document.querySelectorAll('.photo-card');
-    const filterEmpty = document.getElementById('filterEmpty');
-
-    function filterGallery(filter) {
-        let visibleCount = 0;
-
-        photoCards.forEach(function (card) {
-            const category = card.dataset.category;
-            const shouldShow =
-                filter === 'all' || category === filter;
-
-            card.hidden = !shouldShow;
-
-            if (shouldShow) {
-                visibleCount++;
-            }
-        });
-
-        if (filterEmpty) {
-            filterEmpty.style.display =
-                visibleCount === 0 && photoCards.length > 0
-                    ? 'block'
-                    : 'none';
-        }
-    }
-
-    filterButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            filterButtons.forEach(function (item) {
-                item.classList.remove('active');
-                item.setAttribute('aria-pressed', 'false');
-            });
-
-            button.classList.add('active');
-            button.setAttribute('aria-pressed', 'true');
-
-            filterGallery(button.dataset.filter);
-        });
-
-        button.setAttribute(
-            'aria-pressed',
-            String(button.classList.contains('active'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButtons = document.querySelectorAll(
+            '.filter-button[data-filter]'
         );
-    });
 
-    /* =========================
-       DROPDOWN NAVIGASI
-    ========================= */
-    document.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
-        document.addEventListener('click', function (event) {
-            if (!dropdown.contains(event.target)) {
-                dropdown.open = false;
+        const photoCards = document.querySelectorAll(
+            '.photo-card[data-category]'
+        );
+
+        const filterEmpty = document.getElementById('filterEmpty');
+        const galleryCount = document.getElementById('galleryCount');
+        const initialEmpty = document.getElementById('emptyState');
+
+        function filterGallery(selectedCategory) {
+            let visibleCount = 0;
+
+            photoCards.forEach(function (card) {
+                // Normalisasi agar tidak terpengaruh spasi atau kapital.
+                const cardCategory = (
+                    card.dataset.category || 'lainnya'
+                ).trim().toLowerCase();
+
+                const isVisible =
+                    selectedCategory === 'all' ||
+                    cardCategory === selectedCategory;
+
+                card.hidden = !isVisible;
+
+                if (isVisible) {
+                    visibleCount++;
+                }
+            });
+
+            // Tampilkan pesan jika kategori tidak memiliki foto.
+            if (filterEmpty) {
+                filterEmpty.style.display =
+                    photoCards.length > 0 && visibleCount === 0
+                        ? 'block'
+                        : 'none';
             }
+
+            // Sembunyikan pesan awal saat kartu foto tersedia.
+            if (initialEmpty) {
+                initialEmpty.style.display =
+                    photoCards.length > 0 ? 'none' : 'block';
+            }
+
+            // Perbarui jumlah foto yang sedang ditampilkan.
+            if (galleryCount) {
+                galleryCount.textContent =
+                    visibleCount + ' foto ditampilkan';
+            }
+        }
+
+        filterButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const selectedCategory = (
+                    button.dataset.filter || 'all'
+                ).trim().toLowerCase();
+
+                // Perbarui tampilan tombol aktif.
+                filterButtons.forEach(function (item) {
+                    const isActive = item === button;
+
+                    item.classList.toggle('active', isActive);
+                    item.setAttribute(
+                        'aria-pressed',
+                        String(isActive)
+                    );
+                });
+
+                filterGallery(selectedCategory);
+            });
+
+            button.setAttribute(
+                'aria-pressed',
+                String(button.classList.contains('active'))
+            );
         });
+
+        // Tampilkan semua foto ketika halaman pertama kali dibuka.
+        filterGallery('all');
+
+        
+        function filterGallery(filter) {
+            let visibleCount = 0;
+
+            photoCards.forEach(function (card) {
+                const category = (
+                    card.dataset.category || 'lainnya'
+                ).trim().toLowerCase();
+
+                const shouldShow =
+                    filter === 'all' || category === filter;
+
+                card.hidden = !shouldShow;
+
+                if (shouldShow) {
+                    visibleCount++;
+                }
+            });
+
+            if (filterEmpty) {
+                filterEmpty.style.display =
+                    photoCards.length > 0 && visibleCount === 0
+                        ? 'block'
+                        : 'none';
+            }
+
+            if (galleryCount) {
+                galleryCount.textContent =
+                    visibleCount + ' foto ditampilkan';
+            }
+        }
     });
-});
-
-    </script>
-
+</script>
 </body>
 </html>

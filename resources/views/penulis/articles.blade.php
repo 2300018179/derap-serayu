@@ -963,6 +963,901 @@
                 font-size: 10px;
             }
         }
+
+        
+    /* TOPBAR: DROPDOWN AKUN DAN NOTIFIKASI */
+    .top-dropdown {
+        position: relative;
+        padding-left: 18px;
+        border-left: 1px solid #e1eef7;
+    }
+
+    .dropdown-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: 0;
+        background: transparent;
+        color: #073b56;
+        cursor: pointer;
+    }
+
+    .notification-button {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border-radius: 12px;
+        color: #073b56;
+        font-size: 19px;
+        transition: .2s ease;
+    }
+
+    .notification-button:hover,
+    .notification-button[aria-expanded="true"] {
+        background: #eaf7fc;
+        color: #079fbd;
+    }
+
+    .top-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 17px);
+        right: 0;
+        z-index: 500;
+        width: 330px;
+        max-width: calc(100vw - 30px);
+        overflow: hidden;
+        display: none;
+        border: 1px solid #dcecf5;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 15px 40px rgba(7, 59, 86, .16);
+    }
+
+    .top-dropdown-menu.show {
+        display: block;
+        animation: dropdownAppear .18s ease;
+    }
+
+    @keyframes dropdownAppear {
+        from {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 17px;
+        border-bottom: 1px solid #e8f2f7;
+        color: #073b56;
+    }
+
+    .dropdown-heading strong {
+        display: block;
+        font-size: 14px;
+    }
+
+    .dropdown-heading small {
+        display: block;
+        margin-top: 5px;
+        color: #7796ad;
+        font-size: 11px;
+    }
+
+    .dropdown-heading > i {
+        color: #079fbd;
+        font-size: 19px;
+    }
+
+    .dropdown-scroll {
+        max-height: 310px;
+        overflow-y: auto;
+    }
+
+    .dropdown-notice {
+        display: flex;
+        gap: 11px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #edf4f8;
+        color: #123f60;
+        transition: background .2s ease;
+    }
+
+    .dropdown-notice:hover {
+        background: #f4fbfe;
+    }
+
+    .dropdown-notice-icon {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 11px;
+        background: #fff2d8;
+        color: #b77909;
+    }
+
+    .dropdown-notice-icon.notice-orange {
+        background: #fff0f2;
+        color: #c7465a;
+    }
+
+    .dropdown-notice-text {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .dropdown-notice-text strong {
+        font-size: 11px;
+    }
+
+    .dropdown-notice-text small {
+        color: #7796ad;
+        font-size: 11px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .dropdown-notice-text .notice-note {
+        color: #b06c20;
+    }
+
+    .dropdown-empty {
+        padding: 25px 18px;
+        text-align: center;
+        color: #7796ad;
+    }
+
+    .dropdown-empty > i {
+        margin-bottom: 10px;
+        color: #12a47e;
+        font-size: 25px;
+    }
+
+    .dropdown-empty strong {
+        display: block;
+        color: #123f60;
+        font-size: 13px;
+    }
+
+    .dropdown-empty p {
+        margin: 7px 0 0;
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .dropdown-footer-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 14px 17px;
+        background: #f6fbfe;
+        color: #078ba8;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .dropdown-footer-link:hover {
+        background: #eaf7fc;
+    }
+
+    .user-top {
+        position: relative;
+        padding-left: 18px;
+    }
+
+    .user-profile-button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 8px;
+        border: 0;
+        border-radius: 12px;
+        background: transparent;
+        color: #073b56;
+        text-align: left;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .user-profile-button:hover,
+    .user-profile-button[aria-expanded="true"] {
+        background: #f0f9fd;
+    }
+
+    .user-avatar {
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border: 2px solid #d9f2f7;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #079fbd, #073b56);
+        color: white;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .user-text {
+        max-width: 155px;
+    }
+
+    .user-text strong {
+        display: block;
+        overflow: hidden;
+        color: #073b56;
+        font-size: 11px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .user-text small {
+        display: block;
+        margin-top: 4px;
+        color: #7796ad;
+        font-size: 10px;
+    }
+
+    .user-chevron {
+        color: #7796ad;
+        font-size: 10px;
+        transition: transform .2s ease;
+    }
+
+    .user-profile-button[aria-expanded="true"] .user-chevron {
+        transform: rotate(180deg);
+    }
+
+    .account-dropdown {
+        width: 265px;
+    }
+
+    .account-identity {
+        padding: 17px;
+        border-bottom: 1px solid #e8f2f7;
+        background: linear-gradient(135deg, #f0faff, #fff);
+    }
+
+    .account-identity strong {
+        display: block;
+        color: #073b56;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .account-identity small {
+        display: block;
+        margin-top: 5px;
+        color: #7796ad;
+        font-size: 11px;
+        overflow-wrap: anywhere;
+    }
+
+    .account-link {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 13px 17px;
+        color: #315c76;
+        font-size: 12px;
+        font-weight: 600;
+        transition: .2s ease;
+    }
+
+    .account-link i {
+        width: 18px;
+        color: #078ba8;
+        text-align: center;
+    }
+
+    .account-link:hover {
+        background: #f0f9fd;
+    }
+
+    .account-link.logout-link {
+        border-top: 1px solid #e8f2f7;
+        color: #c7465a;
+    }
+
+    .account-link.logout-link i {
+        color: #c7465a;
+    }
+
+    /* CUACA DINAMIS */
+    .weather {
+        gap: 10px;
+    }
+
+    .weather .sun {
+        flex-shrink: 0;
+    }
+
+    .weather strong {
+        color: #073b56;
+    }
+
+    .weather small {
+        color: #7796ad;
+    }
+
+    @media (max-width: 900px) {
+        .topbar {
+            gap: 10px;
+        }
+
+        .user-text {
+            display: none;
+        }
+
+        .user-profile-button {
+            gap: 5px;
+            padding: 4px;
+        }
+
+        .top-dropdown {
+            padding-left: 10px;
+        }
+
+        .user-top {
+            padding-left: 10px;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .topbar {
+            padding: 0 10px;
+        }
+
+        .search {
+            width: auto;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .weather {
+            gap: 5px;
+            padding-left: 8px;
+        }
+
+        .weather .sun {
+            font-size: 18px;
+        }
+
+        .weather strong {
+            font-size: 10px;
+        }
+
+        .weather small {
+            max-width: 65px;
+            overflow: hidden;
+            font-size: 9px;
+            text-overflow: ellipsis;
+        }
+
+        .top-dropdown {
+            padding-left: 7px;
+        }
+
+        .notification-button {
+            width: 32px;
+            height: 34px;
+        }
+
+        .user-top {
+            padding-left: 7px;
+        }
+
+        .user-chevron {
+            display: none;
+        }
+    }
+
+    
+        @media (max-width: 760px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform .25s ease;
+            }
+
+            .sidebar.sidebar-open {
+                transform: translateX(0);
+                width: 225px;
+                box-shadow: 10px 0 35px rgba(7, 59, 86, .18);
+            }
+
+            .sidebar.sidebar-open .brand {
+                align-items: flex-start;
+                padding: 17px 20px;
+            }
+
+            .sidebar.sidebar-open .brand-name {
+                font-size: 23px;
+            }
+
+            .sidebar.sidebar-open .brand-name::before {
+                content: none;
+            }
+
+            .sidebar.sidebar-open .brand-name span,
+            .sidebar.sidebar-open .brand-caption,
+            .sidebar.sidebar-open .menu-link span {
+                display: initial;
+            }
+
+            .sidebar.sidebar-open .sidebar-menu {
+                padding: 18px 12px;
+            }
+
+            .sidebar.sidebar-open .menu-link {
+                justify-content: flex-start;
+                padding: 0 15px;
+            }
+        }
+
+
+        /* LOGO SIDEBAR DERAP SERAYU */
+        .brand {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 17px 20px;
+            border-bottom: 1px solid #ffffff18;
+            text-align: center;
+        }
+
+        .brand-logo-wrapper {
+            width: 100%;
+            max-width: 205px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 13px;
+            overflow: hidden;
+            border-radius: 13px;
+            background: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .10);
+        }
+
+        .brand-logo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .brand-caption {
+            margin-top: 0;
+            font-size: 10px;
+            line-height: 1.5;
+            color: #c5e4ee;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Tampilan sidebar kecil */
+        @media (max-width: 760px) {
+            .brand {
+                min-height: 76px;
+                padding: 10px 5px;
+                gap: 0;
+            }
+
+            .brand-logo-wrapper {
+                width: 49px;
+                height: 49px;
+                padding: 5px;
+                border-radius: 10px;
+            }
+
+            .brand-caption {
+                display: none;
+            }
+
+            .sidebar.sidebar-open .brand {
+                min-height: 110px;
+                padding: 13px 15px;
+                gap: 8px;
+            }
+
+            .sidebar.sidebar-open .brand-logo-wrapper {
+                width: 100%;
+                max-width: 190px;
+                height: 60px;
+                padding: 7px 12px;
+            }
+
+            .sidebar.sidebar-open .brand-caption {
+                display: block;
+            }
+        }
+
+        .top-dropdown {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .notification-button {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            color: #073b56;
+            font-size: 19px;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .notification-button:hover,
+        .notification-button[aria-expanded="true"] {
+            background: #eaf7fc;
+            color: #079fbd;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            min-width: 17px;
+            height: 17px;
+            display: grid;
+            place-items: center;
+            padding: 0 4px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            background: #ef5361;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .top-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            z-index: 1000;
+            width: 340px;
+            max-width: calc(100vw - 24px);
+            display: none;
+            overflow: hidden;
+            border: 1px solid #dcecf5;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 15px 40px rgba(7, 59, 86, .16);
+        }
+
+        .top-dropdown-menu.show {
+            display: block;
+            animation: notificationAppear .18s ease;
+        }
+
+        @keyframes notificationAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 17px;
+            border-bottom: 1px solid #e8f2f7;
+        }
+
+        .dropdown-heading strong {
+            display: block;
+            color: #073b56;
+            font-size: 14px;
+        }
+
+        .dropdown-heading small {
+            display: block;
+            margin-top: 5px;
+            color: #7796ad;
+            font-size: 11px;
+        }
+
+        .dropdown-heading > i {
+            color: #079fbd;
+            font-size: 19px;
+        }
+
+        .dropdown-scroll {
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .dropdown-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 14px 16px;
+            border-bottom: 1px solid #edf4f8;
+            color: #123f60;
+            text-decoration: none;
+            transition: background .2s ease;
+        }
+
+        .dropdown-notice:hover {
+            background: #f4fbfe;
+        }
+
+        .dropdown-notice:last-child {
+            border-bottom: 0;
+        }
+
+        .dropdown-notice-icon {
+            width: 37px;
+            height: 37px;
+            flex: 0 0 37px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #fff2d8;
+            color: #b77909;
+        }
+
+        .dropdown-notice-icon.notice-orange {
+            background: #fff0f2;
+            color: #c7465a;
+        }
+
+        .dropdown-notice-text {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .dropdown-notice-text strong {
+            color: #123f60;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .dropdown-notice-text small {
+            color: #7796ad;
+            font-size: 11px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .dropdown-notice-text .notice-note {
+            color: #b06c20;
+        }
+
+        .dropdown-empty {
+            padding: 27px 18px;
+            text-align: center;
+            color: #7796ad;
+        }
+
+        .dropdown-empty > i {
+            display: block;
+            margin-bottom: 10px;
+            color: #12a47e;
+            font-size: 25px;
+        }
+
+        .dropdown-empty strong {
+            display: block;
+            color: #123f60;
+            font-size: 13px;
+        }
+
+        .dropdown-empty p {
+            margin: 7px 0 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .dropdown-footer-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 14px 17px;
+            border-top: 1px solid #e8f2f7;
+            background: #f6fbfe;
+            color: #078ba8;
+            font-size: 11px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .dropdown-footer-link:hover {
+            background: #eaf7fc;
+        }
+
+        @media (max-width: 560px) {
+            .top-dropdown-menu {
+                position: fixed;
+                top: 76px;
+                right: 10px;
+                width: 340px;
+                max-width: calc(100vw - 20px);
+            }
+
+            .notification-button {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .notification-dropdown {
+            width: 325px;
+            max-width: calc(100vw - 30px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Header notifikasi */
+        .notification-dropdown .dropdown-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        /* Area daftar notifikasi */
+        .notification-dropdown .dropdown-scroll {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            scrollbar-width: thin;
+            scrollbar-color: #b8cbd5 transparent;
+        }
+
+        /* Item notifikasi */
+        .notification-dropdown .dropdown-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* Ikon tidak ikut mengecil */
+        .notification-dropdown .dropdown-notice-icon {
+            flex: 0 0 36px;
+        }
+
+        /* Teks boleh turun ke baris berikutnya */
+        .notification-dropdown .dropdown-notice-text {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 100%;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* Judul dan keterangan artikel */
+        .notification-dropdown .dropdown-notice-text strong,
+        .notification-dropdown .dropdown-notice-text small {
+            display: block;
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* Catatan revisi */
+        .notification-dropdown .notice-note {
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        /* Pesan ketika tidak ada notifikasi */
+        .notification-dropdown .dropdown-empty {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 24px 14px;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        /* Footer dropdown */
+        .notification-dropdown .dropdown-footer-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* Tampilan ponsel */
+        @media (max-width: 480px) {
+            .notification-dropdown {
+                width: min(325px, calc(100vw - 24px));
+                max-width: calc(100vw - 24px);
+            }
+        }
+
+        .logout-form {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .account-link.logout-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            background: transparent;
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .account-link.logout-link:hover {
+            background: #fff1f0;
+            color: #dc3545;
+        }
+
+        .account-divider {
+            height: 1px;
+            margin: 8px 0;
+            background: #e5edf2;
+        }
     </style>
 </head>
 
@@ -971,8 +1866,10 @@
     {{-- SIDEBAR --}}
     <aside class="sidebar">
         <a href="{{ route('penulis.dashboard') }}" class="brand">
-            <p class="brand-name">Derap<span>Serayu</span></p>
-            <span class="brand-caption">Media Informasi Banjarnegara</span>
+            <span class="brand-logo-wrapper">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
+                     class="brand-logo">
+            </span>
         </a>
 
         <nav class="sidebar-menu">
@@ -997,60 +1894,170 @@
                 <span>Lihat Website</span>
             </a>
         </nav>
-
-        <div class="sidebar-bottom">
-            <a href="{{ route('logout') }}"
-               class="menu-link"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Keluar</span>
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
-                @csrf
-            </form>
-        </div>
     </aside>
 
     {{-- MAIN CONTENT --}}
     <div class="main">
 
         {{-- TOPBAR --}}
+        
         <header class="topbar">
-            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Buka menu">
+            <button
+                type="button"
+                class="menu-toggle"
+                onclick="toggleSidebar()"
+                aria-label="Buka menu"
+            >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <form class="search" id="searchForm" method="GET" action="{{ route('penulis.articles.index') }}">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" id="searchInput" name="search" aria-label="Cari artikel penulis"
-                       placeholder="Cari artikel, topik, atau kata kunci...">
-            </form>
-
             <div class="top-spacer"></div>
 
-            <div class="top-item">
-                <a class="notification-button" href="{{ route('penulis.articles.index') }}"
-                   aria-label="Lihat status artikel">
+            {{-- NOTIFIKASI ARTIKEL --}}
+            @php
+                $artikelPerhatian = $artikelPerhatian ?? collect();
+                $jumlahNotifikasi = $artikelPerhatian->count();
+            @endphp
+
+            <div class="top-item top-dropdown">
+                <button
+                    type="button"
+                    class="notification-button dropdown-trigger"
+                    id="notificationToggle"
+                    aria-label="Buka notifikasi"
+                    aria-expanded="false"
+                    aria-controls="notificationDropdown"
+                    onclick="toggleTopDropdown('notificationDropdown', this)"
+                >
                     <i class="fa-regular fa-bell"></i>
-                </a>
+
+                    @if($jumlahNotifikasi > 0)
+                        <span class="notification-dot">
+                            {{ $jumlahNotifikasi > 9 ? '9+' : $jumlahNotifikasi }}
+                        </span>
+                    @endif
+                </button>
+
+                <div
+                    class="top-dropdown-menu notification-dropdown"
+                    id="notificationDropdown"
+                >
+                    <div class="dropdown-heading">
+                        <div>
+                            <strong>Notifikasi</strong>
+                            <small>Informasi terbaru artikelmu</small>
+                        </div>
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
+
+                    <div class="dropdown-scroll">
+                        @forelse($artikelPerhatian as $artikel)
+                            <a
+                                href="{{ route('penulis.articles.edit', $artikel) }}"
+                                class="dropdown-notice"
+                            >
+                                <span class="dropdown-notice-icon {{ $artikel->status === 'rejected' ? 'notice-orange' : '' }}">
+                                    <i class="fa-solid {{ $artikel->status === 'rejected' ? 'fa-pen-to-square' : 'fa-clock' }}"></i>
+                                </span>
+
+                                <span class="dropdown-notice-text">
+                                    <strong>
+                                        {{ $artikel->status === 'rejected' ? 'Artikel perlu direvisi' : 'Artikel menunggu tinjauan' }}
+                                    </strong>
+
+                                    <small>{{ $artikel->title }}</small>
+
+                                    @if($artikel->review_note)
+                                        <small class="notice-note">
+                                            Catatan: {{ $artikel->review_note }}
+                                        </small>
+                                    @endif
+
+                                    <small>
+                                        {{ $artikel->updated_at?->format('d M Y, H:i') ?? '-' }}
+                                    </small>
+                                </span>
+                            </a>
+                        @empty
+                            <div class="dropdown-empty">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <strong>Belum ada notifikasi</strong>
+                                <p>
+                                    Notifikasi artikel yang menunggu tinjauan atau
+                                    memerlukan revisi akan muncul di sini.
+                                </p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    <a
+                        href="{{ route('penulis.articles.index') }}"
+                        class="dropdown-footer-link"
+                    >
+                        Lihat semua artikel
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
 
-            <div class="top-item weather">
-                <i class="fa-solid fa-sun sun"></i>
+            {{-- CUACA BANJARNEGARA --}}
+            <div class="top-item weather" id="weatherWidget">
+                <i class="fa-solid fa-cloud-sun sun" id="weatherIcon"></i>
+
                 <div>
-                    <strong>24°C</strong>
-                    <small>Banjarnegara</small>
+                    <strong id="weatherTemperature">Memuat...</strong>
+                    <small id="weatherDescription">Cuaca Banjarnegara</small>
                 </div>
             </div>
 
-            <div class="top-item user-top">
-                <div class="user-avatar">A</div>
-                <div class="user-text">
-                    <strong>{{ auth()->check() ? auth()->user()->name : 'Annisa Dwi Lestari' }}</strong>
-                    <small>Penulis</small>
+            {{-- AKUN PENULIS --}}
+            <div class="top-item top-dropdown user-top">
+                <button
+                    type="button"
+                    class="user-profile-button dropdown-trigger"
+                    id="accountToggle"
+                    aria-label="Buka menu akun"
+                    aria-expanded="false"
+                    aria-controls="accountDropdown"
+                    onclick="toggleTopDropdown('accountDropdown', this)"
+                >
+                    <span class="user-avatar">
+                        {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
+                    </span>
+
+                    <span class="user-text">
+                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
+                        <small>Penulis</small>
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down user-chevron"></i>
+                </button>
+
+                <div
+                    class="top-dropdown-menu account-dropdown"
+                    id="accountDropdown"
+                >
+                    <div class="account-identity">
+                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
+                        <small>{{ auth()->user()->email ?? '' }}</small>
+                    </div>
+
+                    <div class="account-divider"></div>
+
+                    <form
+                        id="logout-form"
+                        action="{{ route('logout') }}"
+                        method="POST"
+                        class="logout-form"
+                    >
+                        @csrf
+
+                        <button type="submit" class="account-link logout-link">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Keluar dari Akun
+                        </button>
+                    </form>
                 </div>
-                <i class="fa-solid fa-chevron-down" style="font-size:10px"></i>
             </div>
         </header>
 
@@ -1374,6 +2381,167 @@
                 searchInput.closest('form').submit();
             }
         });
+
+        
+        /* DROPDOWN AKUN DAN NOTIFIKASI */
+        function toggleTopDropdown(dropdownId, trigger) {
+            const dropdown = document.getElementById(dropdownId);
+
+            if (!dropdown) return;
+
+            const isOpen = dropdown.classList.contains('show');
+
+            document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+
+            document.querySelectorAll('.dropdown-trigger').forEach(button => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+                dropdown.classList.add('show');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        /* Tutup dropdown jika pengguna mengeklik di luar menu */
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.top-dropdown')) {
+                document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+
+                document.querySelectorAll('.dropdown-trigger').forEach(button => {
+                    button.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        /* Tutup dropdown dengan tombol Escape */
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+
+                document.querySelectorAll('.dropdown-trigger').forEach(button => {
+                    button.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        /* PENCARIAN CEPAT */
+        document.getElementById('quickSearch')?.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchForm = document.getElementById('searchForm');
+                if (searchForm) searchForm.submit();
+            }
+        });
+
+        /* MENU SIDEBAR RESPONSIF */
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+
+            if (sidebar) {
+                sidebar.classList.toggle('sidebar-open');
+            }
+        }
+
+        /* CUACA TERKINI BANJARNEGARA DARI OPEN-METEO */
+        async function loadBanjarnegaraWeather() {
+            const temperature = document.getElementById('weatherTemperature');
+            const description = document.getElementById('weatherDescription');
+            const icon = document.getElementById('weatherIcon');
+
+            if (!temperature || !description || !icon) return;
+
+            try {
+                const url =
+                    'https://api.open-meteo.com/v1/forecast' +
+                    '?latitude=-7.396&longitude=109.691' +
+                    '&current=temperature_2m,weather_code,is_day' +
+                    '&timezone=Asia%2FJakarta';
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data cuaca');
+                }
+
+                const data = await response.json();
+                const current = data.current;
+
+                if (!current) {
+                    throw new Error('Data cuaca tidak tersedia');
+                }
+
+                const code = Number(current.weather_code);
+                const isDay = Number(current.is_day) === 1;
+
+                const weatherDescriptions = {
+                    0: 'Cerah',
+                    1: 'Cerah berawan',
+                    2: 'Berawan sebagian',
+                    3: 'Mendung',
+                    45: 'Berkabut',
+                    48: 'Kabut tebal',
+                    51: 'Gerimis ringan',
+                    53: 'Gerimis',
+                    55: 'Gerimis lebat',
+                    61: 'Hujan ringan',
+                    63: 'Hujan sedang',
+                    65: 'Hujan lebat',
+                    71: 'Salju ringan',
+                    73: 'Salju sedang',
+                    75: 'Salju lebat',
+                    80: 'Hujan lokal',
+                    81: 'Hujan lokal sedang',
+                    82: 'Hujan lokal lebat',
+                    95: 'Badai petir',
+                    96: 'Badai petir dan hujan es',
+                    99: 'Badai petir kuat'
+                };
+
+                let iconClass = 'fa-cloud-sun';
+
+                if ([0, 1].includes(code)) {
+                    iconClass = isDay ? 'fa-sun' : 'fa-moon';
+                } else if ([2, 3, 45, 48].includes(code)) {
+                    iconClass = code === 2 && isDay ? 'fa-cloud-sun' : 'fa-cloud';
+                } else if (code >= 51 && code <= 67) {
+                    iconClass = 'fa-cloud-rain';
+                } else if (code >= 71 && code <= 77) {
+                    iconClass = 'fa-snowflake';
+                } else if (code >= 80 && code <= 82) {
+                    iconClass = 'fa-cloud-showers-heavy';
+                } else if (code >= 95) {
+                    iconClass = 'fa-cloud-bolt';
+                }
+
+                temperature.textContent =
+                    `${Math.round(current.temperature_2m)}°C`;
+
+                description.textContent =
+                    weatherDescriptions[code] ?? 'Kondisi cuaca terkini';
+
+                icon.className = `fa-solid ${iconClass} sun`;
+            } catch (error) {
+                temperature.textContent = '--°C';
+                description.textContent = 'Cuaca tidak tersedia';
+                icon.className = 'fa-solid fa-cloud sun';
+
+                console.error('Cuaca Banjarnegara:', error);
+            }
+        }
+
+        loadBanjarnegaraWeather();
+
+        /* Perbarui cuaca setiap 10 menit */
+        setInterval(loadBanjarnegaraWeather, 10 * 60 * 1000);
+
     </script>
 
 </body>

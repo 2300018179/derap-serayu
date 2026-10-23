@@ -25,15 +25,18 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            width: 100%;
         }
 
         body {
-            margin: 0;
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            background: #eaf8fc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #dff6fb;
         }
 
         body,
@@ -295,26 +298,33 @@
 
         .profile-page {
             position: relative;
+            isolation: isolate;
+            width: 100%;
+            flex: 1 0 auto;
             min-height: 650px;
+            margin: 0;
             overflow: hidden;
-            padding: 45px 0 85px;
+            padding: 44px 0 65px;
+            box-sizing: border-box;
+            overflow: hidden;
 
             background:
                 radial-gradient(
-                    ellipse at 7% 6%,
-                    rgba(50, 205, 238, .23),
+                    ellipse at 0% 15%,
+                    rgba(52, 211, 239, .28),
                     transparent 30%
                 ),
                 radial-gradient(
-                    ellipse at 94% 25%,
-                    rgba(109, 224, 244, .22),
-                    transparent 29%
+                    ellipse at 100% 45%,
+                    rgba(77, 211, 237, .24),
+                    transparent 36%
                 ),
                 linear-gradient(
                     180deg,
-                    #c9f1fa 0%,
-                    #eaf9fd 40%,
-                    #f4fbfd 100%
+                    #bceef8 0%,
+                    #d9f5fb 38%,
+                    #e9f9fd 72%,
+                    #d9f5fb 100%
                 );
         }
 
@@ -342,8 +352,8 @@
         .profile-container {
             position: relative;
             z-index: 1;
-            width: calc(100% - 112px);
-            max-width: 1550px;
+            width: calc(100% - 80px);
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -773,11 +783,8 @@
 
         .footer {
     position: relative;
-
     overflow: hidden;
-
     margin-top: 55px;
-
     background: #03384f;
 
     color: white;
@@ -1944,6 +1951,500 @@
                 transition: none !important;
             }
         }
+
+        
+/* =========================================
+   PERBAIKAN NAVBAR PROFIL PEMBACA
+========================================= */
+
+.header-card {
+    width: min(1400px, calc(100% - 64px));
+    min-height: 82px;
+    margin: 14px auto 0;
+    padding: 12px 22px;
+    gap: 18px;
+    border-radius: 22px;
+    position: relative;
+    z-index: 100;
+}
+
+.logo-area {
+    min-width: 0;
+}
+
+.logo-area img {
+    display: block;
+    width: clamp(135px, 13vw, 180px);
+    max-height: 58px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.main-nav {
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.main-nav a,
+.nav-dropdown summary {
+    font-size: 11px;
+}
+
+.search-area {
+    width: clamp(160px, 18vw, 230px);
+}
+
+.search-box {
+    width: 100%;
+    min-width: 0;
+}
+
+.search-error {
+    margin: 6px 0 0 8px;
+    color: #c0392b;
+    font-size: 11px;
+}
+
+.account-actions {
+    max-width: 220px;
+}
+
+.account-menu summary span {
+    max-width: 100px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .header-card {
+        width: calc(100% - 36px);
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .main-nav {
+        order: 4;
+        flex-basis: 100%;
+        justify-content: flex-start;
+    }
+
+    .search-area {
+        margin-left: auto;
+        width: min(250px, 28vw);
+    }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .topbar {
+        height: auto;
+        min-height: 38px;
+    }
+
+    .topbar-inner {
+        width: calc(100% - 28px);
+        min-height: 38px;
+        font-size: 10px;
+    }
+
+    .topbar-right {
+        display: none;
+    }
+
+    .topbar-left {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .header-card {
+        width: calc(100% - 24px);
+        min-height: 68px;
+        margin-top: 10px;
+        padding: 10px 13px;
+        gap: 10px;
+        border-radius: 17px;
+    }
+
+    .logo-area img {
+        width: 135px;
+        max-height: 46px;
+    }
+
+    .search-area {
+        order: 5;
+        flex-basis: 100%;
+        width: 100%;
+        margin: 0;
+    }
+
+    .search-box {
+        height: 40px;
+    }
+
+    .account-actions {
+        margin-left: auto;
+        max-width: calc(100% - 190px);
+    }
+
+    .account-actions a,
+    .account-menu summary {
+        min-height: 38px;
+        padding: 0 10px;
+        font-size: 10px;
+    }
+
+    .account-menu summary span {
+        max-width: 65px;
+    }
+
+    .menu-button {
+        display: inline-grid;
+        place-items: center;
+        width: 39px;
+        height: 39px;
+        font-size: 15px;
+    }
+
+    .main-nav {
+        display: none;
+        order: 6;
+        flex-basis: 100%;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border: 1px solid #e3f0f5;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 12px 30px rgba(7, 63, 94, .10);
+    }
+
+    .main-nav.is-open {
+        display: flex;
+    }
+
+    .main-nav > a,
+    .nav-dropdown summary {
+        display: flex;
+        width: 100%;
+        padding: 12px;
+        justify-content: flex-start;
+        border-radius: 10px;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        min-width: 0;
+        margin-top: 5px;
+        box-shadow: none;
+        border-radius: 10px;
+        background: #f4fbfd;
+    }
+
+    .nav-dropdown-menu a {
+        white-space: normal;
+    }
+
+    .account-menu .account-dropdown {
+        right: 0;
+        max-width: calc(100vw - 32px);
+    }
+}
+
+/* Perbaikan footer responsif */
+@media (max-width: 900px) {
+    .footer-container {
+        width: calc(100% - 48px);
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 24px;
+    }
+
+    .footer-brand,
+    .footer-newsletter {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        width: calc(100% - 32px);
+        padding-top: 38px;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px 16px;
+    }
+
+    .footer-logo img {
+        width: 155px;
+        max-width: 100%;
+    }
+
+    .footer-description {
+        font-size: 11px;
+    }
+
+    .footer-column a,
+    .footer-column span {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .footer-newsletter {
+        min-width: 0;
+    }
+
+    .newsletter-form {
+        max-width: 100%;
+    }
+
+    .footer-quote p {
+        font-size: 18px;
+    }
+
+    .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: 10px;
+        line-height: 1.8;
+    }
+
+    .footer-bottom-links {
+        flex-wrap: wrap;
+        gap: 10px 16px;
+    }
+}
+
+
+/* =====================================================
+   FIX BACKGROUND FULL PAGE - PROFIL PEMBACA
+   DERAP SERAYU | DIENG NATURE GLOW
+===================================================== */
+
+/* Dasar halaman memenuhi tinggi layar */
+html {
+    min-height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+
+    background: #eaf8fc;
+}
+
+/* Topbar dan navbar tidak menyusut */
+.topbar,
+.profile-header,
+.header-card {
+    flex-shrink: 0;
+}
+
+/* Navbar yang benar-benar digunakan pada HTML */
+.header-card {
+    width: min(1400px, calc(100% - 64px));
+    min-height: 82px;
+    box-sizing: border-box;
+}
+
+/* Background utama memenuhi lebar dan tinggi konten */
+.profile-page {
+    position: relative;
+
+    flex: 1 0 auto;
+    width: 100%;
+    min-width: 0;
+    min-height: 650px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    padding: 42px 0 65px;
+
+    background:
+        radial-gradient(
+            ellipse at 5% 12%,
+            rgba(52, 211, 239, 0.30) 0%,
+            transparent 34%
+        ),
+        radial-gradient(
+            ellipse at 95% 32%,
+            rgba(95, 221, 241, 0.25) 0%,
+            transparent 32%
+        ),
+        radial-gradient(
+            ellipse at 48% 100%,
+            rgba(255, 255, 255, 0.78) 0%,
+            transparent 48%
+        ),
+        linear-gradient(
+            180deg,
+            #bdeef8 0%,
+            #d9f5fb 32%,
+            #eaf9fd 68%,
+            #f5fbfd 100%
+        );
+}
+
+/* Pastikan elemen dekoratif tidak menutupi isi */
+.nature-glow {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(90px);
+}
+
+.glow-one {
+    top: 100px;
+    left: -180px;
+    width: 340px;
+    height: 340px;
+    background: rgba(8, 175, 208, 0.22);
+}
+
+.glow-two {
+    top: 430px;
+    right: -180px;
+    width: 340px;
+    height: 340px;
+    background: rgba(67, 194, 221, 0.20);
+}
+
+/* Konten profil tetap berada di atas background */
+.profile-container {
+    position: relative;
+    z-index: 1;
+
+    width: calc(100% - 80px);
+    max-width: 1600px;
+
+    margin: 0 auto;
+}
+
+/* Hero banner tetap tajam dan memenuhi area */
+.profile-welcome {
+    width: 100%;
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            100deg,
+            rgba(4, 49, 70, 0.93) 0%,
+            rgba(5, 75, 101, 0.78) 58%,
+            rgba(5, 75, 101, 0.40) 100%
+        ),
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90')
+        center 48% / cover no-repeat;
+}
+
+/* Kartu profil tetap putih dan kontras */
+.profile-summary,
+.profile-information {
+    background: rgba(255, 255, 255, 0.91);
+    border: 1px solid rgba(255, 255, 255, 0.98);
+    box-shadow: 0 14px 38px rgba(16, 79, 105, 0.08);
+}
+
+/* Hilangkan jarak footer yang membuat halaman terkesan terputus */
+.footer {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: 0;
+    box-sizing: border-box;
+    background: #03384f;
+}
+
+/* Pastikan isi footer tidak melebar keluar layar */
+.footer-container {
+    width: min(1300px, calc(100% - 64px));
+    margin-inline: auto;
+    box-sizing: border-box;
+}
+
+.footer-grid {
+    grid-template-columns:
+        minmax(0, 1.6fr)
+        minmax(0, 0.8fr)
+        minmax(0, 0.8fr)
+        minmax(0, 0.8fr)
+        minmax(0, 1.4fr);
+}
+
+/* Layar lebar */
+@media (min-width: 1600px) {
+    .profile-container {
+        width: calc(100% - 100px);
+    }
+
+    .profile-page {
+        padding-top: 48px;
+        padding-bottom: 75px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .profile-container {
+        width: calc(100% - 48px);
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-brand,
+    .footer-newsletter {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Ponsel */
+@media (max-width: 600px) {
+    .profile-page {
+        min-height: 0;
+        padding: 25px 0 45px;
+    }
+
+    .profile-container {
+        width: calc(100% - 28px);
+    }
+
+    .header-card {
+        width: calc(100% - 24px);
+    }
+
+    .profile-welcome {
+        width: 100%;
+    }
+
+    .footer-container {
+        width: calc(100% - 32px);
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px 16px;
+    }
+
+    .footer-bottom {
+        flex-wrap: wrap;
+    }
+}
+
+
     </style>
 </head>
 
@@ -2772,5 +3273,155 @@
 
 </footer>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    /* =====================================
+       MENU NAVIGASI MOBILE
+    ===================================== */
+    const menuButton = document.querySelector('.menu-button');
+    const mainNavigation = document.getElementById('mainNavigation');
+
+    if (menuButton && mainNavigation) {
+        menuButton.addEventListener('click', function () {
+            const isOpen = mainNavigation.classList.toggle('is-open');
+
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+            menuButton.setAttribute(
+                'aria-label',
+                isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'
+            );
+
+            const icon = menuButton.querySelector('i');
+
+            if (icon) {
+                icon.classList.toggle('fa-bars', !isOpen);
+                icon.classList.toggle('fa-xmark', isOpen);
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (
+                !mainNavigation.contains(event.target) &&
+                !menuButton.contains(event.target)
+            ) {
+                mainNavigation.classList.remove('is-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Buka menu navigasi');
+
+                const icon = menuButton.querySelector('i');
+
+                if (icon) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                mainNavigation.classList.remove('is-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Buka menu navigasi');
+
+                const icon = menuButton.querySelector('i');
+
+                if (icon) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+
+    /* =====================================
+       CUACA BANJARNEGARA
+    ===================================== */
+    async function loadProfileWeather() {
+        const temperature = document.getElementById('topTemperature');
+        const weatherIcon = document.getElementById('topWeatherIcon');
+
+        if (!temperature || !weatherIcon) return;
+
+        const weatherMap = {
+            0: ['Cerah', '☀️'],
+            1: ['Cerah berawan', '🌤️'],
+            2: ['Berawan sebagian', '⛅'],
+            3: ['Berawan', '☁️'],
+            45: ['Berkabut', '🌫️'],
+            48: ['Kabut tebal', '🌫️'],
+            51: ['Gerimis ringan', '🌦️'],
+            53: ['Gerimis', '🌦️'],
+            55: ['Gerimis lebat', '🌧️'],
+            61: ['Hujan ringan', '🌧️'],
+            63: ['Hujan sedang', '🌧️'],
+            65: ['Hujan lebat', '🌧️'],
+            71: ['Salju ringan', '❄️'],
+            73: ['Salju', '❄️'],
+            75: ['Salju lebat', '❄️'],
+            80: ['Hujan lokal', '🌦️'],
+            81: ['Hujan lokal', '🌧️'],
+            82: ['Hujan lokal lebat', '🌧️'],
+            95: ['Badai petir', '⛈️'],
+            96: ['Badai petir', '⛈️'],
+            99: ['Badai petir kuat', '⛈️']
+        };
+
+        temperature.textContent = 'Memuat...';
+
+        try {
+            const url = new URL('https://api.open-meteo.com/v1/forecast');
+
+            url.search = new URLSearchParams({
+                latitude: '-7.396',
+                longitude: '109.691',
+                current: 'temperature_2m,weather_code',
+                timezone: 'Asia/Jakarta'
+            }).toString();
+
+            const response = await fetch(url.toString());
+
+            if (!response.ok) {
+                throw new Error('Data cuaca gagal dimuat');
+            }
+
+            const data = await response.json();
+            const current = data.current;
+
+            if (
+                !current ||
+                typeof current.temperature_2m !== 'number'
+            ) {
+                throw new Error('Data cuaca tidak valid');
+            }
+
+            const weather = weatherMap[current.weather_code] || [
+                'Kondisi cuaca',
+                '🌤️'
+            ];
+
+            temperature.textContent =
+                Math.round(current.temperature_2m) + '°C';
+
+            weatherIcon.textContent = weather[1];
+            weatherIcon.title = weather[0];
+            weatherIcon.setAttribute(
+                'aria-label',
+                'Cuaca Banjarnegara: ' + weather[0]
+            );
+        } catch (error) {
+            console.error('Gagal mengambil cuaca:', error);
+
+            temperature.textContent = '--°C';
+            weatherIcon.textContent = '☁️';
+            weatherIcon.title = 'Cuaca tidak tersedia';
+        }
+    }
+
+    loadProfileWeather();
+
+    // Perbarui cuaca setiap 10 menit.
+    window.setInterval(loadProfileWeather, 10 * 60 * 1000);
+});
+</script>
 </body>
 </html>

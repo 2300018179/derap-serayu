@@ -72,9 +72,11 @@ class PenulisArtikelController extends Controller
 
     public function create(): View
     {
-        return view('penulis.create', ['article' => null]);
-    }
+        $artikelPerhatian = collect();
 
+        return view('penulis.create', compact('artikelPerhatian'));
+    }
+    
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validatedArticle($request);

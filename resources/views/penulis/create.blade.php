@@ -696,6 +696,8 @@
         }
 
         .topbar {
+            position: relative;
+            z-index: 30;
             min-height: 70px;
             display: flex;
             align-items: center;
@@ -974,6 +976,7 @@
 
         .top-item {
             display: flex;
+            position: relative;
             align-items: center;
             gap: 10px;
             padding-left: 18px;
@@ -982,9 +985,16 @@
         }
 
         .notification-button {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
             position: relative;
-            border: 0;
-            color: var(--navy);
+            border-radius: 12px;
+            color: #12456e;
+            cursor: pointer;
+            transition: background 0.2s color 0.2s;
             background: transparent;
             font-size: 20px;
         }
@@ -1029,25 +1039,914 @@
             gap: 10px;
         }
 
+        
         .user-avatar {
             display: grid;
             place-items: center;
             width: 36px;
             height: 36px;
+            flex-shrink: 0;
+            border: 2px solid #d7f3f8;
             border-radius: 50%;
-            color: white;
-            background: var(--navy);
+            color: #ffffff;
+            background: linear-gradient(145deg, #0aa9bd, #087e9e);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
             font-weight: 800;
         }
+
+        .user-account-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border: 0;
+            border-radius: 12px;
+            color: #12456e;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .user-account-trigger:hover {
+            background: #f0f9fd;
+        }
+
+        .user-account-trigger:focus-visible,
+        .notification-button:focus-visible {
+            outline: 2px solid #009fbe;
+            outline-offset: 3px;
+        }
+
+        .user-account-trigger .user-text strong {
+            display: block;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 11px;
+        }
+
+        .user-account-trigger .user-text small {
+            display: block;
+            margin-top: 3px;
+            color: #7091ac;
+            font-size: 10px;
+        }
+
+        .account-chevron {
+            color: #7897ad;
+            font-size: 10px;
+            transition: transform .2s ease;
+        }
+
+        .user-account-trigger[aria-expanded="true"] .account-chevron {
+            transform: rotate(180deg);
+        }
+
+
+        /* DROPDOWN NOTIFIKASI DAN AKUN */
+        .top-dropdown {
+            position: relative;
+        }
+
+        .dropdown-trigger {
+            cursor: pointer;
+        }
+
+        .top-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 14px);
+            right: 0;
+            z-index: 100;
+            display: none;
+            width: 340px;
+            overflow: hidden;
+            border: 1px solid #dcecf5;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 18px 45px rgba(4, 48, 73, .17);
+            animation: dropdownAppear .18s ease;
+        }
+
+        .top-dropdown-menu.show {
+            display: block;
+        }
+
+        @keyframes dropdownAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px;
+            border-bottom: 1px solid #e9f2f7;
+            background: linear-gradient(120deg, #f0fbff, #f3fcf8);
+        }
+
+        .dropdown-heading strong,
+        .dropdown-heading small {
+            display: block;
+        }
+
+        .dropdown-heading strong {
+            color: #12456e;
+            font-size: 14px;
+        }
+
+        .dropdown-heading small {
+            margin-top: 4px;
+            color: #7897ad;
+            font-size: 10px;
+        }
+
+        .dropdown-heading > i {
+            color: #078eb0;
+            font-size: 20px;
+        }
+
+        .dropdown-scroll {
+            max-height: 330px;
+            overflow-y: auto;
+        }
+
+        .dropdown-notice {
+            display: flex;
+            gap: 11px;
+            padding: 14px;
+            border-bottom: 1px solid #edf4f8;
+            transition: background .2s;
+        }
+
+        .dropdown-notice:hover {
+            background: #f5fbfe;
+        }
+
+        .dropdown-notice-icon {
+            display: grid;
+            place-items: center;
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+            border-radius: 11px;
+        }
+
+        .notice-orange {
+            color: #b87b00;
+            background: #fff1d0;
+        }
+
+        .notice-blue {
+            color: #087fbd;
+            background: #e3f5ff;
+        }
+
+        .dropdown-notice-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .dropdown-notice-text strong,
+        .dropdown-notice-text small {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+
+        .dropdown-notice-text strong {
+            color: #194866;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .dropdown-notice-text small {
+            margin-top: 4px;
+            color: #7593a9;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .dropdown-notice-text .notice-note {
+            color: #ad7600;
+        }
+
+        .dropdown-notice-text .notice-date {
+            color: #9ab0c0;
+            font-size: 9px;
+        }
+
+        .dropdown-empty {
+            padding: 27px 20px;
+            color: #6f91a8;
+            text-align: center;
+        }
+
+        .dropdown-empty > i {
+            display: block;
+            margin-bottom: 10px;
+            color: #0db69a;
+            font-size: 29px;
+        }
+
+        .dropdown-empty strong {
+            color: #194866;
+            font-size: 12px;
+        }
+
+        .dropdown-empty p {
+            margin: 6px 0 0;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .dropdown-footer-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 16px;
+            border-top: 1px solid #e9f2f7;
+            color: #008fb7;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .dropdown-footer-link:hover {
+            background: #f1faff;
+        }
+
+        /* MENU AKUN */
+        .user-account-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            border: 0;
+            color: inherit;
+            background: transparent;
+            text-align: left;
+        }
+
+        .account-chevron {
+            margin-left: 2px;
+            color: #7897ad;
+            font-size: 10px;
+            transition: transform .2s;
+        }
+
+        .user-account-trigger[aria-expanded="true"] .account-chevron {
+            transform: rotate(180deg);
+        }
+
+        .account-dropdown {
+            width: 300px;
+        }
+
+        .account-dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            background: linear-gradient(120deg, #effaff, #f0fcf7);
+        }
+
+        .account-dropdown-header > div:last-child {
+            min-width: 0;
+        }
+
+        .account-dropdown-header strong,
+        .account-dropdown-header small {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+
+        .account-dropdown-header strong {
+            color: #12456e;
+            font-size: 12px;
+        }
+
+        .account-dropdown-header small {
+            margin-top: 5px;
+            color: #7897ad;
+            font-size: 10px;
+        }
+
+        .account-role {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            color: #078c80;
+            background: #dff8ef;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .account-menu-links {
+            padding: 7px;
+        }
+
+        .account-menu-links a {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px;
+            border-radius: 9px;
+            color: #426a83;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .account-menu-links a:hover {
+            color: #008db5;
+            background: #f0faff;
+        }
+
+        .account-menu-links a > i:first-child {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .account-menu-links .menu-arrow {
+            margin-left: auto;
+            color: #a2b8c7;
+            font-size: 10px;
+        }
+
+        .account-logout-form {
+            padding: 8px;
+            border-top: 1px solid #e9f2f7;
+        }
+
+        .account-logout-form button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            border-radius: 9px;
+            color: #d64c5a;
+            background: white;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .account-logout-form button:hover {
+            background: #fff1f2;
+        }
+
+        @media (max-width: 700px) {
+            .top-dropdown-menu {
+                position: fixed;
+                top: 68px;
+                right: 10px;
+                width: min(340px, calc(100vw - 20px));
+            }
+
+            .account-dropdown {
+                width: min(300px, calc(100vw - 20px));
+            }
+
+            .user-account-trigger .user-text,
+            .user-account-trigger .account-chevron {
+                display: none;
+            }
+        }
+
+        
+        /* PERBAIKAN TOPBAR */
+        .topbar {
+            position: relative;
+            z-index: 30;
+        }
+
+        .top-item {
+            position: relative;
+        }
+
+        .notification-button {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border-radius: 12px;
+            color: #12456e;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+
+        .notification-button:hover,
+        .notification-button:focus-visible {
+            color: #008db5;
+            background: #eaf8ff;
+            outline: none;
+        }
+
+        .notification-button:focus-visible,
+        .user-account-trigger:focus-visible {
+            outline: 2px solid #009fbe;
+            outline-offset: 3px;
+        }
+
+        .notification-dot {
+            top: 2px;
+            right: 2px;
+            width: 17px;
+            height: 17px;
+            border: 2px solid white;
+        }
+
+        .user-account-trigger {
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .user-account-trigger:hover .user-avatar {
+            box-shadow: 0 0 0 4px #e1f6fb;
+        }
+
+        .top-dropdown-menu {
+            max-height: min(430px, calc(100vh - 100px));
+        }
+
+        .dropdown-scroll {
+            max-height: 310px;
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                gap: 8px;
+                padding: 0 12px;
+            }
+
+            .topbar-context {
+                gap: 7px;
+            }
+
+            .top-spacer {
+                min-width: 0;
+            }
+
+            .top-item {
+                gap: 6px;
+                padding-left: 8px;
+            }
+
+            .weather {
+                white-space: normal;
+            }
+
+            .weather strong {
+                font-size: 10px;
+            }
+
+            .weather small {
+                max-width: 85px;
+                font-size: 9px;
+            }
+        }
+        
+        /* ==========================================
+        LOGO DERAP SERAYU - SIDEBAR PENULIS
+        ========================================== */
+
+        .sidebar .brand {
+            width: 100%;
+            min-height: 125px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 15px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+            text-align: center;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        /* Area putih dibuat lebih lebar dan tinggi */
+        .sidebar .brand .brand-logo-wrapper {
+            width: 100%;
+            max-width: 220px;
+            height: 82px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            border-radius: 13px;
+            background: #ffffff;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Logo diperbesar tanpa merusak proporsi */
+        .sidebar .brand .brand-logo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        /* Pastikan logo tidak terkena aturan gambar sidebar lain */
+        .sidebar .brand img {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Sidebar ringkas pada layar tablet dan ponsel */
+        @media (max-width: 820px) {
+            .sidebar .brand {
+                min-height: 76px;
+                padding: 10px 5px;
+            }
+
+            .sidebar .brand .brand-logo-wrapper {
+                width: 54px;
+                height: 54px;
+                padding: 4px;
+                border-radius: 10px;
+            }
+
+            .sidebar.sidebar-open .brand {
+                min-height: 115px;
+                padding: 12px 10px;
+            }
+
+            .sidebar.sidebar-open .brand .brand-logo-wrapper {
+                width: 100%;
+                max-width: 200px;
+                height: 76px;
+                padding: 5px 8px;
+            }
+        }
+
+
+        .brand-caption {
+            margin-top: 0;
+            font-size: 10px;
+            line-height: 1.5;
+            color: #c5e4ee;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Tampilan sidebar kecil */
+        @media (max-width: 760px) {
+            .brand {
+                min-height: 76px;
+                padding: 10px 5px;
+                gap: 0;
+            }
+
+            .brand-logo-wrapper {
+                width: 49px;
+                height: 49px;
+                padding: 5px;
+                border-radius: 10px;
+            }
+
+            .brand-caption {
+                display: none;
+            }
+
+            .sidebar.sidebar-open .brand {
+                min-height: 110px;
+                padding: 13px 15px;
+                gap: 8px;
+            }
+
+            .sidebar.sidebar-open .brand-logo-wrapper {
+                width: 100%;
+                max-width: 190px;
+                height: 60px;
+                padding: 7px 12px;
+            }
+
+            .sidebar.sidebar-open .brand-caption {
+                display: block;
+            }
+        }
+
+        
+        /* ===== TOPBAR PENULIS ===== */
+        .topbar {
+            position: relative;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 70px;
+            background: #fff;
+        }
+
+        .top-spacer {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .top-item {
+            flex-shrink: 0;
+        }
+
+        .notification-button {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            color: #12456e;
+            background: transparent;
+            font-size: 19px;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+
+        .notification-button:hover,
+        .notification-button[aria-expanded="true"] {
+            color: #008db5;
+            background: #eaf8ff;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            display: grid;
+            place-items: center;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 3px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            color: #fff;
+            background: #ef5361;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .sun {
+            flex-shrink: 0;
+            color: #ffad1f;
+            font-size: 22px;
+        }
+
+        .weather {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .weather strong,
+        .weather small {
+            display: block;
+        }
+
+        .weather strong {
+            color: #12456e;
+            font-size: 12px;
+        }
+
+        .weather small {
+            margin-top: 3px;
+            color: #7091ac;
+            font-size: 10px;
+        }
+
+        .top-dropdown {
+            position: relative;
+        }
+
+        .top-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            z-index: 200;
+            display: none;
+            width: 340px;
+            max-height: min(430px, calc(100vh - 100px));
+            overflow: auto;
+            border: 1px solid #dcecf5;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 18px 45px rgba(4, 48, 73, .17);
+        }
+
+        .top-dropdown-menu.show {
+            display: block;
+            animation: dropdownAppear .18s ease;
+        }
+
+        .account-dropdown {
+            width: 300px;
+        }
+
+        .dropdown-scroll {
+            max-height: 310px;
+            overflow-y: auto;
+        }
+
+        @keyframes dropdownAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                gap: 5px;
+                padding: 0 10px;
+            }
+
+            .topbar-context {
+                gap: 6px;
+                font-size: 10px;
+            }
+
+            .top-item {
+                gap: 5px;
+                padding-left: 6px;
+            }
+
+            .weather {
+                gap: 5px;
+            }
+
+            .weather .sun {
+                font-size: 18px;
+            }
+
+            .weather strong {
+                font-size: 10px;
+            }
+
+            .weather small {
+                max-width: 80px;
+                font-size: 9px;
+                white-space: normal;
+            }
+
+            .user-account-trigger .user-text,
+            .user-account-trigger .account-chevron {
+                display: none;
+            }
+
+            .top-dropdown-menu,
+            .account-dropdown {
+                position: fixed;
+                top: 68px;
+                right: 10px;
+                width: min(340px, calc(100vw - 20px));
+            }
+        }
+
+        .notification-dropdown {
+            width: 325px;
+            max-width: calc(100vw - 30px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Header notifikasi */
+        .notification-dropdown .dropdown-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        /* Area daftar notifikasi */
+        .notification-dropdown .dropdown-scroll {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            scrollbar-width: thin;
+            scrollbar-color: #b8cbd5 transparent;
+        }
+
+        /* Item notifikasi */
+        .notification-dropdown .dropdown-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* Ikon tidak ikut mengecil */
+        .notification-dropdown .dropdown-notice-icon {
+            flex: 0 0 36px;
+        }
+
+        /* Teks boleh turun ke baris berikutnya */
+        .notification-dropdown .dropdown-notice-text {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 100%;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* Judul dan keterangan artikel */
+        .notification-dropdown .dropdown-notice-text strong,
+        .notification-dropdown .dropdown-notice-text small {
+            display: block;
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* Catatan revisi */
+        .notification-dropdown .notice-note {
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        /* Pesan ketika tidak ada notifikasi */
+        .notification-dropdown .dropdown-empty {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 24px 14px;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        /* Footer dropdown */
+        .notification-dropdown .dropdown-footer-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* Tampilan ponsel */
+        @media (max-width: 480px) {
+            .notification-dropdown {
+                width: min(325px, calc(100vw - 24px));
+                max-width: calc(100vw - 24px);
+            }
+        }
+
     </style>
 </head>
 <body>
 
 <aside class="sidebar">
-    <a href="{{ url('/') }}" class="brand">
-        <img src="{{ asset('images/logo-derap-serayu.png') }}" alt="Logo Derap Serayu"
-             onerror="this.style.display='none'">
-        <span>Derap<span>Serayu</span></span>
+    <a href="{{ route('penulis.dashboard') }}" class="brand">
+        <span class="brand-logo-wrapper">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
+                 class="brand-logo">
+        </span>
     </a>
 
     <nav class="nav">
@@ -1064,15 +1963,6 @@
             <i class="fa-solid fa-arrow-up-right-from-square"></i><span>Lihat Website</span>
         </a>
     </nav>
-
-    <div class="sidebar-bottom">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i><span>Keluar</span>
-            </button>
-        </form>
-    </div>
 </aside>
 
 <main class="main">
@@ -1084,28 +1974,143 @@
 
         <div class="top-spacer"></div>
 
-            <div class="top-item">
-                <a class="notification-button" href="{{ route('penulis.articles.index') }}"
-                   aria-label="Lihat status artikel">
+            @php
+                $artikelPerhatian = $artikelPerhatian ?? collect();
+                $jumlahNotifikasi = $artikelPerhatian->count();
+            @endphp
+
+            <div class="top-item top-dropdown">
+                <button type="button"
+                        class="notification-button dropdown-trigger"
+                        id="notificationToggle"
+                        aria-label="Buka notifikasi"
+                        aria-expanded="false"
+                        onclick="toggleTopDropdown('notificationDropdown', this)">
                     <i class="fa-regular fa-bell"></i>
-                </a>
+
+                    @if($jumlahNotifikasi > 0)
+                        <span class="notification-dot">
+                            {{ $jumlahNotifikasi > 9 ? '9+' : $jumlahNotifikasi }}
+                        </span>
+                    @endif
+                </button>
+
+                <div class="top-dropdown-menu notification-dropdown"
+                    id="notificationDropdown">
+
+                    <div class="dropdown-heading">
+                        <div>
+                            <strong>Notifikasi</strong>
+                            <small>Informasi terbaru artikelmu</small>
+                        </div>
+
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
+
+                    <div class="dropdown-scroll">
+                        @forelse($artikelPerhatian as $artikel)
+                            <a href="{{ route('penulis.articles.edit', $artikel) }}"
+                            class="dropdown-notice">
+
+                                <span class="dropdown-notice-icon
+                                    {{ $artikel->status === 'rejected' ? 'notice-orange' : 'notice-blue' }}">
+                                    <i class="fa-solid
+                                        {{ $artikel->status === 'rejected' ? 'fa-pen-to-square' : 'fa-clock' }}">
+                                    </i>
+                                </span>
+
+                                <span class="dropdown-notice-text">
+                                    <strong>
+                                        {{ $artikel->status === 'rejected'
+                                            ? 'Artikel perlu direvisi'
+                                            : 'Artikel menunggu tinjauan' }}
+                                    </strong>
+
+                                    <small>{{ $artikel->title }}</small>
+
+                                    @if($artikel->review_note)
+                                        <small class="notice-note">
+                                            Catatan: {{ $artikel->review_note }}
+                                        </small>
+                                    @endif
+
+                                    <small class="notice-date">
+                                        {{ $artikel->updated_at->format('d M Y, H:i') }}
+                                    </small>
+                                </span>
+                            </a>
+                        @empty
+                            <div class="dropdown-empty">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <strong>Semua aman!</strong>
+                                <p>Belum ada artikel yang perlu ditinjau atau direvisi.</p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    <a href="{{ route('penulis.articles.index') }}"
+                    class="dropdown-footer-link">
+                        Lihat semua artikel
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
 
-            <div class="top-item weather">
-                <i class="fa-solid fa-sun sun"></i>
+            <div class="top-item weather" id="weatherWidget">
+                <i class="fa-solid fa-cloud-sun sun" id="weatherIcon"></i>
+
                 <div>
-                    <strong>24°C</strong>
-                    <small>Banjarnegara</small>
+                    <strong id="weatherTemperature">Memuat...</strong>
+                    <small id="weatherDescription">Cuaca Banjarnegara</small>
                 </div>
             </div>
 
-            <div class="top-item user-top">
-                <div class="user-avatar">A</div>
-                <div class="user-text">
-                    <strong>{{ auth()->check() ? auth()->user()->name : 'Annisa Dwi Lestari' }}</strong>
-                    <small>Penulis</small>
+            <div class="top-item user-top top-dropdown">
+                <button type="button"
+                        class="user-account-trigger dropdown-trigger"
+                        onclick="toggleTopDropdown('accountDropdown', this)"
+                        aria-expanded="false"
+                        aria-label="Buka menu akun">
+
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
+                    </div>
+
+                    <div class="user-text">
+                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
+                        <small>Penulis</small>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down account-chevron"></i>
+                </button>
+
+                <div class="top-dropdown-menu account-dropdown"
+                    id="accountDropdown">
+
+                    <div class="account-dropdown-header">
+                        <div class="user-avatar">
+                            {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
+                        </div>
+
+                        <div>
+                            <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
+                            <small>{{ auth()->user()->email ?? '' }}</small>
+                            <span class="account-role">
+                                <i class="fa-solid fa-pen-nib"></i> Akun Penulis
+                            </span>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="{{ route('logout') }}"
+                        class="account-logout-form">
+                        @csrf
+
+                        <button type="submit">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Keluar dari Akun
+                        </button>
+                    </form>
                 </div>
-                <i class="fa-solid fa-chevron-down" style="font-size:10px"></i>
             </div>
     </div>
 
@@ -1700,6 +2705,212 @@
         submitButton.disabled = true;
         submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
     });
+        
+    /* ==========================================
+    CUACA BANJARNEGARA - OPEN-METEO
+    ========================================== */
+    async function loadBanjarnegaraWeather() {
+        const temperature = document.getElementById('weatherTemperature');
+        const description = document.getElementById('weatherDescription');
+        const icon = document.getElementById('weatherIcon');
+        const widget = document.getElementById('weatherWidget');
+
+        if (!temperature || !description || !icon) return;
+
+        const weatherMap = {
+            0: ['Cerah', 'fa-sun'],
+            1: ['Cerah berawan', 'fa-cloud-sun'],
+            2: ['Berawan sebagian', 'fa-cloud-sun'],
+            3: ['Berawan', 'fa-cloud'],
+            45: ['Berkabut', 'fa-smog'],
+            48: ['Kabut tebal', 'fa-smog'],
+            51: ['Gerimis ringan', 'fa-cloud-rain'],
+            53: ['Gerimis', 'fa-cloud-rain'],
+            55: ['Gerimis lebat', 'fa-cloud-showers-heavy'],
+            61: ['Hujan ringan', 'fa-cloud-rain'],
+            63: ['Hujan sedang', 'fa-cloud-showers-heavy'],
+            65: ['Hujan lebat', 'fa-cloud-showers-heavy'],
+            71: ['Salju ringan', 'fa-snowflake'],
+            73: ['Salju', 'fa-snowflake'],
+            75: ['Salju lebat', 'fa-snowflake'],
+            80: ['Hujan lokal', 'fa-cloud-rain'],
+            81: ['Hujan lokal', 'fa-cloud-showers-heavy'],
+            82: ['Hujan lokal lebat', 'fa-cloud-showers-heavy'],
+            95: ['Badai petir', 'fa-cloud-bolt'],
+            96: ['Badai petir dan hujan es', 'fa-cloud-bolt'],
+            99: ['Badai petir kuat', 'fa-cloud-bolt']
+        };
+
+        temperature.textContent = 'Memuat...';
+        description.textContent = 'Cuaca Banjarnegara';
+        icon.className = 'fa-solid fa-cloud-sun sun';
+
+        try {
+            const url = new URL('https://api.open-meteo.com/v1/forecast');
+
+            url.search = new URLSearchParams({
+                latitude: '-7.396',
+                longitude: '109.691',
+                current: 'temperature_2m,weather_code,is_day',
+                timezone: 'Asia/Jakarta'
+            }).toString();
+
+            const response = await fetch(url.toString(), {
+                headers: { Accept: 'application/json' }
+            });
+
+            if (!response.ok) {
+                throw new Error('Gagal mengambil data cuaca');
+            }
+
+            const data = await response.json();
+            const current = data.current;
+
+            if (!current || typeof current.temperature_2m !== 'number') {
+                throw new Error('Data cuaca tidak valid');
+            }
+
+            const weather = weatherMap[current.weather_code]
+                || ['Kondisi cuaca', 'fa-cloud'];
+
+            temperature.textContent =
+                `${Math.round(current.temperature_2m)}°C`;
+
+            description.textContent = weather[0];
+            icon.className = `fa-solid ${weather[1]} sun`;
+            icon.style.color = current.is_day ? '#ffad1f' : '#7294ad';
+
+            if (widget) {
+                widget.title =
+                    `Cuaca Banjarnegara: ${weather[0]}, ${temperature.textContent}`;
+            }
+        } catch (error) {
+            console.error('Gagal memuat cuaca:', error);
+
+            temperature.textContent = '--°C';
+            description.textContent = 'Cuaca tidak tersedia';
+            icon.className = 'fa-solid fa-cloud sun';
+            icon.style.color = '#7294ad';
+
+            if (widget) {
+                widget.title = 'Data cuaca tidak dapat dimuat. Periksa koneksi internet.';
+            }
+        }
+    }
+
+    /* ==========================================
+    DROPDOWN AKUN DAN NOTIFIKASI
+    ========================================== */
+    function toggleTopDropdown(dropdownId, trigger) {
+        const dropdown = document.getElementById(dropdownId);
+
+        if (!dropdown || !trigger) return;
+
+        const shouldOpen = !dropdown.classList.contains('show');
+
+        // Tutup semua dropdown terlebih dahulu.
+        document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+        });
+
+        document.querySelectorAll('.dropdown-trigger').forEach(button => {
+            button.setAttribute('aria-expanded', 'false');
+        });
+
+        // Buka dropdown yang dipilih.
+        if (shouldOpen) {
+            dropdown.classList.add('show');
+            trigger.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    /* Tutup dropdown ketika klik di luar menu. */
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.top-dropdown')) return;
+
+        document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+        });
+
+        document.querySelectorAll('.dropdown-trigger').forEach(button => {
+            button.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    /* Tutup dropdown dengan tombol Escape. */
+    document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+
+        document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+        });
+
+        document.querySelectorAll('.dropdown-trigger').forEach(button => {
+            button.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    /* Muat cuaca sekali saat halaman dibuka. */
+    loadBanjarnegaraWeather();
+
+    /* Perbarui cuaca setiap 10 menit. */
+    setInterval(loadBanjarnegaraWeather, 10 * 60 * 1000);
+
+
+    // Tutup dropdown saat klik di luar menu.
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.top-dropdown')) {
+            document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+
+            document.querySelectorAll('.dropdown-trigger').forEach(button => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    // Tutup dropdown saat tombol Escape ditekan.
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            document.querySelectorAll('.top-dropdown-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+
+            document.querySelectorAll('.dropdown-trigger').forEach(button => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.top-dropdown')) {
+            document.querySelectorAll('.top-dropdown-menu.show')
+                .forEach(menu => menu.classList.remove('show'));
+
+            document.querySelectorAll('.dropdown-trigger')
+                .forEach(button => {
+                    button.setAttribute('aria-expanded', 'false');
+                });
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            document.querySelectorAll('.top-dropdown-menu.show')
+                .forEach(menu => menu.classList.remove('show'));
+
+            document.querySelectorAll('.dropdown-trigger')
+                .forEach(button => {
+                    button.setAttribute('aria-expanded', 'false');
+                });
+        }
+    });
+
+    loadBanjarnegaraWeather();
+
+    // Perbarui informasi cuaca setiap 10 menit.
+    setInterval(loadBanjarnegaraWeather, 10 * 60 * 1000);
 
 </script>
 </body>

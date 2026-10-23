@@ -1168,6 +1168,461 @@
                 align-items: flex-start;
             }
         }
+
+
+        /* BRAND / LOGO DERAP SERAYU */
+        .brand {
+            width: 100%;
+            min-height: 112px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        /* Kotak putih untuk membuat logo lebih jelas */
+        .brand-logo-wrapper {
+            width: 100%;
+            max-width: 210px;
+            height: 72px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-sizing: border-box;
+
+            background: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            border-radius: 15px;
+            box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        /* Ukuran gambar logo */
+        .brand-logo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        @media (max-width: 768px) {
+            .brand {
+                min-height: 96px;
+                padding: 14px;
+            }
+
+            .brand-logo-wrapper {
+                max-width: 180px;
+                height: 62px;
+            }
+        }
+
+        
+        /* HEADER ADMINISTRATOR */
+        .admin-account {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .admin-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 10px 15px;
+            border: 1px solid #d5edf5;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #effbff, #e5f7fc);
+            color: #104461;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .admin-chip:hover,
+        .admin-chip[aria-expanded="true"] {
+            background: #dff6fc;
+            border-color: #83d9eb;
+            box-shadow: 0 5px 16px rgba(0, 133, 166, .12);
+        }
+
+        .admin-chip-icon {
+            width: 26px;
+            height: 26px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            background: #d5f3fb;
+            color: #0797b8;
+        }
+
+        .admin-chip-text {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .admin-chevron {
+            font-size: 10px;
+            transition: transform .2s ease;
+        }
+
+        .admin-chip[aria-expanded="true"] .admin-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* DROPDOWN AKUN */
+        .admin-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 290px;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #dceef5;
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(7, 48, 69, .18);
+            animation: adminDropdownIn .18s ease;
+        }
+
+        .admin-dropdown[hidden],
+        .admin-modal-overlay[hidden] {
+            display: none !important;
+        }
+
+        @keyframes adminDropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-dropdown-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px 14px;
+        }
+
+        .admin-avatar,
+        .admin-modal-avatar {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #087f9e, #19bfd0);
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .admin-avatar {
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+        }
+
+        .admin-profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .admin-profile-info strong {
+            color: #123e56;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info span {
+            color: #7894a5;
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info small {
+            color: #079a83;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .admin-profile-info small i {
+            font-size: 7px;
+        }
+
+        .admin-dropdown-divider {
+            height: 1px;
+            margin: 4px 0;
+            background: #eaf2f6;
+        }
+
+        .admin-dropdown-label {
+            padding: 10px 9px 6px;
+            color: #8ba5b4;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .admin-dropdown-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 10px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: #31566c;
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .admin-dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .admin-dropdown-item:hover {
+            background: #effaff;
+            color: #008eae;
+        }
+
+        .admin-logout-item {
+            color: #d94d55;
+        }
+
+        .admin-logout-item:hover {
+            background: #fff0f0;
+            color: #c72e3b;
+        }
+
+        /* MODAL INFORMASI AKUN */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(7, 35, 52, .56);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal {
+            width: 100%;
+            max-width: 430px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e0eff5;
+            border-radius: 22px;
+            box-shadow: 0 25px 70px rgba(0, 30, 50, .24);
+            animation: adminDropdownIn .2s ease;
+        }
+
+        .admin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 23px 24px 18px;
+            background: linear-gradient(135deg, #effbff, #ffffff);
+            border-bottom: 1px solid #e8f3f7;
+        }
+
+        .admin-modal-eyebrow {
+            color: #0098b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+        }
+
+        .admin-modal-header h3 {
+            margin: 6px 0 0;
+            color: #10415b;
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+        }
+
+        .admin-modal-close {
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 10px;
+            background: #e5f5fa;
+            color: #28546b;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .admin-modal-body {
+            padding: 24px;
+        }
+
+        .admin-modal-avatar {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            font-size: 26px;
+        }
+
+        .admin-modal-field {
+            margin-bottom: 17px;
+        }
+
+        .admin-modal-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #8198a7;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-modal-field > div {
+            color: #17445d;
+            font-size: 13px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 9px;
+            background: #e8f9f4;
+            color: #07866e;
+            font-size: 11px;
+        }
+
+        .admin-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 24px 22px;
+        }
+
+        .admin-modal-ok {
+            padding: 10px 23px;
+            border: 0;
+            border-radius: 11px;
+            background: #078eae;
+            color: white;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-modal-ok:hover {
+            background: #06728d;
+        }
+
+        @media (max-width: 480px) {
+            .admin-dropdown {
+                position: fixed;
+                top: 95px;
+                right: 12px;
+                width: min(290px, calc(100vw - 24px));
+            }
+
+            .admin-chip-text {
+                max-width: 95px;
+            }
+        }
+
+        
+        /* KARTU RINGKASAN EDITORIAL INTERAKTIF */
+        .stat-card-link {
+            display: block;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition:
+                transform .22s ease,
+                box-shadow .22s ease,
+                border-color .22s ease;
+        }
+
+        .stat-card-link:hover {
+            transform: translateY(-5px);
+            border-color: #8bdcec;
+            box-shadow: 0 14px 30px rgba(8, 104, 139, .13);
+        }
+
+        .stat-card-link:focus-visible {
+            outline: 3px solid #19b8d3;
+            outline-offset: 4px;
+        }
+
+        .stat-arrow {
+            color: #a2bdcb;
+            font-size: 11px;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-arrow {
+            color: #0798b8;
+            transform: translate(2px, -2px);
+        }
+
+        .stat-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #edf5f8;
+            color: #078eae;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .stat-action i {
+            transition: transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-action i {
+            transform: translateX(4px);
+        }
+
+        /* Tambahan ruang untuk teks aksi */
+        .stat-card-link {
+            padding-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .stat-action {
+                font-size: 9px;
+            }
+        }
     </style>
 </head>
 
@@ -1177,10 +1632,9 @@
     {{-- SIDEBAR --}}
     <aside class="sidebar" id="sidebar">
         <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-mark">D</div>
-            <div>
-                <div class="brand-name">Derap<span>Serayu</span></div>
-                <div class="brand-caption">Digital Magazine</div>
+            <div class="brand-logo-wrapper">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
+                     class="brand-logo">
             </div>
         </a>
 
@@ -1202,19 +1656,6 @@
                 <span>Lihat Website</span>
             </a>
         </nav>
-
-        <div class="sidebar-bottom">
-            <a href="{{ route('logout') }}"
-               class="logout-link"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Keluar</span>
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
-                @csrf
-            </form>
-        </div>
     </aside>
 
     {{-- MAIN --}}
@@ -1239,10 +1680,122 @@
                     <span id="currentDate">Memuat tanggal...</span>
                 </div>
 
-                <div class="admin-chip">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    Administrator
+                
+            <div class="admin-account">
+                <button
+                    type="button"
+                    class="admin-chip"
+                    id="adminAccountButton"
+                    aria-expanded="false"
+                    aria-controls="adminAccountDropdown"
+                >
+                    <span class="admin-chip-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </span>
+
+                    <span class="admin-chip-text">
+                        {{ Auth::user()->name ?? 'Administrator' }}
+                    </span>
+
+                    <i class="fas fa-chevron-down admin-chevron"></i>
+                </button>
+
+                <div class="admin-dropdown" id="adminAccountDropdown" hidden>
+                    <div class="admin-dropdown-profile">
+                        <div class="admin-avatar">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </div>
+
+                        <div class="admin-profile-info">
+                            <strong>{{ Auth::user()->name ?? 'Administrator' }}</strong>
+                            <span>{{ Auth::user()->email ?? '' }}</span>
+                            <small>
+                                <i class="fas fa-circle"></i>
+                                Administrator
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="admin-dropdown-divider"></div>
+
+                    <div class="admin-dropdown-label">AKUN SAYA</div>
+
+                    <button
+                        type="button"
+                        class="admin-dropdown-item"
+                        id="adminAccountInfoButton"
+                    >
+                        <i class="fas fa-user-circle"></i>
+                        <span>Informasi Akun</span>
+                    </button>
+
+                    <div class="admin-dropdown-divider"></div>
+
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+
+                        <button type="submit"
+                                class="admin-dropdown-item admin-logout-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Keluar dari akun</span>
+                        </button>
+                    </form>
                 </div>
+            </div>
+
+            <!-- Modal informasi akun -->
+            <div class="admin-modal-overlay" id="adminAccountModal" hidden>
+                <div class="admin-modal">
+                    <div class="admin-modal-header">
+                        <div>
+                            <span class="admin-modal-eyebrow">DERAP SERAYU</span>
+                            <h3>Informasi Akun</h3>
+                        </div>
+
+                        <button type="button"
+                                class="admin-modal-close"
+                                id="adminAccountModalClose"
+                                aria-label="Tutup">
+                            &times;
+                        </button>
+                    </div>
+
+                    <div class="admin-modal-body">
+                        <div class="admin-modal-avatar">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Nama Administrator</label>
+                            <div>{{ Auth::user()->name ?? 'Administrator' }}</div>
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Email</label>
+                            <div>{{ Auth::user()->email ?? '-' }}</div>
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Peran Akun</label>
+                            <div>
+                                <span class="admin-role-badge">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Administrator
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-modal-footer">
+                        <button type="button"
+                                class="admin-modal-ok"
+                                id="adminAccountModalOk">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             </div>
         </header>
 
@@ -1251,7 +1804,6 @@
             {{-- PAGE HEADING --}}
             <section class="page-heading">
                 <div>
-                    <div class="eyebrow">Ruang Redaksi</div>
                     <h1>Dashboard Editorial</h1>
                     <p>Kelola cerita, pantau kiriman, dan hadirkan kisah terbaik dari Banjarnegara.</p>
                 </div>
@@ -1289,75 +1841,155 @@
             </section>
 
             {{-- STATISTICS --}}
-            <section>
+            
+            <section class="editorial-statistics">
                 <div class="section-heading">
                     <div>
                         <h3>Ringkasan Editorial</h3>
                         <p>Gambaran aktivitas artikel Derap Serayu.</p>
                     </div>
+
                     <div class="section-note">
                         <i class="fa-solid fa-chart-column"></i>
-                        Statistik artikel
+                        Statistik editorial
                     </div>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card">
+
+                    {{-- TOTAL ARTIKEL --}}
+                    <a href="{{ route('admin.articles.index') }}"
+                    class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon blue">
                                 <i class="fa-regular fa-file-lines"></i>
                             </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
                         </div>
-                        <div class="stat-number">{{ $totalArtikel ?? 0 }}</div>
-                        <div class="stat-label">Total Artikel</div>
-                        <div class="stat-description">Semua artikel yang tercatat</div>
-                    </div>
 
-                    <div class="stat-card">
+                        <div class="stat-number">
+                            {{ $totalArtikel ?? 0 }}
+                        </div>
+
+                        <div class="stat-label">Total Artikel</div>
+                        <div class="stat-description">
+                            Semua artikel yang tercatat
+                        </div>
+
+                        <div class="stat-action">
+                            Lihat artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    {{-- MENUNGGU REVIEW --}}
+                    <a href="{{ route('admin.articles.index', ['status' => 'review']) }}"
+                    class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon orange">
                                 <i class="fa-regular fa-clock"></i>
                             </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
                         </div>
-                        <div class="stat-number">{{ $menungguTinjauan ?? 0 }}</div>
-                        <div class="stat-label">Menunggu Tinjauan</div>
-                        <div class="stat-description">Artikel yang perlu diperiksa</div>
-                    </div>
 
-                    <div class="stat-card">
+                        <div class="stat-number">
+                            {{ $menungguTinjauan ?? 0 }}
+                        </div>
+
+                        <div class="stat-label">Menunggu Review</div>
+                        <div class="stat-description">
+                            Artikel yang perlu ditinjau
+                        </div>
+
+                        <div class="stat-action">
+                            Tinjau artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    {{-- ARTIKEL DITERBITKAN --}}
+                    <a href="{{ route('admin.articles.index', ['status' => 'published']) }}"
+                    class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon green">
                                 <i class="fa-regular fa-circle-check"></i>
                             </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
                         </div>
-                        <div class="stat-number">{{ $totalTerbit ?? 0 }}</div>
-                        <div class="stat-label">Artikel Terbit</div>
-                        <div class="stat-description">Artikel yang sudah dipublikasikan</div>
-                    </div>
 
-                    <div class="stat-card">
+                        <div class="stat-number">
+                            {{ $totalTerbit ?? 0 }}
+                        </div>
+
+                        <div class="stat-label">Artikel Diterbitkan</div>
+                        <div class="stat-description">
+                            Artikel yang sudah dipublikasikan
+                        </div>
+
+                        <div class="stat-action">
+                            Lihat publikasi <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    {{-- ARTIKEL PERLU REVISI --}}
+                    <a href="{{ route('admin.articles.index', ['status' => 'rejected']) }}"
+                    class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon red">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
                         </div>
-                        <div class="stat-number">{{ $perluRevisi ?? 0 }}</div>
-                        <div class="stat-label">Perlu Revisi</div>
-                        <div class="stat-description">Artikel yang perlu diperbaiki</div>
-                    </div>
 
-                    <div class="stat-card">
+                        <div class="stat-number">
+                            {{ $totalRevisi ?? 0 }}
+                        </div>
+
+                        <div class="stat-label">Perlu Revisi</div>
+                        <div class="stat-description">
+                            Artikel yang perlu diperbaiki
+                        </div>
+
+                        <div class="stat-action">
+                            Lihat revisi <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    {{-- PENULIS TERDAFTAR --}}
+                    <a href="{{ route('admin.articles.index', ['status' => 'writer']) }}"
+                    class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon purple">
                                 <i class="fa-solid fa-users"></i>
                             </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
                         </div>
-                        <div class="stat-number">{{ $totalPenulis ?? 0 }}</div>
+
+                        <div class="stat-number">
+                            {{ $totalPenulis ?? 0 }}
+                        </div>
+
                         <div class="stat-label">Penulis Terdaftar</div>
-                        <div class="stat-description">Kontributor Derap Serayu</div>
-                    </div>
+                        <div class="stat-description">
+                            Kontributor Derap Serayu
+                        </div>
+
+                        <div class="stat-action">
+                            Lihat penulis <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
                 </div>
             </section>
+
 
             {{-- REVIEW QUEUE + LATEST ARTICLES --}}
             <section class="dashboard-grid">
@@ -1645,6 +2277,85 @@
             });
         });
     }
+  
+    document.addEventListener('DOMContentLoaded', function () {
+        const accountButton = document.getElementById('adminAccountButton');
+        const dropdown = document.getElementById('adminAccountDropdown');
+        const infoButton = document.getElementById('adminAccountInfoButton');
+        const modal = document.getElementById('adminAccountModal');
+        const closeButton = document.getElementById('adminAccountModalClose');
+        const okButton = document.getElementById('adminAccountModalOk');
+
+        if (!accountButton || !dropdown) return;
+
+        function openDropdown() {
+            dropdown.hidden = false;
+            accountButton.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+            dropdown.hidden = true;
+            accountButton.setAttribute('aria-expanded', 'false');
+        }
+
+        accountButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            if (dropdown.hidden) {
+                openDropdown();
+            } else {
+                closeDropdown();
+            }
+        });
+
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', function () {
+            closeDropdown();
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeDropdown();
+
+                if (modal) {
+                    modal.hidden = true;
+                }
+            }
+        });
+
+        if (infoButton && modal) {
+            infoButton.addEventListener('click', function () {
+                closeDropdown();
+                modal.hidden = false;
+            });
+        }
+
+        function closeModal() {
+            if (modal) {
+                modal.hidden = true;
+            }
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener('click', closeModal);
+        }
+
+        if (okButton) {
+            okButton.addEventListener('click', closeModal);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+    });
+
 </script>
 
 </body>

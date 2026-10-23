@@ -3079,10 +3079,6 @@
 
                 <div class="hero-content">
 
-                    <div class="hero-script">
-                        Cerita & Budaya —
-                    </div>
-
                     <h1 class="hero-title">
 
                         Menjaga Warisan,

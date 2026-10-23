@@ -38,19 +38,47 @@ class AdminArtikelController extends Controller
         ));
     }
 
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $validated = $request->validate([
-            'status' => ['nullable', Rule::in(['draft', 'review', 'rejected', 'published'])],
-        ]);
-        $status = $validated['status'] ?? '';
-        $articles = Article::with('user')
-            ->when($status !== '', fn ($query) => $query->where('status', $status))
+        $statusAktif = $request->query('status', 'review');
+
+        $statusValid = ['review', 'published', 'rejected', 'draft'];
+
+        if (!in_array($statusAktif, $statusValid, true)) {
+            $statusAktif = 'review';
+        }
+
+        $query = Article::query()
+            ->where('status', $statusAktif);
+
+        // Fitur pencarian judul artikel, jika digunakan
+        if ($request->filled('search')) {
+            $query->where(
+                'title',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
+
+        $articles = $query
             ->latest()
-            ->paginate(15)
+            ->paginate(10)
             ->withQueryString();
 
-        return view('admin.articles', compact('articles', 'status'));
+        // Jumlah artikel untuk masing-masing kategori
+        $jumlahReview = Article::where('status', 'review')->count();
+        $jumlahPublished = Article::where('status', 'published')->count();
+        $jumlahRevisi = Article::where('status', 'rejected')->count();
+        $jumlahDraft = Article::where('status', 'draft')->count();
+
+        return view('admin.articles', compact(
+            'articles',
+            'statusAktif',
+            'jumlahReview',
+            'jumlahPublished',
+            'jumlahRevisi',
+            'jumlahDraft'
+        ));
     }
 
     public function publish(Article $article): RedirectResponse

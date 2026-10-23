@@ -1926,6 +1926,170 @@
 
     min-height: 365px;
 }
+
+/* =========================================
+   KOMENTAR ARTIKEL - DERAP SERAYU
+========================================= */
+.comments-section {
+    margin: 42px 0;
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(23, 63, 91, 0.10);
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(23, 63, 91, 0.06);
+}
+
+.comments-heading {
+    margin-bottom: 8px;
+    color: #173f5b;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.comments-description {
+    margin-bottom: 24px;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.comment-input {
+    width: 100%;
+    min-height: 125px;
+    padding: 16px;
+    border: 1px solid #dce6eb;
+    border-radius: 14px;
+    background: #f8fbfc;
+    color: #173f5b;
+    font: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comment-input:focus {
+    border-color: #64a89b;
+    box-shadow: 0 0 0 4px rgba(100, 168, 155, 0.13);
+}
+
+.comment-submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 21px;
+    border: none;
+    border-radius: 12px;
+    background: #173f5b;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.comment-submit:hover {
+    background: #246b68;
+    transform: translateY(-1px);
+}
+
+.comment-login-notice {
+    padding: 18px;
+    border-radius: 14px;
+    background: #f0f7f5;
+    color: #476b69;
+    line-height: 1.7;
+}
+
+.comment-login-notice a {
+    color: #173f5b;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.comment-list {
+    margin-top: 30px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 14px;
+    padding: 20px 0;
+    border-top: 1px solid #e8eef1;
+}
+
+.comment-avatar {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e5f2ee;
+    color: #246b68;
+    font-size: 17px;
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.comment-author {
+    color: #173f5b;
+    font-weight: 700;
+}
+
+.comment-date {
+    color: #8a9aa5;
+    font-size: 12px;
+}
+
+.comment-text {
+    color: #506575;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.comment-empty {
+    padding: 22px 0 4px;
+    color: #718096;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .comments-section {
+        margin: 28px 0;
+        padding: 20px 16px;
+        border-radius: 17px;
+    }
+
+    .comments-heading {
+        font-size: 22px;
+    }
+
+    .comment-submit {
+        width: 100%;
+    }
+}
     </style>
 </head>
 
@@ -2266,6 +2430,24 @@
 
             {{-- SAVE ARTICLE --}}
             <div class="article-actions">
+                {{-- LIKE ARTICLE --}}
+                @auth
+                    @if (auth()->user()->role === 'reader')
+                        <button
+                            type="button"
+                            class="action-button"
+                            id="like-button"
+                        >
+                            <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                            <span>Suka</span>
+                        </button>
+                    @endif
+                @else
+                    <a href="{{ route('login', ['article' => $article->slug]) }}" class="action-button">
+                        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                        <span>Suka</span>
+                    </a>
+                @endauth
 
                 @if (session('savedArticleStatus'))
                     <p class="save-status" role="status">
@@ -2467,6 +2649,69 @@
 
         </div>
 
+        {{-- =========================================
+        KOMENTAR ARTIKEL
+        ========================================= --}}
+        <section class="comments-section" id="komentar">
+            <h2 class="comments-heading">
+                <i class="fa-regular fa-comments"></i>
+                Ruang Diskusi
+            </h2>
+
+            <p class="comments-description">
+                Bagikan pendapatmu dengan santun dan hargai sudut pandang pembaca lain.
+            </p>
+
+            @auth
+                @if (auth()->user()->role === 'reader')
+                    <form class="comment-form">
+                        @csrf
+
+                        <label for="comment-content">
+                            Tulis komentarmu
+                        </label>
+
+                        <textarea
+                            id="comment-content"
+                            name="content"
+                            class="comment-input"
+                            placeholder="Apa pendapatmu tentang artikel ini?"
+                            maxlength="2000"
+                            required
+                        ></textarea>
+
+                        <button type="submit" class="comment-submit">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            Kirim Komentar
+                        </button>
+                    </form>
+                @else
+                    <div class="comment-login-notice">
+                        Fitur komentar hanya tersedia untuk akun pembaca.
+                    </div>
+                @endif
+            @else
+                <div class="comment-login-notice">
+                    Silakan
+                    <a href="{{ route('login', ['article' => $article->slug]) }}">
+                        masuk sebagai pembaca
+                    </a>
+                    untuk menulis komentar pada artikel ini.
+                </div>
+            @endauth
+
+            <div class="comment-list">
+                <h3>Komentar Pembaca</h3>
+
+                {{-- Daftar komentar dari database akan ditampilkan di sini. --}}
+                <div class="comment-empty">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <p>Belum ada komentar untuk artikel ini.</p>
+                    <p>Jadilah pembaca pertama yang memulai diskusi!</p>
+                </div>
+            </div>
+        </section>
+
         {{-- RELATED / DISCOVERY SECTION --}}
         <section class="related-section">
             <span class="section-eyebrow">Cerita Banjarnegara</span>
@@ -2486,12 +2731,8 @@
     {{-- FOOTER --}}
     <footer class="footer">
 
-
         <div class="footer-background"></div>
-
         <div class="footer-overlay"></div>
-
-
         <div class="footer-container">
 
 

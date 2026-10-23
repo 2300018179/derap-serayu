@@ -218,54 +218,42 @@
         }
 
         .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            min-height: 77px;
+            min-height: 78px;
+            background: rgba(255,255,255,.96);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: 13px 30px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(255,255,255,.96);
-            backdrop-filter: blur(12px);
-        }
-
-        .menu-toggle {
-            display: none;
-            width: 41px;
-            height: 41px;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            background: #fff;
-            color: var(--navy);
-            cursor: pointer;
+            padding: 13px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .search-box {
             display: flex;
             align-items: center;
-            gap: 11px;
-            width: min(510px, 60%);
-            padding: 12px 15px;
-            border: 1px solid #d6eaf5;
-            border-radius: 12px;
+            gap: 12px;
+            width: min(560px, 55%);
+            padding: 13px 16px;
             background: #fff;
-            color: #6c9ab5;
+            border: 1px solid #d6eaf5;
+            border-radius: 13px;
+            color: #6996b0;
         }
 
         .search-box i {
-            color: var(--cyan-dark);
+            color: #65a3c2;
         }
 
         .search-box input {
             width: 100%;
-            min-width: 0;
-            outline: none;
             border: 0;
+            outline: none;
             background: transparent;
             color: var(--text);
+            font-family: inherit;
             font-size: 12px;
         }
 
@@ -276,59 +264,68 @@
         .topbar-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 17px;
         }
 
-        .date-chip, .role-chip {
+        .topbar-date {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--text);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .topbar-date i {
+            color: var(--cyan);
+        }
+
+        .admin-chip {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 11px 13px;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            background: #fff;
-            font-size: 10px;
+            padding: 11px 14px;
+            background: #e9f9fd;
+            border: 1px solid #d6f0f7;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 800;
             white-space: nowrap;
         }
 
-        .date-chip i, .role-chip i {
+        .admin-chip i {
             color: var(--cyan-dark);
         }
 
-        .role-chip {
-            background: #e9f9fd;
-            border-color: #d6f0f7;
+        .mobile-menu {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            color: var(--navy);
+            cursor: pointer;
         }
 
         .content {
             width: 100%;
             max-width: 1700px;
             margin: 0 auto;
-            padding: 29px 30px 20px;
+            padding: 30px 32px 20px;
         }
 
-        /* HEADING */
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-            color: #8aa5b6;
-            font-size: 10px;
-        }
-
-        .breadcrumb a {
-            color: var(--cyan-dark);
-            font-weight: 700;
-        }
+        /* PAGE HEADING */
 
         .page-heading {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -337,12 +334,12 @@
             display: flex;
             align-items: center;
             gap: 9px;
-            margin-bottom: 8px;
             color: var(--cyan-dark);
             font-size: 10px;
+            letter-spacing: 2.5px;
             font-weight: 800;
-            letter-spacing: 2.4px;
             text-transform: uppercase;
+            margin-bottom: 9px;
         }
 
         .eyebrow::before {
@@ -352,35 +349,19 @@
             background: var(--cyan);
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
         .page-heading h1 {
-            color: var(--navy);
-            font-size: clamp(28px, 3vw, 37px);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(27px, 3vw, 38px);
             line-height: 1.2;
+            letter-spacing: -.8px;
+            color: var(--navy);
         }
 
         .page-heading p {
-            max-width: 650px;
             margin-top: 8px;
-            color: var(--muted);
             font-size: 12px;
-            line-height: 1.8;
-        }
-
-        .heading-icon {
-            width: 62px;
-            height: 62px;
-            display: grid;
-            place-items: center;
-            flex-shrink: 0;
-            border-radius: 18px;
-            background: linear-gradient(145deg, #e4f8fd, #d4f0fa);
-            color: var(--cyan-dark);
-            font-size: 25px;
-            box-shadow: 0 8px 20px rgba(13,147,183,.08);
+            color: var(--muted);
+            line-height: 1.7;
         }
 
         /* HERO */
@@ -1232,6 +1213,1268 @@
                 align-items: flex-start;
             }
         }
+
+            .admin-chip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 14px;
+        background: #fff;
+        border: 1px solid #e4ebe3;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #243a30;
+    }
+
+    .admin-avatar {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #e9f3ec;
+        color: #285c46;
+    }
+
+    .admin-account {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .admin-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 10px 15px;
+            border: 1px solid #d5edf5;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #effbff, #e5f7fc);
+            color: #104461;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .admin-chip:hover,
+        .admin-chip[aria-expanded="true"] {
+            background: #dff6fc;
+            border-color: #83d9eb;
+            box-shadow: 0 5px 16px rgba(0, 133, 166, .12);
+        }
+
+        .admin-chip-icon {
+            width: 26px;
+            height: 26px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            background: #d5f3fb;
+            color: #0797b8;
+        }
+
+        .admin-chip-text {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .admin-chevron {
+            font-size: 10px;
+            transition: transform .2s ease;
+        }
+
+        .admin-chip[aria-expanded="true"] .admin-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* DROPDOWN AKUN */
+        .admin-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 290px;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #dceef5;
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(7, 48, 69, .18);
+            animation: adminDropdownIn .18s ease;
+        }
+
+        .admin-dropdown[hidden],
+        .admin-modal-overlay[hidden] {
+            display: none !important;
+        }
+
+        @keyframes adminDropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-dropdown-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px 14px;
+        }
+
+        .admin-avatar,
+        .admin-modal-avatar {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #087f9e, #19bfd0);
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .admin-avatar {
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+        }
+
+        .admin-profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .admin-profile-info strong {
+            color: #123e56;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info span {
+            color: #7894a5;
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info small {
+            color: #079a83;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .admin-profile-info small i {
+            font-size: 7px;
+        }
+
+        .admin-dropdown-divider {
+            height: 1px;
+            margin: 4px 0;
+            background: #eaf2f6;
+        }
+
+        .admin-dropdown-label {
+            padding: 10px 9px 6px;
+            color: #8ba5b4;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .admin-dropdown-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 10px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: #31566c;
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .admin-dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .admin-dropdown-item:hover {
+            background: #effaff;
+            color: #008eae;
+        }
+
+        .admin-logout-item {
+            color: #d94d55;
+        }
+
+        .admin-logout-item:hover {
+            background: #fff0f0;
+            color: #c72e3b;
+        }
+
+        /* MODAL INFORMASI AKUN */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(7, 35, 52, .56);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal {
+            width: 100%;
+            max-width: 430px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e0eff5;
+            border-radius: 22px;
+            box-shadow: 0 25px 70px rgba(0, 30, 50, .24);
+            animation: adminDropdownIn .2s ease;
+        }
+
+        .admin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 23px 24px 18px;
+            background: linear-gradient(135deg, #effbff, #ffffff);
+            border-bottom: 1px solid #e8f3f7;
+        }
+
+        .admin-modal-eyebrow {
+            color: #0098b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+        }
+
+        .admin-modal-header h3 {
+            margin: 6px 0 0;
+            color: #10415b;
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+        }
+
+        .admin-modal-close {
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 10px;
+            background: #e5f5fa;
+            color: #28546b;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .admin-modal-body {
+            padding: 24px;
+        }
+
+        .admin-modal-avatar {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            font-size: 26px;
+        }
+
+        .admin-modal-field {
+            margin-bottom: 17px;
+        }
+
+        .admin-modal-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #8198a7;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-modal-field > div {
+            color: #17445d;
+            font-size: 13px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 9px;
+            background: #e8f9f4;
+            color: #07866e;
+            font-size: 11px;
+        }
+
+        .admin-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 24px 22px;
+        }
+
+        .admin-modal-ok {
+            padding: 10px 23px;
+            border: 0;
+            border-radius: 11px;
+            background: #078eae;
+            color: white;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-modal-ok:hover {
+            background: #06728d;
+        }
+
+        @media (max-width: 480px) {
+            .admin-dropdown {
+                position: fixed;
+                top: 95px;
+                right: 12px;
+                width: min(290px, calc(100vw - 24px));
+            }
+
+            .admin-chip-text {
+                max-width: 95px;
+            }
+        }
+
+        .admin-dropdown[hidden],
+        .admin-modal-overlay[hidden] {
+            display: none !important;
+        }
+
+        @keyframes adminDropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-dropdown-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px 14px;
+        }
+
+        .admin-avatar,
+        .admin-modal-avatar {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #087f9e, #19bfd0);
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .admin-avatar {
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+        }
+
+        .admin-profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .admin-profile-info strong {
+            color: #123e56;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info span {
+            color: #7894a5;
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info small {
+            color: #079a83;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .admin-profile-info small i {
+            font-size: 7px;
+        }
+
+        .admin-dropdown-divider {
+            height: 1px;
+            margin: 4px 0;
+            background: #eaf2f6;
+        }
+
+        .admin-dropdown-label {
+            padding: 10px 9px 6px;
+            color: #8ba5b4;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .admin-dropdown-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 10px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: #31566c;
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .admin-dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .admin-dropdown-item:hover {
+            background: #effaff;
+            color: #008eae;
+        }
+
+        .admin-logout-item {
+            color: #d94d55;
+        }
+
+        .admin-logout-item:hover {
+            background: #fff0f0;
+            color: #c72e3b;
+        }
+
+        /* MODAL INFORMASI AKUN */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(7, 35, 52, .56);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal {
+            width: 100%;
+            max-width: 430px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e0eff5;
+            border-radius: 22px;
+            box-shadow: 0 25px 70px rgba(0, 30, 50, .24);
+            animation: adminDropdownIn .2s ease;
+        }
+
+        .admin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 23px 24px 18px;
+            background: linear-gradient(135deg, #effbff, #ffffff);
+            border-bottom: 1px solid #e8f3f7;
+        }
+
+        .admin-modal-eyebrow {
+            color: #0098b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+        }
+
+        .admin-modal-header h3 {
+            margin: 6px 0 0;
+            color: #10415b;
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+        }
+
+        .admin-modal-close {
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 10px;
+            background: #e5f5fa;
+            color: #28546b;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .admin-modal-body {
+            padding: 24px;
+        }
+
+        .admin-modal-avatar {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            font-size: 26px;
+        }
+
+        .admin-modal-field {
+            margin-bottom: 17px;
+        }
+
+        .admin-modal-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #8198a7;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-modal-field > div {
+            color: #17445d;
+            font-size: 13px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 9px;
+            background: #e8f9f4;
+            color: #07866e;
+            font-size: 11px;
+        }
+
+        .admin-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 24px 22px;
+        }
+
+        .admin-modal-ok {
+            padding: 10px 23px;
+            border: 0;
+            border-radius: 11px;
+            background: #078eae;
+            color: white;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-modal-ok:hover {
+            background: #06728d;
+        }
+
+        @media (max-width: 480px) {
+            .admin-dropdown {
+                position: fixed;
+                top: 95px;
+                right: 12px;
+                width: min(290px, calc(100vw - 24px));
+            }
+
+            .admin-chip-text {
+                max-width: 95px;
+            }
+        }
+
+        
+        /* KARTU RINGKASAN EDITORIAL INTERAKTIF */
+        .stat-card-link {
+            display: block;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition:
+                transform .22s ease,
+                box-shadow .22s ease,
+                border-color .22s ease;
+        }
+
+        .stat-card-link:hover {
+            transform: translateY(-5px);
+            border-color: #8bdcec;
+            box-shadow: 0 14px 30px rgba(8, 104, 139, .13);
+        }
+
+        .stat-card-link:focus-visible {
+            outline: 3px solid #19b8d3;
+            outline-offset: 4px;
+        }
+
+        .stat-arrow {
+            color: #a2bdcb;
+            font-size: 11px;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-arrow {
+            color: #0798b8;
+            transform: translate(2px, -2px);
+        }
+
+        .stat-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #edf5f8;
+            color: #078eae;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .stat-action i {
+            transition: transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-action i {
+            transform: translateX(4px);
+        }
+
+        /* Tambahan ruang untuk teks aksi */
+        .stat-card-link {
+            padding-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .stat-action {
+                font-size: 9px;
+            }
+        }
+
+        .admin-modal-overlay[hidden] {
+            display: none !important;
+        }
+
+        @keyframes adminDropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sidebar-brand {
+            width: 100%;
+            height: 100px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: #073b50;
+        }
+
+        .admin-dropdown-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px 14px;
+        }
+
+        .admin-avatar,
+        .admin-modal-avatar {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #087f9e, #19bfd0);
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .admin-avatar {
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+        }
+
+        .admin-profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .admin-profile-info strong {
+            color: #123e56;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info span {
+            color: #7894a5;
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-profile-info small {
+            color: #079a83;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .admin-profile-info small i {
+            font-size: 7px;
+        }
+
+        .admin-dropdown-divider {
+            height: 1px;
+            margin: 4px 0;
+            background: #eaf2f6;
+        }
+
+        .admin-dropdown-label {
+            padding: 10px 9px 6px;
+            color: #8ba5b4;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .admin-dropdown-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 10px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: #31566c;
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .admin-dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .admin-dropdown-item:hover {
+            background: #effaff;
+            color: #008eae;
+        }
+
+        .admin-logout-item {
+            color: #d94d55;
+        }
+
+        .admin-logout-item:hover {
+            background: #fff0f0;
+            color: #c72e3b;
+        }
+
+        /* MODAL INFORMASI AKUN */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(7, 35, 52, .56);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal {
+            width: 100%;
+            max-width: 430px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e0eff5;
+            border-radius: 22px;
+            box-shadow: 0 25px 70px rgba(0, 30, 50, .24);
+            animation: adminDropdownIn .2s ease;
+        }
+
+        .admin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 23px 24px 18px;
+            background: linear-gradient(135deg, #effbff, #ffffff);
+            border-bottom: 1px solid #e8f3f7;
+        }
+
+        .admin-modal-eyebrow {
+            color: #0098b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+        }
+
+        .admin-modal-header h3 {
+            margin: 6px 0 0;
+            color: #10415b;
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+        }
+
+        .admin-modal-close {
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 10px;
+            background: #e5f5fa;
+            color: #28546b;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .admin-modal-body {
+            padding: 24px;
+        }
+
+        .admin-modal-avatar {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            font-size: 26px;
+        }
+
+        .admin-modal-field {
+            margin-bottom: 17px;
+        }
+
+        .admin-modal-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #8198a7;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-modal-field > div {
+            color: #17445d;
+            font-size: 13px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 9px;
+            background: #e8f9f4;
+            color: #07866e;
+            font-size: 11px;
+        }
+
+        .admin-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 24px 22px;
+        }
+
+        .admin-modal-ok {
+            padding: 10px 23px;
+            border: 0;
+            border-radius: 11px;
+            background: #078eae;
+            color: white;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-modal-ok:hover {
+            background: #06728d;
+        }
+
+        @media (max-width: 480px) {
+            .admin-dropdown {
+                position: fixed;
+                top: 95px;
+                right: 12px;
+                width: min(290px, calc(100vw - 24px));
+            }
+
+            .admin-chip-text {
+                max-width: 95px;
+            }
+        }
+
+        
+        /* KARTU RINGKASAN EDITORIAL INTERAKTIF */
+        .stat-card-link {
+            display: block;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition:
+                transform .22s ease,
+                box-shadow .22s ease,
+                border-color .22s ease;
+        }
+
+        .stat-card-link:hover {
+            transform: translateY(-5px);
+            border-color: #8bdcec;
+            box-shadow: 0 14px 30px rgba(8, 104, 139, .13);
+        }
+
+        .stat-card-link:focus-visible {
+            outline: 3px solid #19b8d3;
+            outline-offset: 4px;
+        }
+
+        .stat-arrow {
+            color: #a2bdcb;
+            font-size: 11px;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-arrow {
+            color: #0798b8;
+            transform: translate(2px, -2px);
+        }
+
+        .stat-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #edf5f8;
+            color: #078eae;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .stat-action i {
+            transition: transform .2s ease;
+        }
+
+        .stat-card-link:hover .stat-action i {
+            transform: translateX(4px);
+        }
+
+        /* Tambahan ruang untuk teks aksi */
+        .stat-card-link {
+            padding-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .stat-action {
+                font-size: 9px;
+            }
+        }
+
+        .stats .stat-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform .25s ease,
+                        box-shadow .25s ease,
+                        border-color .25s ease;
+        }
+
+        .stats .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(35, 75, 51, .10);
+        }
+
+        .stats .stat-card.active {
+            border-color: #477b58;
+            background: #f1f8f1;
+        }
+
+        .stats .stat-card:focus-visible {
+            outline: 3px solid #7caf87;
+            outline-offset: 3px;
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: 80px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: #fff;
+            border: 1px solid #e7eee7;
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .brand-logo-img {
+            display: block;
+            width: 100%;
+            max-width: 190px;
+            height: 62px;
+            object-fit: contain;
+            object-position: center;
+        }
+        
+        /* SIDEBAR — DASHBOARD EDITORIAL */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 259px;
+            height: 100vh;
+            overflow-y: auto;
+            background: linear-gradient(
+                180deg,
+                #073e59 0%,
+                #06384f 50%,
+                #052f47 100%
+            );
+            color: #fff;
+            z-index: 1000;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 108px;
+            padding: 16px 12px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .brand-logo-wrapper {
+            width: 218px;
+            height: 76px;
+            padding: 4px 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .brand-logo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .nav-section {
+            padding: 26px 17px 12px;
+            color: #85c3d5;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            padding: 0 13px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-height: 47px;
+            padding: 12px 15px;
+            border-radius: 13px;
+            color: #e2f2f8;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .nav-link i {
+            width: 19px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.10);
+            color: #fff;
+            transform: translateX(2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(110deg, #0da8c9, #078bb2);
+            color: #fff;
+            box-shadow: 0 7px 18px rgba(0, 166, 201, 0.15);
+        }
+
+        /* AREA KONTEN */
+        .main,
+        .main-content {
+            margin-left: 259px;
+            min-width: 0;
+        }
+
+        @media (max-width: 950px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform .25s ease;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main,
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        
+        /* Hormati atribut hidden */
+        .admin-dropdown[hidden],
+        .admin-modal-overlay[hidden] {
+            display: none !important;
+        }
+
+        /* Dropdown harus berada di atas elemen topbar */
+        .admin-account {
+            position: relative;
+        }
+
+        .admin-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            z-index: 1100;
+        }
+
+        /* Modal informasi akun */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(3, 28, 43, 0.60);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal {
+            width: 100%;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 24px 70px rgba(0, 35, 55, 0.25);
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Baris/kartu yang tidak cocok dengan pencarian */
+        #articlesTable tbody tr[hidden],
+        #articleTable tbody tr[hidden],
+        tr.article-row[hidden],
+        .article-card[hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .topbar-right {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .admin-modal-overlay {
+                padding: 14px;
+            }
+        }
+
     </style>
 </head>
 
@@ -1241,71 +2484,182 @@
     {{-- SIDEBAR --}}
     <aside class="sidebar" id="sidebar">
         <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-mark">D</div>
-            <div>
-                <div class="brand-name">Derap<span>Serayu</span></div>
-                <div class="brand-caption">Digital Magazine</div>
+            <div class="brand-logo-wrapper">
+                <img
+                    src="{{ asset('images/logo.png') }}"
+                    alt="Logo Derap Serayu"
+                    class="brand-logo"
+                >
             </div>
         </a>
 
-        <div class="nav-caption">Ruang Redaksi</div>
+        <div class="nav-section">RUANG REDAKSI</div>
 
         <nav class="nav-list">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link">
+            <a
+                href="{{ route('admin.dashboard') }}"
+                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+            >
                 <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
 
-            <a href="{{ route('admin.articles.index') }}" class="nav-link active">
+            <a
+                href="{{ route('admin.articles.index') }}"
+                class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}"
+            >
                 <i class="fa-regular fa-newspaper"></i>
                 <span>Review Artikel</span>
             </a>
 
-            <a href="{{ route('home') }}" target="_blank" class="nav-link">
+            <a
+                href="{{ route('home') }}"
+                class="nav-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 <span>Lihat Website</span>
             </a>
         </nav>
-
-        <div class="sidebar-bottom">
-            <a href="{{ route('logout') }}"
-               class="logout-link"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Keluar</span>
-            </a>
-
-            <form id="logout-form" method="POST" action="{{ route('logout') }}" hidden>
-                @csrf
-            </form>
-        </div>
     </aside>
 
     {{-- MAIN CONTENT --}}
     <main class="main">
-
         <header class="topbar">
-            <button type="button" class="menu-toggle" id="menuToggle"
+            <button class="mobile-menu" id="mobileMenu" type="button"
                     aria-label="Buka navigasi">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" id="articleSearch"
-                       placeholder="Cari judul artikel atau nama penulis...">
+                <input type="search" id="dashboardSearch"
+                       placeholder="Cari artikel, penulis, atau status...">
             </div>
 
             <div class="topbar-right">
-                <div class="date-chip">
+                <div class="topbar-date">
                     <i class="fa-regular fa-calendar"></i>
                     <span id="currentDate">Memuat tanggal...</span>
                 </div>
 
-                <div class="role-chip">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    Administrator
+                
+            <div class="admin-account">
+                <button
+                    type="button"
+                    class="admin-chip"
+                    id="adminAccountButton"
+                    aria-expanded="false"
+                    aria-controls="adminAccountDropdown"
+                >
+                    <span class="admin-chip-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </span>
+
+                    <span class="admin-chip-text">
+                        {{ Auth::user()->name ?? 'Administrator' }}
+                    </span>
+
+                    <i class="fas fa-chevron-down admin-chevron"></i>
+                </button>
+
+                <div class="admin-dropdown" id="adminAccountDropdown" hidden>
+                    <div class="admin-dropdown-profile">
+                        <div class="admin-avatar">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </div>
+
+                        <div class="admin-profile-info">
+                            <strong>{{ Auth::user()->name ?? 'Administrator' }}</strong>
+                            <span>{{ Auth::user()->email ?? '' }}</span>
+                            <small>
+                                <i class="fas fa-circle"></i>
+                                Administrator
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="admin-dropdown-divider"></div>
+
+                    <div class="admin-dropdown-label">AKUN SAYA</div>
+
+                    <button
+                        type="button"
+                        class="admin-dropdown-item"
+                        id="adminAccountInfoButton"
+                    >
+                        <i class="fas fa-user-circle"></i>
+                        <span>Informasi Akun</span>
+                    </button>
+
+                    <div class="admin-dropdown-divider"></div>
+
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+
+                        <button type="submit"
+                                class="admin-dropdown-item admin-logout-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Keluar dari akun</span>
+                        </button>
+                    </form>
                 </div>
+            </div>
+
+            <!-- Modal informasi akun -->
+            <div class="admin-modal-overlay" id="adminAccountModal" hidden>
+                <div class="admin-modal">
+                    <div class="admin-modal-header">
+                        <div>
+                            <span class="admin-modal-eyebrow">DERAP SERAYU</span>
+                            <h3>Informasi Akun</h3>
+                        </div>
+
+                        <button type="button"
+                                class="admin-modal-close"
+                                id="adminAccountModalClose"
+                                aria-label="Tutup">
+                            &times;
+                        </button>
+                    </div>
+
+                    <div class="admin-modal-body">
+                        <div class="admin-modal-avatar">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Nama Administrator</label>
+                            <div>{{ Auth::user()->name ?? 'Administrator' }}</div>
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Email</label>
+                            <div>{{ Auth::user()->email ?? '-' }}</div>
+                        </div>
+
+                        <div class="admin-modal-field">
+                            <label>Peran Akun</label>
+                            <div>
+                                <span class="admin-role-badge">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Administrator
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-modal-footer">
+                        <button type="button"
+                                class="admin-modal-ok"
+                                id="adminAccountModalOk">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             </div>
         </header>
 
@@ -1382,7 +2736,10 @@
             @endphp
 
             <section class="stats">
-                <div class="stat-card">
+
+                {{-- Menunggu Tinjauan --}}
+                <a href="{{ route('admin.articles.index', ['status' => 'review']) }}"
+                class="stat-card {{ request('status', 'review') === 'review' ? 'active' : '' }}">
                     <div class="stat-top">
                         <div class="stat-label">Menunggu Tinjauan</div>
                         <div class="stat-icon">
@@ -1390,10 +2747,14 @@
                         </div>
                     </div>
                     <div class="stat-value">{{ $jumlahReview }}</div>
-                    <div class="stat-description">Artikel menunggu keputusan redaksi</div>
-                </div>
+                    <div class="stat-description">
+                        Artikel menunggu keputusan redaksi
+                    </div>
+                </a>
 
-                <div class="stat-card">
+                {{-- Artikel Terbit --}}
+                <a href="{{ route('admin.articles.index', ['status' => 'published']) }}"
+                class="stat-card {{ request('status') === 'published' ? 'active' : '' }}">
                     <div class="stat-top">
                         <div class="stat-label">Artikel Terbit</div>
                         <div class="stat-icon">
@@ -1401,10 +2762,14 @@
                         </div>
                     </div>
                     <div class="stat-value">{{ $jumlahTerbit }}</div>
-                    <div class="stat-description">Artikel berstatus published</div>
-                </div>
+                    <div class="stat-description">
+                        Artikel berstatus published
+                    </div>
+                </a>
 
-                <div class="stat-card">
+                {{-- Perlu Revisi --}}
+                <a href="{{ route('admin.articles.index', ['status' => 'rejected']) }}"
+                class="stat-card {{ request('status') === 'rejected' ? 'active' : '' }}">
                     <div class="stat-top">
                         <div class="stat-label">Perlu Revisi</div>
                         <div class="stat-icon">
@@ -1412,67 +2777,26 @@
                         </div>
                     </div>
                     <div class="stat-value">{{ $jumlahRevisi }}</div>
-                    <div class="stat-description">Artikel yang perlu diperbaiki</div>
-                </div>
+                    <div class="stat-description">
+                        Artikel yang perlu diperbaiki
+                    </div>
+                </a>
 
-                <div class="stat-card">
+                {{-- Draft --}}
+                <a href="{{ route('admin.articles.index', ['status' => 'draft']) }}"
+                class="stat-card {{ request('status') === 'draft' ? 'active' : '' }}">
                     <div class="stat-top">
-                        <div class="stat-label">Draft</div>
+                        <div class="stat-label">Draf</div>
                         <div class="stat-icon">
                             <i class="fa-regular fa-file-lines"></i>
                         </div>
                     </div>
                     <div class="stat-value">{{ $jumlahDraft }}</div>
-                    <div class="stat-description">Naskah yang belum dikirim untuk review</div>
-                </div>
-            </section>
-
-            {{-- FILTER --}}
-            <section class="filter-panel">
-                <div class="filter-header">
-                    <div class="filter-header-icon">
-                        <i class="fa-solid fa-sliders"></i>
+                    <div class="stat-description">
+                        Naskah yang belum dikirim untuk review
                     </div>
-                    <div>
-                        <h3>Filter dan Pencarian</h3>
-                        <p>Temukan artikel berdasarkan status atau kata kunci.</p>
-                    </div>
-                </div>
+                </a>
 
-                <form class="filter-form" method="GET"
-                      action="{{ route('admin.articles.index') }}">
-
-                    <div class="filter-field">
-                        <label for="status">Status artikel</label>
-                        <select id="status" name="status">
-                            <option value="">Semua status</option>
-                            @foreach([
-                                'review' => 'Menunggu tinjauan',
-                                'draft' => 'Draft',
-                                'rejected' => 'Perlu revisi',
-                                'published' => 'Terbit'
-                            ] as $value => $label)
-                                <option value="{{ $value }}"
-                                    @selected(($status ?? '') === $value)>
-                                    {{ $label }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <button class="btn" type="submit">
-                        <i class="fa-solid fa-filter"></i>
-                        Terapkan Filter
-                    </button>
-
-                    @if(!empty($status))
-                        <a class="btn btn-light"
-                           href="{{ route('admin.articles.index') }}">
-                            <i class="fa-solid fa-rotate-left"></i>
-                            Reset
-                        </a>
-                    @endif
-                </form>
             </section>
 
             {{-- ARTICLE TABLE --}}
@@ -1715,59 +3039,199 @@
     </main>
 </div>
 
+
 <script>
-    // Tanggal otomatis
-    const dateElement = document.getElementById('currentDate');
-    const yearElement = document.getElementById('currentYear');
+(function () {
+    function initAdminTopbar() {
+        // Ambil elemen
+        const dateElement = document.getElementById('currentDate');
+        const yearElement = document.getElementById('currentYear');
 
-    const now = new Date();
+        const accountButton = document.getElementById('adminAccountButton');
+        const dropdown = document.getElementById('adminAccountDropdown');
+        const infoButton = document.getElementById('adminAccountInfoButton');
 
-    if (dateElement) {
-        dateElement.textContent = new Intl.DateTimeFormat('id-ID', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        }).format(now);
-    }
+        const modal = document.getElementById('adminAccountModal');
+        const closeButton = document.getElementById('adminAccountModalClose');
+        const okButton = document.getElementById('adminAccountModalOk');
 
-    if (yearElement) {
-        yearElement.textContent = now.getFullYear();
-    }
+        const menuToggle = document.getElementById('menuToggle')
+            || document.getElementById('mobileMenu');
+        const sidebar = document.getElementById('sidebar');
 
-    // Sidebar untuk perangkat mobile
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
+        // 1. TANGGAL OTOMATIS
+        function updateDate() {
+            if (dateElement) {
+                dateElement.textContent =
+                    new Intl.DateTimeFormat('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        timeZone: 'Asia/Jakarta'
+                    }).format(new Date());
+            }
 
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('open');
-        });
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        }
 
-        document.addEventListener('click', function (event) {
-            if (
-                window.innerWidth <= 900 &&
-                !sidebar.contains(event.target) &&
-                !menuToggle.contains(event.target)
-            ) {
-                sidebar.classList.remove('open');
+        updateDate();
+
+        // 2. DROPDOWN AKUN
+        function openDropdown() {
+            if (!dropdown || !accountButton) return;
+
+            dropdown.hidden = false;
+            accountButton.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+            if (!dropdown || !accountButton) return;
+
+            dropdown.hidden = true;
+            accountButton.setAttribute('aria-expanded', 'false');
+        }
+
+        if (accountButton && dropdown) {
+            // Pastikan kondisi awal tertutup
+            closeDropdown();
+
+            accountButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (dropdown.hidden) {
+                    openDropdown();
+                } else {
+                    closeDropdown();
+                }
+            });
+
+            dropdown.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            document.addEventListener('click', function (event) {
+                if (
+                    !dropdown.contains(event.target) &&
+                    !accountButton.contains(event.target)
+                ) {
+                    closeDropdown();
+                }
+            });
+        }
+
+        // 3. MODAL INFORMASI AKUN
+        function openModal() {
+            if (!modal) return;
+
+            closeDropdown();
+            modal.hidden = false;
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal() {
+            if (!modal) return;
+
+            modal.hidden = true;
+            document.body.classList.remove('modal-open');
+        }
+
+        if (infoButton) {
+            infoButton.addEventListener('click', openModal);
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener('click', closeModal);
+        }
+
+        if (okButton) {
+            okButton.addEventListener('click', closeModal);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // 4. SIDEBAR RESPONSIF
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+
+                const isOpen =
+                    sidebar.classList.contains('open') ||
+                    sidebar.classList.contains('show');
+
+                sidebar.classList.remove('open', 'show');
+
+                if (!isOpen) {
+                    sidebar.classList.add('open');
+                }
+
+                menuToggle.setAttribute(
+                    'aria-expanded',
+                    String(!isOpen)
+                );
+            });
+
+            document.addEventListener('click', function (event) {
+                if (
+                    window.innerWidth <= 950 &&
+                    !sidebar.contains(event.target) &&
+                    !menuToggle.contains(event.target)
+                ) {
+                    sidebar.classList.remove('open', 'show');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // 5. TOMBOL ESCAPE
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeDropdown();
+                closeModal();
+
+                if (sidebar && window.innerWidth <= 950) {
+                    sidebar.classList.remove('open', 'show');
+
+                    if (menuToggle) {
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
             }
         });
-    }
 
-    // Pencarian langsung pada artikel di halaman aktif
-    const searchInput = document.getElementById('articleSearch');
+        // 6. PENCARIAN ARTIKEL YANG SEDANG TAMPIL
+        const searchInput = document.getElementById('articleSearch');
 
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            const keyword = this.value.toLowerCase().trim();
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                const keyword = this.value.toLocaleLowerCase('id-ID').trim();
 
-            document.querySelectorAll('.article-row').forEach(function (row) {
-                row.style.display = row.textContent.toLowerCase().includes(keyword)
-                    ? ''
-                    : 'none';
+                document.querySelectorAll('.article-row').forEach(function (row) {
+                    row.hidden = !row.textContent
+                        .toLocaleLowerCase('id-ID')
+                        .includes(keyword);
+                });
             });
-        });
+        }
     }
+
+    // Bisa berjalan baik jika script berada di head maupun di akhir body.
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAdminTopbar, {
+            once: true
+        });
+    } else {
+        initAdminTopbar();
+    }
+})();
 </script>
 </body>
 </html>
