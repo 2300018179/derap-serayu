@@ -81,6 +81,7 @@ class SudutKotaController extends Controller
             ->when($searchTerm !== '', fn (Builder $q) => $this->filterBySearch($q, $searchTerm))
             ->latest('published_at')
             ->orderByDesc('id')
+            ->withCount(['likes', 'comments'])
             ->paginate(6)
             ->withQueryString();
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $article->title }} | Derap Serayu</title>
+    <title>{{ $article->title }} | {{ $siteSettings['site_name'] }}</title>
     <meta name="description" content="{{ $article->summary }}">
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -545,6 +545,9 @@
             font-size: 16px;
             line-height: 2;
             overflow-wrap: anywhere;
+            text-align: justify;
+            text-justify: inter-word;
+            hyphens: auto;
         }
 
         .content p {
@@ -558,6 +561,7 @@
             color: var(--navy);
             font-family: 'Playfair Display', serif;
             line-height: 1.4;
+            text-align: left;
         }
 
         .content h2 {
@@ -647,10 +651,10 @@
         .side-card {
             overflow: hidden;
             padding: 23px;
-            border: 1px solid rgba(255, 255, 255, .95);
+            border: 1px solid rgba(255, 255, 255, .18);
             border-radius: 23px;
-            background: rgba(255, 255, 255, .86);
-            box-shadow: 0 12px 32px rgba(16, 74, 97, .06);
+            background: linear-gradient(145deg, #147b98, #0b5672);
+            box-shadow: 0 14px 32px rgba(7, 57, 77, .16);
         }
 
         .side-heading {
@@ -658,7 +662,7 @@
             align-items: center;
             gap: 10px;
             margin: 0 0 18px;
-            color: var(--navy);
+            color: white;
             font-family: 'Playfair Display', serif;
             font-size: 20px;
             line-height: 1.4;
@@ -670,7 +674,7 @@
 
         .side-description {
             margin: 0 0 18px;
-            color: #7893a3;
+            color: rgba(255, 255, 255, .78);
             font-size: 12px;
             line-height: 1.8;
         }
@@ -680,7 +684,7 @@
             align-items: center;
             gap: 13px;
             padding: 13px 0;
-            border-bottom: 1px solid var(--line);
+            border-bottom: 1px solid rgba(255, 255, 255, .17);
         }
 
         .side-stat:last-child {
@@ -701,13 +705,13 @@
 
         .side-stat strong {
             display: block;
-            color: var(--navy);
+            color: white;
             font-size: 12px;
         }
 
         .side-stat span {
             display: block;
-            color: #88a0ae;
+            color: rgba(255, 255, 255, .7);
             font-size: 10px;
         }
 
@@ -719,11 +723,11 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 24px;
+            border: 1px solid rgba(255, 255, 255, .18);
             border-radius: 23px;
             color: white;
-            background:
-                linear-gradient(180deg, rgba(3, 45, 64, .05), rgba(3, 45, 64, .9)),
-                linear-gradient(135deg, #1b7183, #07394d);
+            background: linear-gradient(145deg, #0d6785, #063f5c);
+            box-shadow: 0 14px 32px rgba(7, 57, 77, .16);
         }
 
         .explore-card::before,
@@ -755,7 +759,7 @@
         }
 
         .explore-card .eyebrow {
-            color: #7ce9fa;
+            color: #9cecff;
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 1.7px;
@@ -764,6 +768,7 @@
 
         .explore-card h3 {
             margin: 8px 0;
+            color: white;
             font-family: 'Playfair Display', serif;
             font-size: 26px;
             line-height: 1.25;
@@ -789,8 +794,7 @@
         }
 
         .explore-link:hover {
-            color: white;
-            background: var(--cyan);
+            color: var(--cyan);
         }
 
         /* RELATED FOOTER AREA */
@@ -2091,6 +2095,14 @@
     }
 }
     </style>
+@include('partials.site-theme-styles')
+<style>
+    .reading-layout > .sidebar {
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+</style>
+
 </head>
 
 <body>
@@ -2157,7 +2169,7 @@
                 </a>
 
                 <a
-                    href="https://www.instagram.com/kabupatenbanjarnegara/"
+                    href="{{ $siteSettings['instagram_url'] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -2167,7 +2179,7 @@
                 </a>
 
                 <a
-                    href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                    href="{{ $siteSettings['facebook_url'] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -2177,7 +2189,7 @@
                 </a>
 
                 <a
-                    href="https://www.youtube.com/@pemkabbanjarnegara"
+                    href="{{ $siteSettings['youtube_url'] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -2187,7 +2199,7 @@
                 </a>
 
                 <a
-                    href="https://x.com/pemkab_bna"
+                    href="{{ $siteSettings['x_url'] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -2197,7 +2209,7 @@
                 </a>
 
                 <a
-                    href="https://www.tiktok.com/@pemkabbanjarnegara"
+                    href="{{ $siteSettings['tiktok_url'] }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -2226,8 +2238,8 @@
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -2255,6 +2267,10 @@
 
             <a href="{{ route('about') }}">
                 Tentang Kami
+            </a>
+
+            <a href="{{ route('galeri') }}">
+                Galeri
             </a>
 
             <details class="nav-dropdown">
@@ -2337,11 +2353,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2429,25 +2448,38 @@
             </div>
 
             {{-- SAVE ARTICLE --}}
-            <div class="article-actions">
+            <div class="article-actions" id="aksi-artikel">
                 {{-- LIKE ARTICLE --}}
                 @auth
-                    @if (auth()->user()->role === 'reader')
-                        <button
-                            type="button"
-                            class="action-button"
-                            id="like-button"
-                        >
+                    @if (in_array(auth()->user()->role, ['reader', 'admin'], true))
+                        <form method="POST" action="{{ route('articles.like', $article->slug) }}">
+                            @csrf
+                            <button
+                                type="submit"
+                                class="action-button"
+                                id="like-button"
+                                aria-pressed="{{ $isLiked ? 'true' : 'false' }}"
+                            >
+                                <i class="fa-{{ $isLiked ? 'solid' : 'regular' }} fa-heart" aria-hidden="true"></i>
+                                <span>{{ $isLiked ? 'Disukai' : 'Suka' }} · {{ $likesCount }}</span>
+                            </button>
+                        </form>
+                    @else
+                        <span class="action-button" title="Jumlah suka">
                             <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                            <span>Suka</span>
-                        </button>
+                            <span>{{ $likesCount }}</span>
+                        </span>
                     @endif
                 @else
                     <a href="{{ route('login', ['article' => $article->slug]) }}" class="action-button">
                         <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                        <span>Suka</span>
+                        <span>Suka · {{ $likesCount }}</span>
                     </a>
                 @endauth
+
+                @if (session('likeStatus'))
+                    <p class="save-status" role="status">{{ session('likeStatus') }}</p>
+                @endif
 
                 @if (session('savedArticleStatus'))
                     <p class="save-status" role="status">
@@ -2457,7 +2489,7 @@
                 @endif
 
                 @auth
-                    @if (auth()->user()->role === 'reader')
+                    @if (in_array(auth()->user()->role, ['reader', 'admin'], true))
                         <form
                             action="{{ $isSaved
                                 ? route('pembaca.saved.destroy', $article->slug)
@@ -2663,9 +2695,16 @@
             </p>
 
             @auth
-                @if (auth()->user()->role === 'reader')
-                    <form class="comment-form">
+                @if (in_array(auth()->user()->role, ['reader', 'admin'], true))
+                    <form class="comment-form" method="POST" action="{{ route('articles.comments.store', $article->slug) }}">
                         @csrf
+
+                        @if (session('commentStatus'))
+                            <p class="save-status" role="status">{{ session('commentStatus') }}</p>
+                        @endif
+                        @error('content')
+                            <p class="save-status" role="alert" style="color:#b42318">{{ $message }}</p>
+                        @enderror
 
                         <label for="comment-content">
                             Tulis komentarmu
@@ -2678,7 +2717,7 @@
                             placeholder="Apa pendapatmu tentang artikel ini?"
                             maxlength="2000"
                             required
-                        ></textarea>
+                        >{{ old('content') }}</textarea>
 
                         <button type="submit" class="comment-submit">
                             <i class="fa-regular fa-paper-plane"></i>
@@ -2687,7 +2726,7 @@
                     </form>
                 @else
                     <div class="comment-login-notice">
-                        Fitur komentar hanya tersedia untuk akun pembaca.
+                        Fitur komentar hanya tersedia untuk pembaca dan administrator.
                     </div>
                 @endif
             @else
@@ -2701,14 +2740,26 @@
             @endauth
 
             <div class="comment-list">
-                <h3>Komentar Pembaca</h3>
+                <h3>Komentar Pembaca ({{ $comments->count() }})</h3>
 
-                {{-- Daftar komentar dari database akan ditampilkan di sini. --}}
-                <div class="comment-empty">
-                    <i class="fa-regular fa-comment-dots"></i>
-                    <p>Belum ada komentar untuk artikel ini.</p>
-                    <p>Jadilah pembaca pertama yang memulai diskusi!</p>
-                </div>
+                @forelse ($comments as $comment)
+                    <article class="comment-item">
+                        <div class="comment-avatar"><i class="fa-regular fa-user"></i></div>
+                        <div class="comment-body">
+                            <div class="comment-meta">
+                                <span class="comment-author">{{ $comment->user->name ?? 'Pembaca' }}</span>
+                                <span class="comment-date">{{ $comment->created_at?->diffForHumans() }}</span>
+                            </div>
+                            <div class="comment-text">{{ $comment->content }}</div>
+                        </div>
+                    </article>
+                @empty
+                    <div class="comment-empty">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <p>Belum ada komentar untuk artikel ini.</p>
+                        <p>Jadilah pembaca pertama yang memulai diskusi!</p>
+                    </div>
+                @endforelse
             </div>
         </section>
 
@@ -2751,8 +2802,8 @@
                     >
 
                         <img
-                        src="{{ asset('images/logo.png') }}"
-                        alt="Derap Serayu"
+                        src="{{ $siteLogoUrl }}"
+                        alt="{{ $siteSettings['site_name'] }}"
                         onerror="
                             this.style.display='none';
                             this.nextElementSibling.style.display='flex';
@@ -2762,20 +2813,23 @@
                     </a>
 
 
-                    <p class="footer-description">
-
-                        Media informasi dan cerita Banjarnegara
-                        yang menghadirkan berita, budaya,
-                        wisata, potensi, serta kisah dari
-                        masyarakat.
-
-                    </p>
+                    <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                     <div class="footer-social">
 
                         <a
-                            href="https://www.instagram.com/kabupatenbanjarnegara/"
+                            href="{{ $siteSettings['instagram_url'] }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -2785,7 +2839,7 @@
                         </a>
 
                         <a
-                            href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                            href="{{ $siteSettings['facebook_url'] }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -2795,7 +2849,7 @@
                         </a>
 
                         <a
-                            href="https://www.youtube.com/@pemkabbanjarnegara"
+                            href="{{ $siteSettings['youtube_url'] }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -2805,7 +2859,7 @@
                         </a>
 
                         <a
-                            href="https://www.tiktok.com/@pemkabbanjarnegara"
+                            href="{{ $siteSettings['tiktok_url'] }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -2815,7 +2869,7 @@
                         </a>
 
                         <a
-                            href="https://x.com/pemkab_bna"
+                            href="{{ $siteSettings['x_url'] }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -2848,6 +2902,10 @@
 
                     <a href="{{ route('articles.index') }}">
                         Berita
+                    </a>
+
+                    <a href="{{ route('galeri') }}">
+                        Galeri
                     </a>
 
                 </div>
@@ -3018,14 +3076,12 @@
 
                 <p>
 
-                    Dari gunung hingga lembah,
-                    setiap sudut Banjarnegara
-                    punya cerita.
+                    {{ $siteSettings['footer_quote'] }}
 
                 </p>
 
                 <small>
-                    DERAP SERAYU — BANJARNEGARA
+                    {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
                 </small>
 
             </div>
@@ -3039,8 +3095,8 @@
                 <div>
 
                     © {{ date('Y') }}
-                    Derap Serayu.
-                    Semua hak dilindungi.
+                    {{ $siteSettings['site_name'] }}.
+                    {{ $siteSettings['footer_copyright'] }}
 
                 </div>
 
@@ -3140,5 +3196,6 @@
         });
     </script>
 
+@include('partials.search-script')
 </body>
 </html>

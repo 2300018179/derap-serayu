@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Verifikasi Reset Password - Derap Serayu</title>
+    <title>Verifikasi Reset Password - {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
                     rgba(3, 35, 53, 0.88),
                     rgba(3, 48, 70, 0.62)
                 ),
-                url("{{ asset('images/bg-dieng-register.jpg') }}");
+                url("{{ $siteSettings['reset_password_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['reset_password_bg_image_path']) : asset('images/bg-dieng-register.jpg') }}");
 
             background-size: cover;
             background-position: center;
@@ -783,9 +783,11 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
-<body>
+<body class="auth-page">
 
     <!-- ================= TOP BAR ================= -->
 
@@ -836,7 +838,7 @@
 
             <img
                 src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
+                alt="{{ $siteSettings['site_name'] }}"
             >
 
             <div class="brand-text">
@@ -864,16 +866,7 @@
 
         <div style="display:flex; align-items:center; gap:12px;">
 
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari..."
-                >
-
-            </div>
+            @include('partials.search-box')
 
             <button class="menu-btn">
                 Menu

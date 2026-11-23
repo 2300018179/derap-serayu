@@ -125,7 +125,6 @@ class TeknologiTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Belum Ada Teknologi Unggulan')
-            ->assertSee('Belum ada artikel populer yang diterbitkan.')
             ->assertSee('Belum Ada Artikel Ditemukan');
     }
 

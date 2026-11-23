@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -16,23 +18,51 @@ class PenulisArtikelController extends Controller
 {
     public function dashboard(Request $request): View
     {
-        $writerArticles = $request->user()->articles();
+        $user = $request->user();
+        $writerArticles = $user->articles();
+
         $totalArtikel = (clone $writerArticles)->count();
-        $totalDraft = (clone $writerArticles)->where('status', 'draft')->count();
-        $totalTerbit = (clone $writerArticles)->where('status', 'published')->count();
+        $totalDraft = (clone $writerArticles)
+            ->where('status', 'draft')
+            ->count();
+
+        $totalTerbit = (clone $writerArticles)
+            ->where('status', 'published')
+            ->count();
+
         $totalPembaca = User::where('role', 'reader')->count();
-        $totalTayangan = (clone $writerArticles)->where('status', 'published')->sum('views');
-        $artikelTerbaru = (clone $writerArticles)->latest()->take(5)->get();
+
+        $totalTayangan = (clone $writerArticles)
+            ->where('status', 'published')
+            ->sum('views');
+
+        // Total like hanya untuk artikel terbit milik penulis ini.
+        $totalLike = DB::table('article_likes')
+            ->join('articles', 'articles.id', '=', 'article_likes.article_id')
+            ->where('articles.user_id', $user->id)
+            ->where('articles.status', 'published')
+            ->count();
+
+        // Total komentar hanya untuk artikel terbit milik penulis ini.
+        $totalKomentar = DB::table('article_comments')
+            ->join('articles', 'articles.id', '=', 'article_comments.article_id')
+            ->where('articles.user_id', $user->id)
+            ->where('articles.status', 'published')
+            ->count();
+
+        $artikelTerbaru = (clone $writerArticles)
+            ->latest()
+            ->take(5)
+            ->get();
+
         $artikelTeratas = (clone $writerArticles)
             ->where('status', 'published')
             ->orderByDesc('views')
             ->take(5)
             ->get();
-        $artikelPerhatian = (clone $writerArticles)
-            ->whereIn('status', ['review', 'rejected'])
-            ->latest()
-            ->take(4)
-            ->get();
+
+        $artikelPerhatian = $this->attentionArticles($request);
+        $notifikasiPenulis = $this->writerNotifications($request);
 
         return view('penulis.dashboard', compact(
             'totalArtikel',
@@ -40,21 +70,64 @@ class PenulisArtikelController extends Controller
             'totalTerbit',
             'totalPembaca',
             'totalTayangan',
+            'totalLike',
+            'totalKomentar',
             'artikelTerbaru',
             'artikelTeratas',
-            'artikelPerhatian'
+            'artikelPerhatian',
+            'notifikasiPenulis'
         ));
+    }
+
+    public function profile(Request $request): View
+    {
+        $writer = $request->user();
+
+        return view('penulis.profile', [
+            'writer' => $writer,
+            'notifikasiPenulis' => $this->writerNotifications($request),
+            'profile' => [
+                'roleLabel' => 'Penulis',
+                'eyebrow' => 'RUANG PERSONAL PENULIS',
+                'welcomeText' => 'Semua tulisan, status kiriman, dan informasi akun kamu ada di satu tempat. Terus hadirkan cerita terbaik dari Banjarnegara.',
+                'badgeIcon' => 'fa-pen-nib',
+                'heroIcon' => 'fa-pen-nib',
+                'summaryCaption' => 'Terus bagikan cerita, budaya, dan informasi dari tanah Serayu.',
+                'statLabel' => 'Artikel Ditulis',
+                'statIcon' => 'fa-regular fa-newspaper',
+                'statValue' => $writer->articles()->count(),
+                'primaryLabel' => 'Dasbor Penulis',
+                'primaryIcon' => 'fa-solid fa-pen-nib',
+                'primaryUrl' => route('penulis.dashboard'),
+            ],
+        ]);
     }
 
     public function index(Request $request): View
     {
         $validated = $request->validate([
             'search' => ['nullable', 'string', 'max:100'],
-            'status' => ['nullable', Rule::in(['draft', 'review', 'rejected', 'published'])],
+            'status' => [
+                'nullable',
+                Rule::in(['draft', 'review', 'rejected', 'published']),
+            ],
         ]);
+
         $search = trim($validated['search'] ?? '');
 
         $articles = $request->user()->articles()
+            ->select('articles.*')
+            ->addSelect([
+                'like_count' => DB::table('article_likes')
+                    ->selectRaw('COUNT(*)')
+                    ->whereColumn('article_likes.article_id', 'articles.id')
+                    ->where('articles.status', 'published'),
+
+                'comment_count' => DB::table('article_comments')
+                    ->selectRaw('COUNT(*)')
+                    ->whereColumn('article_comments.article_id', 'articles.id')
+                    ->where('articles.status', 'published'),
+            ])
             ->when($search !== '', function ($query) use ($search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('title', 'like', '%'.$search.'%')
@@ -62,21 +135,30 @@ class PenulisArtikelController extends Controller
                         ->orWhere('category', 'like', '%'.$search.'%');
                 });
             })
-            ->when($validated['status'] ?? null, fn ($query, $status) => $query->where('status', $status))
+            ->when(
+                $validated['status'] ?? null,
+                fn ($query, $status) => $query->where('status', $status)
+            )
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-        return view('penulis.articles', compact('articles', 'search', 'validated'));
+        return view('penulis.articles', [
+            'articles' => $articles,
+            'search' => $search,
+            'validated' => $validated,
+            'notifikasiPenulis' => $this->writerNotifications($request),
+        ]);
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
-        $artikelPerhatian = collect();
+        $routePrefix = $this->routePrefix($request);
+        $notifikasiPenulis = $this->writerNotifications($request);
 
-        return view('penulis.create', compact('artikelPerhatian'));
+        return view('penulis.create', compact('notifikasiPenulis', 'routePrefix'));
     }
-    
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validatedArticle($request);
@@ -103,7 +185,7 @@ class PenulisArtikelController extends Controller
             'cover_image_path' => $request->file('cover_image')?->store('sampul-artikel', 'public'),
         ]);
 
-        return redirect()->route('penulis.articles.index')
+        return redirect()->route($this->routePrefix($request).'.articles.index')
             ->with('success', $article->status === 'review'
                 ? 'Artikel berhasil dikirim untuk ditinjau.'
                 : 'Artikel berhasil disimpan sebagai draft.');
@@ -111,16 +193,19 @@ class PenulisArtikelController extends Controller
 
     public function edit(Request $request, Article $article): View
     {
-        $article = $request->user()->articles()->findOrFail($article->id);
+        $article = $this->articleForManagement($request, $article);
 
-        abort_if($article->status === 'published', 403);
+        abort_if($article->status === 'published' && ! $this->canManageAllArticles($request), 403);
 
-        return view('penulis.create', compact('article'));
+        $routePrefix = $this->routePrefix($request);
+        $notifikasiPenulis = $this->writerNotifications($request);
+
+        return view('penulis.create', compact('article', 'notifikasiPenulis', 'routePrefix'));
     }
 
     public function downloadDocument(Request $request, Article $article)
     {
-        $article = $request->user()->articles()->findOrFail($article->id);
+        $article = $this->articleForManagement($request, $article);
 
         abort_unless($article->document_path && Storage::exists($article->document_path), 404);
 
@@ -132,10 +217,10 @@ class PenulisArtikelController extends Controller
 
     public function update(Request $request, Article $article): RedirectResponse
     {
-        $article = $request->user()->articles()->findOrFail($article->id);
-        abort_if($article->status === 'published', 403);
+        $article = $this->articleForManagement($request, $article);
+        abort_if($article->status === 'published' && ! $this->canManageAllArticles($request), 403);
 
-        $validated = $this->validatedArticle($request);
+        $validated = $this->validatedArticle($request, $article);
         $method = $validated['document_method'];
         unset($validated['document_method']);
 
@@ -159,8 +244,14 @@ class PenulisArtikelController extends Controller
         $imagePath = $request->file('cover_image')?->store('sampul-artikel', 'public') ?? $oldImagePath;
         $removeImage = $request->boolean('remove_cover_image') && ! $request->hasFile('cover_image');
 
+        $articleAttributes = $this->articleAttributes($validated, $request);
+
+        if ($this->canManageAllArticles($request)) {
+            unset($articleAttributes['author_name']);
+        }
+
         $article->update([
-            ...$this->articleAttributes($validated, $request),
+            ...$articleAttributes,
             'slug' => $validated['title'] === $article->title
                 ? $article->slug
                 : $this->uniqueSlug($validated['title']),
@@ -169,6 +260,7 @@ class PenulisArtikelController extends Controller
                 ? null
                 : ($uploadedDocument ? $this->documentName($uploadedDocument) : $oldDocumentName),
             'cover_image_path' => $removeImage ? null : $imagePath,
+            'published_at' => $validated['status'] === 'published' ? $article->published_at : null,
             'review_note' => null,
         ]);
 
@@ -182,7 +274,7 @@ class PenulisArtikelController extends Controller
             Storage::disk('public')->delete($oldImagePath);
         }
 
-        return redirect()->route('penulis.articles.index')
+        return redirect()->route($this->routePrefix($request).'.articles.index')
             ->with('success', $article->status === 'review'
                 ? 'Perubahan artikel disimpan dan dikirim untuk ditinjau.'
                 : 'Perubahan artikel berhasil disimpan.');
@@ -190,8 +282,8 @@ class PenulisArtikelController extends Controller
 
     public function destroy(Request $request, Article $article): RedirectResponse
     {
-        $article = $request->user()->articles()->findOrFail($article->id);
-        abort_if($article->status === 'published', 403);
+        $article = $this->articleForManagement($request, $article);
+        abort_if($article->status === 'published' && ! $this->canManageAllArticles($request), 403);
 
         $documentPath = $article->document_path;
         $imagePath = $article->cover_image_path;
@@ -205,12 +297,42 @@ class PenulisArtikelController extends Controller
             Storage::disk('public')->delete($imagePath);
         }
 
-        return redirect()->route('penulis.articles.index')
+        return redirect()->route($this->routePrefix($request).'.articles.index')
             ->with('success', 'Artikel berhasil dihapus.');
     }
 
-    private function validatedArticle(Request $request): array
+    /**
+     * @return Collection<int, Article>
+     */
+    private function attentionArticles(Request $request): Collection
     {
+        return $request->user()->articles()
+            ->whereIn('status', ['review', 'rejected'])
+            ->latest('updated_at')
+            ->take(4)
+            ->get();
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    private function writerNotifications(Request $request): Collection
+    {
+        return $request->user()->articles()
+            ->whereIn('status', ['review', 'rejected', 'published'])
+            ->latest('updated_at')
+            ->take(4)
+            ->get();
+    }
+
+    private function validatedArticle(Request $request, ?Article $article = null): array
+    {
+        $allowedStatuses = ['draft', 'review'];
+
+        if ($article?->status === 'published' && $this->canManageAllArticles($request)) {
+            $allowedStatuses[] = 'published';
+        }
+
         return $request->validate([
             'title' => ['required', 'string', 'max:200'],
             'summary' => ['required', 'string', 'max:500'],
@@ -218,7 +340,11 @@ class PenulisArtikelController extends Controller
                 'required',
                 Rule::in(['Berita', 'Cerita & Budaya', 'Opini', 'Sosok', 'Sudut Kota', 'Potensi', 'Teknologi', 'Humor']),
             ],
-            'status' => ['required', Rule::in(['draft', 'review'])],
+            'kecamatan' => [
+                'required',
+                Rule::in(config('kecamatan', [])),
+            ],
+            'status' => ['required', Rule::in($allowedStatuses)],
             'document_method' => ['required', Rule::in(['write', 'upload'])],
             'tags' => ['nullable', 'string', 'max:500'],
             'caption' => ['nullable', 'string', 'max:255'],
@@ -245,6 +371,7 @@ class PenulisArtikelController extends Controller
             'title' => $validated['title'],
             'summary' => $validated['summary'],
             'category' => $validated['category'],
+            'kecamatan' => $validated['kecamatan'],
             'status' => $validated['status'],
             'author_name' => $request->user()->pen_name ?: $request->user()->name,
             'tags' => isset($validated['tags'])
@@ -259,5 +386,22 @@ class PenulisArtikelController extends Controller
     private function uniqueSlug(string $title): string
     {
         return Str::slug($title).'-'.Str::lower(Str::random(8));
+    }
+
+    private function articleForManagement(Request $request, Article $article): Article
+    {
+        return $this->canManageAllArticles($request)
+            ? Article::query()->findOrFail($article->id)
+            : $request->user()->articles()->findOrFail($article->id);
+    }
+
+    private function canManageAllArticles(Request $request): bool
+    {
+        return in_array($request->user()->role, ['editor', 'admin'], true);
+    }
+
+    private function routePrefix(Request $request): string
+    {
+        return $request->routeIs('editor.*') ? 'editor' : 'penulis';
     }
 }

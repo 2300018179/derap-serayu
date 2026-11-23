@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Artikel Saya | Derap Serayu</title>
+    <title>Artikel Saya | {{ $siteSettings['site_name'] }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
@@ -1254,6 +1254,7 @@
         gap: 11px;
         padding: 13px 17px;
         color: #315c76;
+        text-decoration: none;
         font-size: 12px;
         font-weight: 600;
         transition: .2s ease;
@@ -1859,207 +1860,26 @@
             background: #e5edf2;
         }
     </style>
+    @include('penulis.partials.shell-style')
+    <style>
+        .main > .content > .footer {
+            background: transparent !important;
+            background-image: none !important;
+        }
+    </style>
 </head>
 
 <body>
 
     {{-- SIDEBAR --}}
-    <aside class="sidebar">
-        <a href="{{ route('penulis.dashboard') }}" class="brand">
-            <span class="brand-logo-wrapper">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
-                     class="brand-logo">
-            </span>
-        </a>
-
-        <nav class="sidebar-menu">
-            <a href="{{ route('penulis.dashboard') }}" class="menu-link">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="{{ route('penulis.artikel.create') }}" class="menu-link">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Tulis Artikel</span>
-            </a>
-
-            <a href="{{ route('penulis.articles.index') }}"
-               class="menu-link active">
-                <i class="fa-regular fa-file-lines"></i>
-                <span>Artikel Saya</span>
-            </a>
-
-            <a href="{{ url('/') }}" target="_blank" class="menu-link">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                <span>Lihat Website</span>
-            </a>
-        </nav>
-    </aside>
+    @include('penulis.partials.sidebar')
 
     {{-- MAIN CONTENT --}}
     <div class="main">
 
         {{-- TOPBAR --}}
         
-        <header class="topbar">
-            <button
-                type="button"
-                class="menu-toggle"
-                onclick="toggleSidebar()"
-                aria-label="Buka menu"
-            >
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <div class="top-spacer"></div>
-
-            {{-- NOTIFIKASI ARTIKEL --}}
-            @php
-                $artikelPerhatian = $artikelPerhatian ?? collect();
-                $jumlahNotifikasi = $artikelPerhatian->count();
-            @endphp
-
-            <div class="top-item top-dropdown">
-                <button
-                    type="button"
-                    class="notification-button dropdown-trigger"
-                    id="notificationToggle"
-                    aria-label="Buka notifikasi"
-                    aria-expanded="false"
-                    aria-controls="notificationDropdown"
-                    onclick="toggleTopDropdown('notificationDropdown', this)"
-                >
-                    <i class="fa-regular fa-bell"></i>
-
-                    @if($jumlahNotifikasi > 0)
-                        <span class="notification-dot">
-                            {{ $jumlahNotifikasi > 9 ? '9+' : $jumlahNotifikasi }}
-                        </span>
-                    @endif
-                </button>
-
-                <div
-                    class="top-dropdown-menu notification-dropdown"
-                    id="notificationDropdown"
-                >
-                    <div class="dropdown-heading">
-                        <div>
-                            <strong>Notifikasi</strong>
-                            <small>Informasi terbaru artikelmu</small>
-                        </div>
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
-
-                    <div class="dropdown-scroll">
-                        @forelse($artikelPerhatian as $artikel)
-                            <a
-                                href="{{ route('penulis.articles.edit', $artikel) }}"
-                                class="dropdown-notice"
-                            >
-                                <span class="dropdown-notice-icon {{ $artikel->status === 'rejected' ? 'notice-orange' : '' }}">
-                                    <i class="fa-solid {{ $artikel->status === 'rejected' ? 'fa-pen-to-square' : 'fa-clock' }}"></i>
-                                </span>
-
-                                <span class="dropdown-notice-text">
-                                    <strong>
-                                        {{ $artikel->status === 'rejected' ? 'Artikel perlu direvisi' : 'Artikel menunggu tinjauan' }}
-                                    </strong>
-
-                                    <small>{{ $artikel->title }}</small>
-
-                                    @if($artikel->review_note)
-                                        <small class="notice-note">
-                                            Catatan: {{ $artikel->review_note }}
-                                        </small>
-                                    @endif
-
-                                    <small>
-                                        {{ $artikel->updated_at?->format('d M Y, H:i') ?? '-' }}
-                                    </small>
-                                </span>
-                            </a>
-                        @empty
-                            <div class="dropdown-empty">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <strong>Belum ada notifikasi</strong>
-                                <p>
-                                    Notifikasi artikel yang menunggu tinjauan atau
-                                    memerlukan revisi akan muncul di sini.
-                                </p>
-                            </div>
-                        @endforelse
-                    </div>
-
-                    <a
-                        href="{{ route('penulis.articles.index') }}"
-                        class="dropdown-footer-link"
-                    >
-                        Lihat semua artikel
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            {{-- CUACA BANJARNEGARA --}}
-            <div class="top-item weather" id="weatherWidget">
-                <i class="fa-solid fa-cloud-sun sun" id="weatherIcon"></i>
-
-                <div>
-                    <strong id="weatherTemperature">Memuat...</strong>
-                    <small id="weatherDescription">Cuaca Banjarnegara</small>
-                </div>
-            </div>
-
-            {{-- AKUN PENULIS --}}
-            <div class="top-item top-dropdown user-top">
-                <button
-                    type="button"
-                    class="user-profile-button dropdown-trigger"
-                    id="accountToggle"
-                    aria-label="Buka menu akun"
-                    aria-expanded="false"
-                    aria-controls="accountDropdown"
-                    onclick="toggleTopDropdown('accountDropdown', this)"
-                >
-                    <span class="user-avatar">
-                        {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
-                    </span>
-
-                    <span class="user-text">
-                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                        <small>Penulis</small>
-                    </span>
-
-                    <i class="fa-solid fa-chevron-down user-chevron"></i>
-                </button>
-
-                <div
-                    class="top-dropdown-menu account-dropdown"
-                    id="accountDropdown"
-                >
-                    <div class="account-identity">
-                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                        <small>{{ auth()->user()->email ?? '' }}</small>
-                    </div>
-
-                    <div class="account-divider"></div>
-
-                    <form
-                        id="logout-form"
-                        action="{{ route('logout') }}"
-                        method="POST"
-                        class="logout-form"
-                    >
-                        @csrf
-
-                        <button type="submit" class="account-link logout-link">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Keluar dari Akun
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </header>
+        @include('penulis.partials.topbar')
 
         <main class="content">
 
@@ -2132,7 +1952,7 @@
             </section>
 
             {{-- ARTICLE LIST --}}
-            <section class="article-panel">
+            <section class="article-panel">5
 
                 <div class="panel-header">
                     <div class="panel-title">
@@ -2544,5 +2364,6 @@
 
     </script>
 
+    @include('penulis.partials.shell-script')
 </body>
 </html>

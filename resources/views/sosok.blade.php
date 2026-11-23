@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Sosok | Derap Serayu</title>
+    <title>Sosok | {{ $siteSettings['site_name'] }}</title>
 
     {{-- GOOGLE FONT --}}
     <link rel="preconnect"
@@ -578,9 +578,7 @@
 
             display: grid;
 
-            grid-template-columns:
-                minmax(0, 1fr)
-                320px;
+            grid-template-columns: minmax(0, 1fr);
 
             gap: 20px;
 
@@ -615,21 +613,21 @@
         .featured-sosok-empty {
 
             grid-template-columns: 1fr;
+            width: 100%;
+            min-height: 150px;
         }
 
         .featured-empty {
 
-            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px 40px;
         }
 
-        .featured-sosok-empty {
+        .featured-empty p {
 
-            grid-template-columns: 1fr;
-        }
-
-        .featured-empty {
-
-            padding: 28px;
+            max-width: none;
         }
 
         .featured-image {
@@ -976,11 +974,11 @@
 
         .people-section {
 
-            max-width: 1330px;
+            max-width: none;
 
-            margin: 0 auto;
+            margin: 0;
 
-            padding: 0 6.5% 30px;
+            padding: 0 max(6.5%, calc((100% - 1330px) / 2)) 30px;
         }
 
         .people-section-title {
@@ -1052,7 +1050,7 @@
 
             grid-column: 1 / -1;
 
-            padding: 22px;
+            padding: 36px 22px;
 
             border-radius: 13px;
 
@@ -1061,6 +1059,8 @@
             color: #638a99;
 
             font-size: 13px;
+
+            line-height: 1.7;
 
             text-align: center;
         }
@@ -1239,11 +1239,11 @@
 
         .discover-section {
 
-            max-width: 1330px;
+            max-width: none;
 
-            margin: 0 auto;
+            margin: 0;
 
-            padding: 0 6.5% 42px;
+            padding: 0 max(6.5%, calc((100% - 1330px) / 2)) 42px;
         }
 
         .discover-card {
@@ -2536,8 +2536,9 @@
 }
 
         .sosok-main-nav > a[aria-current="page"] {
-            background: #e8f8fc;
-            color: #0789a9;
+            background: #08add5;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(8, 173, 213, .25);
         }
 
         .sosok-visually-hidden {
@@ -2682,6 +2683,8 @@
 
     </style>
 
+@include('partials.site-theme-styles')
+
 </head>
 
 
@@ -2708,11 +2711,11 @@
             <a href="https://ppid.banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> PPID</a>
             <a href="https://www.instagram.com/mpp.banjarnegara/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-headset" aria-hidden="true"></i> Layanan Publik</a>
             <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-phone" aria-hidden="true"></i> Kontak</a>
-            <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
-            <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-            <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-            <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -2727,8 +2730,8 @@
     <div class="sosok-header-card">
         <a class="sosok-brand" href="{{ route('home') }}" aria-label="Derap Serayu, beranda">
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
             >
             <span class="sosok-brand-fallback">Derap<span>Serayu</span></span>
@@ -2753,12 +2756,7 @@
             </details>
         </nav>
 
-        <form class="sosok-search" action="{{ route('articles.index') }}" method="GET" role="search">
-            <label class="sosok-visually-hidden" for="sosok-search">Cari berita dan sosok</label>
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input id="sosok-search" type="search" name="q" value="{{ request('q') }}" placeholder="Cari berita atau sosok..." maxlength="100">
-            <button type="submit">Cari</button>
-        </form>
+        @include('partials.search-box', ['action' => route('sosok')])
 
         <div class="account-actions">
             @auth
@@ -2788,11 +2786,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2908,57 +2909,9 @@
                     <div class="featured-content featured-empty">
                         <h2>Belum ada tokoh unggulan</h2>
                         <p>Artikel Sosok yang sudah diterbitkan akan tampil di bagian ini.</p>
-                        <a href="{{ route('articles.index', ['category' => 'Sosok']) }}" class="read-button">
-                            Jelajahi semua Sosok
-                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                        </a>
                     </div>
                 @endif
             </article>
-
-
-
-            {{-- POPULAR --}}
-
-            <aside class="popular-card">
-
-                <div class="section-title-small">
-
-                    <h3>
-
-                        <i class="fa-solid fa-fire"></i>
-
-                        Sosok Populer
-
-                    </h3>
-
-                    <a href="{{ route('articles.index', ['category' => 'Sosok']) }}" class="see-all">
-                        Lihat Semua →
-                    </a>
-
-                </div>
-
-
-
-                @forelse ($popularSosok as $sosok)
-                    <a href="{{ route('articles.show', $sosok->slug) }}" class="popular-item">
-                        <span class="popular-number">{{ $loop->iteration }}</span>
-                        <span class="popular-image">
-                            <img
-                                src="{{ $sosok->cover_image_path ? asset('storage/'.$sosok->cover_image_path) : asset('images/bupati.png') }}"
-                                alt="{{ $sosok->caption ?: $sosok->title }}"
-                            >
-                        </span>
-                        <span class="popular-info">
-                            <strong>{{ $sosok->title }}</strong>
-                            <span><i class="fa-regular fa-eye" aria-hidden="true"></i> {{ number_format($sosok->views) }} dibaca</span>
-                        </span>
-                    </a>
-                @empty
-                    <p class="popular-empty">Belum ada sosok populer yang diterbitkan.</p>
-                @endforelse
-
-            </aside>
 
         </div>
 
@@ -2999,26 +2952,7 @@
 
     <div class="people-grid">
         @forelse ($sosokArticles as $sosok)
-            <article class="person-card">
-                <a class="person-image" href="{{ route('articles.show', $sosok->slug) }}" aria-label="Baca {{ $sosok->title }}">
-                    <img
-                        src="{{ $sosok->cover_image_path ? asset('storage/'.$sosok->cover_image_path) : asset('images/bupati.png') }}"
-                        alt="{{ $sosok->caption ?: $sosok->title }}"
-                    >
-                    <span class="person-category">{{ $sosok->category }}</span>
-                </a>
-
-                <div class="person-content">
-                    <h3><a href="{{ route('articles.show', $sosok->slug) }}">{{ $sosok->title }}</a></h3>
-                    <div class="person-name">{{ $sosok->author_name ?: 'Redaksi Derap Serayu' }}</div>
-                    <div class="person-meta">
-                        <span><i class="fa-regular fa-eye" aria-hidden="true"></i> {{ number_format($sosok->views) }}</span>
-                        @if ($sosok->published_at)
-                            <time datetime="{{ $sosok->published_at->toDateString() }}"><i class="fa-regular fa-clock" aria-hidden="true"></i> {{ $sosok->published_at->translatedFormat('j M Y') }}</time>
-                        @endif
-                    </div>
-                </div>
-            </article>
+            @include('partials.article-card', ['article' => $sosok, 'cardFallbackImage' => 'images/bupati.png'])
         @empty
             <p class="people-empty">Belum ada artikel Sosok yang diterbitkan. Kisah tokoh akan tampil di sini setelah redaksi memublikasikannya.</p>
         @endforelse
@@ -3099,27 +3033,31 @@
 
                 <a href="{{ route('home') }}" class="footer-brand" aria-label="Derap Serayu, beranda">
                     <div class="footer-logo-box">
-                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                        <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                     </div>
                 </a>
 
 
-                <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya, wisata,
-                    potensi, serta kisah dari masyarakat.
-
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                 <div class="footer-social">
 
-                    <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-                    <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
-                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
 
                 </div>
 
@@ -3145,6 +3083,10 @@
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
 
             </div>
@@ -3288,14 +3230,13 @@
 
             <div class="footer-quote">
 
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara punya cerita.
+                {{ $siteSettings['footer_quote'] }}
 
             </div>
 
             <div class="footer-quote-author">
 
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
 
             </div>
 
@@ -3309,8 +3250,8 @@
 
             <div class="footer-copyright">
 
-                © {{ now()->year }} Derap Serayu.
-                Semua hak dilindungi.
+                © {{ now()->year }} {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 

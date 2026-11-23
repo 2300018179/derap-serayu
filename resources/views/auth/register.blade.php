@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Daftar | Derap Serayu</title>
+    <title>Daftar | {{ $siteSettings['site_name'] }}</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,9 +240,9 @@
                 linear-gradient(
                     90deg,
                     rgba(3, 48, 68, .20),
-                    rgba(3, 48, 68, .06),
+                    rgba(3, 48, 68, .06)
                 ),
-                url('{{ asset('images/bg-kawahsikidang-login.jpg') }}');
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-kawahsikidang-login.jpg') }}');
 
             background-size: cover;
 
@@ -781,10 +781,12 @@
         }
 
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
 
-<body>
+<body class="auth-page">
 
     <!-- =====================================================
          REGISTER HERO

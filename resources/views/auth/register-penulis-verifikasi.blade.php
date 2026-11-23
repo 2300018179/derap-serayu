@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Verifikasi Penulis | Derap Serayu</title>
+    <title>Verifikasi Penulis | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
                     rgba(3, 48, 68, .20),
                     rgba(3, 48, 68, .06)
                 ),
-                url('{{ asset('images/bg-diengplateau-registerrr.jpg') }}')
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-diengplateau-registerrr.jpg') }}')
                 center center / cover no-repeat fixed;
         }
 
@@ -846,9 +846,11 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
-<body>
+<body class="auth-page">
 
     <!-- =========================
          TOP BAR
@@ -906,7 +908,7 @@
 
             <img
                 src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
+                alt="{{ $siteSettings['site_name'] }}"
             >
 
         </div>
@@ -945,16 +947,7 @@
         </div>
 
 
-        <div class="search">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                placeholder="Cari..."
-            >
-
-        </div>
+        @include('partials.search-box')
 
 
         <button class="menu-btn">
@@ -1128,129 +1121,69 @@
 
 
                         <div class="email-text">
+                            <small>KODE DIKIRIM KE</small>
+                            <strong>{{ $maskedEmail ?? ($email ?? 'email Anda') }}</strong>
+                        </div>
+                    </div>
 
-                            <small>
-                                KODE DIKIRIM KE
-                            </small>
+                    @if(session('info'))
+                        <div style="background:#e8f8fc;color:#076e8a;padding:12px 14px;border-radius:10px;font-size:12px;margin-bottom:14px;border:1px solid #c2ebf5;">
+                            <i class="fa-solid fa-circle-info"></i> {{ session('info') }}
+                        </div>
+                    @endif
 
-                            <strong>
-                                annisa******@gmail.com
-                            </strong>
+                    @if(session('success'))
+                        <div style="background:#eafaf1;color:#1e7e43;padding:12px 14px;border-radius:10px;font-size:12px;margin-bottom:14px;border:1px solid #b7ebd0;">
+                            <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
+                        </div>
+                    @endif
 
+                    @if($errors->has('otp'))
+                        <div style="background:#fff1f1;color:#c0392b;padding:12px 14px;border-radius:10px;font-size:12px;margin-bottom:14px;border:1px solid #f9d3d3;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> {{ $errors->first('otp') }}
+                        </div>
+                    @endif
+
+                    <!-- FORM -->
+                    <form action="{{ route('register.penulis.verify') }}" method="POST" id="verificationForm">
+                        @csrf
+                        <input type="hidden" name="otp" id="finalOtp">
+
+                        <!-- OTP -->
+                        <label class="otp-title">Masukkan kode 6 digit</label>
+                        <div class="otp-wrapper">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code" autofocus>
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
                         </div>
 
-                    </div>
+                        <!-- TIMER -->
+                        <div class="timer-row">
+                            <i class="fa-regular fa-clock"></i>
+                            Kode berlaku selama
+                            <span class="timer" id="timer">10:00</span>
+                        </div>
 
-
-
-                    <!-- OTP -->
-
-                    <label class="otp-title">
-                        Masukkan kode 6 digit
-                    </label>
-
-
-                    <div class="otp-wrapper">
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                            autocomplete="one-time-code"
-                        >
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-                    </div>
-
-
-
-                    <!-- TIMER -->
-
-                    <div class="timer-row">
-
-                        <i class="fa-regular fa-clock"></i>
-
-                        Kode berlaku selama
-
-                        <span class="timer" id="timer">
-                            02:00
-                        </span>
-
-                    </div>
-
-
+                        <!-- BUTTON -->
+                        <button type="submit" class="btn-verify" style="width:100%;border:0;cursor:pointer;">
+                            Verifikasi Akun
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
 
                     <!-- RESEND -->
-
-                    <div class="resend">
-
+                    <div class="resend" style="margin-top:16px;">
                         Belum menerima kode?
-
-                        <button
-                            type="button"
-                            id="resendBtn"
-                        >
-                            Kirim ulang
-                        </button>
-
+                        <form action="{{ route('register.penulis.resend') }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" style="background:none;border:none;color:#08add5;font-weight:700;cursor:pointer;font-size:13px;text-decoration:underline;">
+                                Kirim ulang
+                            </button>
+                        </form>
                     </div>
-
-
-
-                    <!-- BUTTON -->
-
-                    <a
-                        href="{{ route('register.penulis.selesai') }}"
-                        style="text-decoration: none;"
-                    >
-
-                        <button
-                            type="button"
-                            class="btn-verify"
-                        >
-
-                            Verifikasi Akun
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-                    </a>
 
 
 
@@ -1365,57 +1298,41 @@
         });
 
 
-        /* =========================
-           COUNTDOWN
-        ========================== */
+        const verificationForm = document.getElementById('verificationForm');
+        const finalOtp = document.getElementById('finalOtp');
 
-        let timeLeft = 120;
-
-        const timerElement =
-            document.getElementById('timer');
-
-        const countdown =
-            setInterval(() => {
-
-                const minutes =
-                    Math.floor(timeLeft / 60);
-
-                const seconds =
-                    timeLeft % 60;
-
-                timerElement.textContent =
-                    String(minutes).padStart(2, '0')
-                    + ':'
-                    + String(seconds).padStart(2, '0');
-
-                if (timeLeft <= 0) {
-
-                    clearInterval(countdown);
-
-                    timerElement.textContent = '00:00';
-
+        if (verificationForm && finalOtp) {
+            verificationForm.addEventListener('submit', function (e) {
+                let code = '';
+                otpInputs.forEach(input => {
+                    code += input.value.trim();
+                });
+                if (code.length < 6) {
+                    e.preventDefault();
+                    alert('Silakan masukkan 6 digit kode verifikasi lengkap.');
+                    return false;
                 }
-
-                timeLeft--;
-
-            }, 1000);
-
+                finalOtp.value = code;
+            });
+        }
 
         /* =========================
-           RESEND
+           COUNTDOWN (10 MENIT)
         ========================== */
-
-        document
-            .getElementById('resendBtn')
-            .addEventListener('click', function () {
-
-                alert(
-                    'Kode verifikasi baru telah dikirim kembali.'
-                );
-
-                timeLeft = 120;
-
-            });
+        let timeLeft = 600;
+        const timerElement = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            if (timerElement) {
+                timerElement.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+            }
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                if (timerElement) timerElement.textContent = '00:00';
+            }
+            timeLeft--;
+        }, 1000);
 
     </script>
 

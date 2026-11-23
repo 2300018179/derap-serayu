@@ -125,8 +125,8 @@ class PotensiTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Belum Ada Potensi Unggulan')
-            ->assertSee('Belum ada potensi populer yang diterbitkan.')
-            ->assertSee('Belum Ada Artikel Ditemukan');
+            ->assertSee('Belum Ada Artikel Ditemukan')
+            ->assertDontSee('Jelajahi Berita & Artikel');
     }
 
     private function createPotensiArticle(User $author, array $attributes = []): Article

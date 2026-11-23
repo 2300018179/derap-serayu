@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sudut Kota | Derap Serayu</title>
+    <title>Sudut Kota | {{ $siteSettings['site_name'] }}</title>
 
     {{-- GOOGLE FONT --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,10 +215,15 @@
 
         .sosok-main-nav > a:hover,
         .sosok-nav-dropdown summary:hover,
-        .sosok-nav-dropdown[open] summary,
+        .sosok-nav-dropdown[open] summary {
+            background: #e8f8fc;
+            color: #08add5;
+        }
+
         .sosok-main-nav > a.active {
-            background: var(--cyan-soft);
-            color: var(--cyan-dark);
+            background: #08add5;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(8, 173, 213, .25);
         }
 
         .sosok-nav-dropdown {
@@ -603,7 +608,7 @@
 
         .sudut-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1fr);
             gap: 28px;
             align-items: stretch;
         }
@@ -740,7 +745,24 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 320px;
             height: 100%;
+        }
+
+        .featured-empty h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .featured-empty p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 360px;
+            margin: 0 auto;
         }
 
         .featured-empty i {
@@ -1041,14 +1063,12 @@
            ARTICLE SECTION (CERITA DARI SUDUT KOTA)
         ========================================================= */
         .article-section {
-            padding: 30px 6.5% 50px;
-            max-width: 1300px;
-            margin: 0 auto;
+            padding: 30px max(6.5%, calc((100% - 1300px) / 2)) 50px;
         }
 
         .article-layout {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 280px;
+            grid-template-columns: minmax(0, 1fr);
             gap: 32px;
             align-items: start;
         }
@@ -1421,9 +1441,7 @@
            DISCOVER CTA SECTION
         ========================================================= */
         .discover-section {
-            padding: 30px 6.5% 60px;
-            max-width: 1300px;
-            margin: 0 auto;
+            padding: 30px max(6.5%, calc((100% - 1300px) / 2)) 60px;
         }
 
         .discover-card {
@@ -1997,6 +2015,8 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
 <body>
@@ -2019,11 +2039,11 @@
         <a href="https://ppid.banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> PPID</a>
         <a href="https://www.instagram.com/mpp.banjarnegara/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-headset" aria-hidden="true"></i> Layanan Publik</a>
         <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-phone" aria-hidden="true"></i> Kontak</a>
-        <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-        <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
-        <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-        <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-        <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+        <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+        <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+        <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+        <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+        <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
     </div>
 </div>
 
@@ -2034,8 +2054,8 @@
     <div class="sosok-header-card">
         <a class="sosok-brand" href="{{ route('home') }}" aria-label="Derap Serayu, beranda">
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
             >
             <span class="sosok-brand-fallback">Derap<span>Serayu</span></span>
@@ -2060,15 +2080,7 @@
             </details>
         </nav>
 
-        <form class="sosok-search" action="{{ route('sudut-kota') }}" method="GET" role="search">
-            <label class="sosok-visually-hidden" for="sudut-search">Cari cerita sudut kota</label>
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input id="sudut-search" type="search" name="q" value="{{ request('q') }}" placeholder="Cari cerita sudut kota..." maxlength="100">
-            @if(request('area'))
-                <input type="hidden" name="area" value="{{ request('area') }}">
-            @endif
-            <button type="submit">Cari</button>
-        </form>
+        @include('partials.search-box', ['action' => route('sudut-kota')])
 
         <div class="account-actions">
             @auth
@@ -2098,11 +2110,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2207,98 +2222,10 @@
                         <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
                         <h2>Belum Ada Cerita Unggulan</h2>
                         <p>Cerita Sudut Kota yang diterbitkan akan otomatis tampil di bagian unggulan ini.</p>
-                        <a href="{{ route('articles.index', ['category' => 'Sudut Kota']) }}" class="read-button">
-                            Jelajahi Berita &amp; Cerita
-                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                        </a>
                     </div>
                 </article>
             @endif
-
-            {{-- POPULAR / SUDUT PILIHAN --}}
-            <aside class="city-list">
-                <div class="city-list-title">
-                    <h3>
-                        <i class="fa-solid fa-fire" aria-hidden="true"></i>
-                        Sudut Pilihan
-                    </h3>
-                    <a href="{{ route('articles.index', ['category' => 'Sudut Kota']) }}" class="see-all">
-                        Lihat Semua &rarr;
-                    </a>
-                </div>
-
-                @forelse ($popularArticles as $popular)
-                    @php
-                        $popularCover = $popular->cover_image_path
-                            ? (str_starts_with($popular->cover_image_path, 'images/') ? asset($popular->cover_image_path) : asset('storage/' . $popular->cover_image_path))
-                            : asset('images/alunalun.jpg');
-                    @endphp
-                    <a href="{{ route('articles.show', $popular->slug) }}" class="city-item">
-                        <div class="city-number">
-                            {{ $loop->iteration }}
-                        </div>
-                        <div class="city-image">
-                            <img
-                                src="{{ $popularCover }}"
-                                alt="{{ $popular->caption ?: $popular->title }}"
-                                loading="lazy"
-                            >
-                        </div>
-                        <div class="city-info">
-                            <h4>{{ $popular->title }}</h4>
-                            <span>
-                                <i class="fa-regular fa-eye" aria-hidden="true"></i>
-                                {{ number_format($popular->views) }} views
-                            </span>
-                        </div>
-                    </a>
-                @empty
-                    <p class="city-empty-state">Belum ada sudut pilihan yang diterbitkan.</p>
-                @endforelse
-            </aside>
         </div>
-    </div>
-</section>
-
-{{-- =========================================================
-     AREA / KATEGORI SECTION
-========================================================= --}}
-<section class="area-section">
-    <div class="area-title">
-        <div class="area-heading">
-            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-            <h2>Jelajahi Sudut Kota</h2>
-            <div class="heading-line"></div>
-        </div>
-
-        @if ($activeArea)
-            <a href="{{ route('sudut-kota') }}#cerita-sudut-kota" class="area-see">
-                Tampilkan Semua Area &rarr;
-            </a>
-        @else
-            <a href="{{ route('articles.index', ['category' => 'Sudut Kota']) }}" class="area-see">
-                Lihat di Indeks &rarr;
-            </a>
-        @endif
-    </div>
-
-    <div class="area-grid">
-        @foreach ($areas as $areaItem)
-            <a
-                href="{{ route('sudut-kota', ['area' => $areaItem['name']]) }}#cerita-sudut-kota"
-                class="area-card {{ $activeArea === $areaItem['name'] ? 'active' : '' }}"
-            >
-                <div class="area-icon">
-                    <i class="{{ $areaItem['icon'] }}" aria-hidden="true"></i>
-                </div>
-                <h3>{{ $areaItem['name'] }}</h3>
-                <p>{{ $areaItem['desc'] }}</p>
-                <div class="area-bottom">
-                    <span class="area-badge">{{ $areaItem['count'] }} artikel</span>
-                    <span class="area-arrow">&rarr;</span>
-                </div>
-            </a>
-        @endforeach
     </div>
 </section>
 
@@ -2335,51 +2262,18 @@
 
             <div class="article-grid">
                 @forelse ($articles as $article)
-                    @php
-                        $articleCover = $article->cover_image_path
-                            ? (str_starts_with($article->cover_image_path, 'images/') ? asset($article->cover_image_path) : asset('storage/' . $article->cover_image_path))
-                            : asset('images/alunalun.jpg');
-                    @endphp
-                    <a href="{{ route('articles.show', $article->slug) }}" class="article-card">
-                        <div class="article-image">
-                            <img
-                                src="{{ $articleCover }}"
-                                alt="{{ $article->caption ?: $article->title }}"
-                                loading="lazy"
-                            >
-                            <span class="article-tag">
-                                {{ $article->tags[0] ?? 'KOTA' }}
-                            </span>
-                        </div>
-
-                        <div class="article-content">
-                            <h3>{{ $article->title }}</h3>
-                            <p>{{ $article->summary }}</p>
-                            <div class="article-meta">
-                                <i class="fa-regular fa-clock" aria-hidden="true"></i>
-                                <span>{{ $article->published_at ? $article->published_at->diffForHumans() : 'Baru saja' }}</span>
-                                <span>&bull;</span>
-                                <span>{{ number_format($article->views) }} views</span>
-                            </div>
-                        </div>
-                    </a>
+                    @include('partials.article-card', ['cardFallbackImage' => 'images/alunalun.jpg'])
                 @empty
-                    <div class="article-empty">
-                        <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
-                        <h3>Belum Ada Artikel Ditemukan</h3>
-                        <p>
-                            @if ($activeArea || $searchTerm)
-                                Tidak ada cerita yang cocok dengan filter atau kata kunci yang dipilih. Coba reset filter untuk melihat cerita lainnya.
-                            @else
-                                Belum ada artikel Sudut Kota yang diterbitkan oleh redaksi.
-                            @endif
-                        </p>
-                        @if ($activeArea || $searchTerm)
+                    @if ($activeArea || $searchTerm)
+                        <div class="article-empty">
+                            <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+                            <h3>Tidak Ada Artikel Ditemukan</h3>
+                            <p>Tidak ada cerita yang cocok dengan filter atau kata kunci yang dipilih. Coba reset filter untuk melihat cerita lainnya.</p>
                             <a href="{{ route('sudut-kota') }}#cerita-sudut-kota" class="read-button">
                                 Tampilkan Semua Cerita
                             </a>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 @endforelse
             </div>
 
@@ -2389,24 +2283,6 @@
                 </div>
             @endif
         </div>
-
-        {{-- TRENDING SIDEBAR --}}
-        <aside class="trending">
-            <div class="trending-title">
-                <i class="fa-solid fa-fire" aria-hidden="true"></i>
-                <h3>Trending Topik</h3>
-            </div>
-
-            @foreach ($trendingTags as $trend)
-                <a
-                    href="{{ route('sudut-kota', ['q' => $trend['query']]) }}#cerita-sudut-kota"
-                    class="trend-item"
-                >
-                    <span>{{ $trend['tag'] }}</span>
-                    <span class="trend-action"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
-                </a>
-            @endforeach
-        </aside>
     </div>
 </section>
 
@@ -2445,20 +2321,28 @@
             <div class="footer-brand-column">
                 <a href="{{ route('home') }}" class="footer-brand" aria-label="Derap Serayu, beranda">
                     <div class="footer-logo-box">
-                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                        <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                     </div>
                 </a>
 
-                <p class="footer-description">
-                    Media informasi dan cerita Banjarnegara yang menghadirkan berita, budaya, wisata, potensi, serta kisah dari masyarakat.
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
                 <div class="footer-social">
-                    <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-                    <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
-                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
                 </div>
             </div>
 
@@ -2475,6 +2359,10 @@
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
             </div>
 
@@ -2575,7 +2463,7 @@
         <div class="footer-quote-section">
             <div class="footer-quote-mark">&ldquo;</div>
             <div class="footer-quote">
-                Dari gunung hingga lembah, setiap sudut Banjarnegara punya cerita.
+                {{ $siteSettings['footer_quote'] }}
             </div>
             <div class="footer-quote-author">
                 DERAP SERAYU &mdash; BANJARNEGARA
@@ -2585,7 +2473,7 @@
         {{-- BOTTOM --}}
         <div class="footer-bottom">
             <div class="footer-copyright">
-                &copy; {{ now()->year }} Derap Serayu. Semua hak dilindungi.
+                &copy; {{ now()->year }} {{ $siteSettings['site_name'] }}. {{ $siteSettings['footer_copyright'] }}
             </div>
 
             <div class="footer-policy">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $category !== '' ? $category : ($searchTerm !== '' ? 'Hasil Pencarian' : 'Berita Terbaru') }} | Derap Serayu</title>
+    <title>{{ $category !== '' ? $category : ($searchTerm !== '' ? 'Hasil Pencarian' : 'Berita Terbaru') }} | {{ $siteSettings['site_name'] }}</title>
     <meta name="description" content="Jelajahi berita dan cerita terbaru dari Banjarnegara di Derap Serayu.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -558,19 +558,19 @@
         .main-nav { display: flex; align-items: center; justify-content: center; gap: 3px; }
         .main-nav > a,
         .nav-dropdown summary {
-            padding: 10px 13px;
+            padding: 10px 11px;
             border-radius: 22px;
             color: var(--ink);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             text-decoration: none;
             white-space: nowrap;
             transition: background .2s, color .2s;
         }
         .main-nav > a:hover,
-        .main-nav > a.active,
         .nav-dropdown summary:hover,
-        .nav-dropdown[open] summary { background: var(--cyan-soft); color: #0789a9; }
+        .nav-dropdown[open] summary { background: var(--cyan-soft); color: #08add5; }
+        .main-nav > a.active { background: #08add5; color: #fff; box-shadow: 0 8px 20px rgba(8, 173, 213, .25); }
         .nav-dropdown { position: relative; }
         .nav-dropdown summary { cursor: pointer; list-style: none; }
         .nav-dropdown summary::-webkit-details-marker { display: none; }
@@ -830,7 +830,7 @@
         }
         .card-body { flex: 1; padding: 17px 18px 16px; display: flex; flex-direction: column; }
         .card h3 { margin: 0; font: 700 20px/1.35 "Playfair Display", serif; }
-        .summary { display: -webkit-box; overflow: hidden; margin: 10px 0 16px; color: #64849b; font-size: 13px; line-height: 1.65; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+        .summary { display: -webkit-box; overflow: hidden; margin: 10px 0 16px; color: #64849b; font-size: 13px; line-height: 1.65; text-align: justify; hyphens: auto; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
         .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: auto; color: #7895a8; font-size: 11px; }
         .meta i { color: #08a4c7; }
         .meta-dot { color: #b5cad5; }
@@ -1024,6 +1024,8 @@
             *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 <body>
     <div class="topbar">
@@ -1053,19 +1055,19 @@
                 <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i> Kontak
                 </a>
-                <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram">
+                <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram">
                     <i class="fa-brands fa-instagram" aria-hidden="true"></i>
                 </a>
-                <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook">
+                <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook">
                     <i class="fa-brands fa-facebook" aria-hidden="true"></i>
                 </a>
-                <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube">
+                <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube">
                     <i class="fa-brands fa-youtube" aria-hidden="true"></i>
                 </a>
-                <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X">
+                <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X">
                     <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
                 </a>
-                <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok">
+                <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok">
                     <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
                 </a>
             </div>
@@ -1085,8 +1087,8 @@
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -1155,6 +1157,14 @@
                     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                 </button>
 
+                @if (($kecamatan ?? '') !== '')
+                    <input type="hidden" name="kecamatan" value="{{ $kecamatan }}">
+                @endif
+
+                @if (($category ?? '') !== '')
+                    <input type="hidden" name="category" value="{{ $category }}">
+                @endif
+
                 <input
                     type="search"
                     name="q"
@@ -1200,11 +1210,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -1257,16 +1270,19 @@
             <div class="section-heading">
                 <div>
                     <p class="section-kicker">Derap Serayu</p>
-                    <h2 id="articles-heading">{{ $searchTerm !== '' || $category !== '' ? 'Jelajahi Hasil' : 'Berita Pilihan untuk Anda' }}</h2>
+                    <h2 id="articles-heading">{{ $kecamatan !== '' ? 'Artikel Kecamatan '.$kecamatan : ($searchTerm !== '' || $category !== '' ? 'Jelajahi Hasil' : 'Berita Pilihan untuk Anda') }}</h2>
                 </div>
                 @if ($articles->isNotEmpty())
                     <span class="section-count">{{ $articles->total() }} artikel tersedia</span>
                 @endif
             </div>
 
-            @if ($category !== '' || $searchTerm !== '')
+            @if ($category !== '' || $searchTerm !== '' || $kecamatan !== '')
                 <div class="result-bar">
                     <div class="result-tags">
+                        @if ($kecamatan !== '')
+                            <span class="result-tag"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Kecamatan: <strong>{{ $kecamatan }}</strong></span>
+                        @endif
                         @if ($category !== '')
                             <span class="result-tag"><i class="fa-solid fa-tag" aria-hidden="true"></i> Kategori: <strong>{{ $category }}</strong></span>
                         @endif
@@ -1293,25 +1309,7 @@
             @else
                 <div class="grid">
                     @foreach ($articles as $article)
-                        <a class="card" href="{{ route('articles.show', $article->slug) }}">
-                            <div class="card-image">
-                                <img
-                                    src="{{ $article->cover_image_path ? asset('storage/'.$article->cover_image_path) : asset('images/bg-dieng-home.jpg') }}"
-                                    alt="{{ $article->caption ?: $article->title }}"
-                                    loading="lazy"
-                                >
-                                <span class="category">{{ $article->category }}</span>
-                            </div>
-                            <div class="card-body">
-                                <h3>{{ $article->title }}</h3>
-                                <p class="summary">{{ $article->summary }}</p>
-                                <div class="meta">
-                                    <span><i class="fa-regular fa-user" aria-hidden="true"></i> {{ $article->author_name }}</span>
-                                    <span class="meta-dot" aria-hidden="true">•</span>
-                                    <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> {{ $article->published_at?->format('d M Y') }}</span>
-                                </div>
-                            </div>
-                        </a>
+                        @include('partials.article-card')
                     @endforeach
                 </div>
                 <div class="pagination-wrap">{{ $articles->links() }}</div>
@@ -1326,26 +1324,33 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="{{ route('home') }}" class="footer-logo" aria-label="Derap Serayu, beranda">
-                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                        <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                     </a>
-                    <p class="footer-description">
-                        Media informasi dan cerita Banjarnegara yang menghadirkan berita, budaya,
-                        wisata, potensi, serta kisah dari masyarakat.
-                    </p>
+                    <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
                     <div class="footer-social" aria-label="Media sosial Derap Serayu">
-                        <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram">
+                        <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram">
                             <i class="fa-brands fa-instagram" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook">
+                        <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook">
                             <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube">
+                        <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube">
                             <i class="fa-brands fa-youtube" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok">
+                        <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok">
                             <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
                         </a>
-                        <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X">
+                        <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X">
                             <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -1356,6 +1361,7 @@
                     <a href="{{ route('home') }}">Beranda</a>
                     <a href="{{ route('about') }}">Tentang Kami</a>
                     <a href="{{ route('articles.index') }}">Berita</a>
+                    <a href="{{ route('galeri') }}">Galeri</a>
                 </div>
 
                 <div class="footer-column">
@@ -1409,12 +1415,12 @@
 
             <div class="footer-quote">
                 <div class="footer-quote-mark" aria-hidden="true">“</div>
-                <p>Dari gunung hingga lembah, setiap sudut Banjarnegara punya cerita.</p>
-                <small>DERAP SERAYU — BANJARNEGARA</small>
+                <p>{{ $siteSettings['footer_quote'] }}</p>
+                <small>{{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA</small>
             </div>
 
             <div class="footer-bottom">
-                <div>© {{ date('Y') }} Derap Serayu. Semua hak dilindungi.</div>
+                <div>© {{ date('Y') }} {{ $siteSettings['site_name'] }}. {{ $siteSettings['footer_copyright'] }}</div>
                 <div class="footer-bottom-links">
                     <a href="{{ route('information.privacy') }}">Kebijakan Privasi</a>
                     <a href="{{ route('information.terms') }}">Syarat &amp; Ketentuan</a>
@@ -1467,5 +1473,6 @@
 
         updateTopbarWeather();
     </script>
+@include('partials.search-script')
 </body>
 </html>

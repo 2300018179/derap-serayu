@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Verifikasi Akun | Derap Serayu</title>
+    <title>Verifikasi Akun | {{ $siteSettings['site_name'] }}</title>
 
 
     <!-- Google Fonts -->
@@ -320,7 +320,7 @@
                     rgba(3,48,68,.05)
                 ),
 
-                url('{{ asset('images/bg-dieng-register.jpg') }}');
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-dieng-register.jpg') }}');
 
             background-size: cover;
 
@@ -1231,10 +1231,12 @@
 
     </style>
 
+@include('partials.site-theme-styles')
+
 </head>
 
 
-<body>
+<body class="auth-page">
 
 
     <!-- =====================================================
@@ -1313,7 +1315,7 @@
 
             <img
                 src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
+                alt="{{ $siteSettings['site_name'] }}"
             >
 
         </a>
@@ -1356,16 +1358,7 @@
 
         <div class="nav-right">
 
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    placeholder="Cari berita, topik, atau kata kunci..."
-                >
-
-            </div>
+            @include('partials.search-box')
 
 
             <button class="menu-btn">
@@ -1563,134 +1556,75 @@
 
 
                     <p>
-
-                        Masukkan 6 digit kode verifikasi yang
-                        telah kami kirimkan ke alamat emailmu.
-
+                        Masukkan 6 digit kode verifikasi yang telah kami kirimkan ke <strong>{{ $maskedEmail ?? ($email ?? 'alamat email Anda') }}</strong>.
                     </p>
 
+                    @if(session('info'))
+                        <div style="background:#e8f8fc;color:#076e8a;padding:12px 14px;border-radius:10px;font-size:12px;margin-top:14px;border:1px solid #c2ebf5;">
+                            <i class="fa-solid fa-circle-info"></i> {{ session('info') }}
+                        </div>
+                    @endif
+
+                    @if(session('success'))
+                        <div style="background:#eafaf1;color:#1e7e43;padding:12px 14px;border-radius:10px;font-size:12px;margin-top:14px;border:1px solid #b7ebd0;">
+                            <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->has('otp'))
+                        <div style="background:#fff1f1;color:#c0392b;padding:12px 14px;border-radius:10px;font-size:12px;margin-top:14px;border:1px solid #f9d3d3;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> {{ $errors->first('otp') }}
+                        </div>
+                    @endif
                 </div>
 
-
-
                 <!-- FORM -->
-
                 <form
-                    action="#"
+                    action="{{ route('register.pembaca.verify') }}"
                     method="POST"
                     id="verificationForm"
                 >
-
                     @csrf
-
+                    <input type="hidden" name="otp" id="finalOtp">
 
                     <label class="otp-label">
-
                         Kode Verifikasi
-
                     </label>
 
-
                     <div class="otp-wrapper">
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                            autocomplete="one-time-code"
-                            autofocus
-                        >
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-
-                        <input
-                            type="text"
-                            class="otp-input"
-                            maxlength="1"
-                            inputmode="numeric"
-                        >
-
-
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code" autofocus>
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
                     </div>
-
-
 
                     <div class="countdown">
-
                         Kode berlaku selama
-
                         <strong id="timer">
-                            02:00
+                            10:00
                         </strong>
-
                     </div>
-
-
 
                     <button
                         type="submit"
                         class="verify-btn"
                     >
-
                         Verifikasi Akun
-
                         <i class="fa-solid fa-arrow-right"></i>
-
                     </button>
-
-
                 </form>
 
-
-
                 <!-- RESEND -->
-
                 <div class="resend">
-
                     Tidak menerima kode?
-
-                    <button
-                        type="button"
-                        onclick="resendCode()"
-                    >
-
-                        Kirim ulang
-
-                    </button>
-
+                    <form action="{{ route('register.pembaca.resend') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" style="background:none;border:none;color:#08add5;font-weight:700;cursor:pointer;font-size:13px;text-decoration:underline;">
+                            Kirim ulang
+                        </button>
+                    </form>
                 </div>
 
 
@@ -1811,70 +1745,45 @@
                         otpInputs.length - 1
                     );
 
-
                 otpInputs[nextIndex].focus();
-
             });
-
         });
 
+        const verificationForm = document.getElementById('verificationForm');
+        const finalOtp = document.getElementById('finalOtp');
 
-
-        /* =====================================================
-           COUNTDOWN
-        ===================================================== */
-
-        let timeLeft = 120;
-
-
-        const timer =
-            document.getElementById('timer');
-
-
-        const countdown =
-            setInterval(function () {
-
-
-                const minutes =
-                    Math.floor(timeLeft / 60);
-
-
-                const seconds =
-                    timeLeft % 60;
-
-
-                timer.textContent =
-                    String(minutes).padStart(2, '0')
-                    + ':'
-                    + String(seconds).padStart(2, '0');
-
-
-                if (timeLeft <= 0) {
-
-                    clearInterval(countdown);
-
-                    timer.textContent = '00:00';
-
+        if (verificationForm && finalOtp) {
+            verificationForm.addEventListener('submit', function (e) {
+                let code = '';
+                otpInputs.forEach(input => {
+                    code += input.value.trim();
+                });
+                if (code.length < 6) {
+                    e.preventDefault();
+                    alert('Silakan masukkan 6 digit kode verifikasi lengkap.');
+                    return false;
                 }
-
-
-                timeLeft--;
-
-            }, 1000);
-
-
+                finalOtp.value = code;
+            });
+        }
 
         /* =====================================================
-           RESEND
+           COUNTDOWN (10 MENIT)
         ===================================================== */
-
-        function resendCode() {
-
-            alert(
-                'Kode verifikasi baru telah dikirim kembali.'
-            );
-
-        }
+        let timeLeft = 600;
+        const timer = document.getElementById('timer');
+        const countdown = setInterval(function () {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            if (timer) {
+                timer.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+            }
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                if (timer) timer.textContent = '00:00';
+            }
+            timeLeft--;
+        }, 1000);
 
     </script>
 

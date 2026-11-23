@@ -553,19 +553,20 @@
         .brand-name span { color: var(--cyan); }
         .main-nav { display: flex; align-items: center; justify-content: center; gap: 3px; }
         .main-nav > a, .nav-dropdown summary {
-            padding: 10px 13px;
+            padding: 10px 11px;
             border-radius: 22px;
             color: var(--ink);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             text-decoration: none;
             white-space: nowrap;
             transition: background .2s, color .2s;
         }
-        .main-nav > a:hover, .main-nav > a.active, .nav-dropdown summary:hover, .nav-dropdown[open] summary {
+        .main-nav > a:hover, .nav-dropdown summary:hover, .nav-dropdown[open] summary {
             background: var(--cyan-soft);
-            color: #0789a9;
+            color: #08add5;
         }
+        .main-nav > a.active { background: #08add5; color: #fff; box-shadow: 0 8px 20px rgba(8, 173, 213, .25); }
         .nav-dropdown { position: relative; }
         .nav-dropdown summary { cursor: pointer; list-style: none; }
         .nav-dropdown summary::-webkit-details-marker { display: none; }
@@ -650,7 +651,7 @@
             background: rgba(255, 255, 255, .95);
             box-shadow: 0 16px 42px rgba(7, 63, 94, .1);
         }
-        .intro-card p { margin: 0; color: #476d86; font-size: 15px; line-height: 1.85; }
+        .intro-card p { margin: 0; color: #476d86; font-size: 15px; line-height: 1.85; text-align: justify; }
         .intro-card p + p { margin-top: 12px; }
         .content-section { margin-top: 54px; }
         .section-heading { max-width: 690px; margin: 0 auto 24px; text-align: center; }
@@ -667,7 +668,7 @@
         }
         .value-icon { width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #c8edf5; border-radius: 15px; background: linear-gradient(145deg, #e9faff, #f8fdff); color: #0798ba; font-size: 19px; }
         .value-card h3 { margin: 17px 0 7px; font: 700 20px "Playfair Display", serif; }
-        .value-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+        .value-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; text-align: justify; }
         .reader-panel {
             margin-top: 48px;
             padding: clamp(25px, 4vw, 40px);
@@ -778,6 +779,8 @@
             *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 <body>
     <div class="topbar">
@@ -795,11 +798,11 @@
                 <a href="https://ppid.banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> PPID</a>
                 <a href="https://www.instagram.com/mpp.banjarnegara/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-headset" aria-hidden="true"></i> Layanan Publik</a>
                 <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-phone" aria-hidden="true"></i> Kontak</a>
-                <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
-                <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-                <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-                <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+                <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -817,8 +820,8 @@
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -844,7 +847,7 @@
                 Berita
             </a>
 
-            <a href="{{ route('about') }}" class="active">
+            <a href="{{ route('about') }}" class="active" aria-current="page">
                 Tentang Kami
             </a>
 
@@ -902,11 +905,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -956,64 +962,62 @@
         </section>
 
         <section class="intro-card" aria-label="Profil Derap Serayu">
-            <p><strong>Derap Serayu</strong> adalah media informasi dan cerita yang berfokus pada Banjarnegara. Melalui beragam rubrik, halaman ini menghadirkan berita serta kisah tentang kehidupan, budaya, wisata, potensi, dan masyarakat di sekitar kita.</p>
-            <p>Kami ingin membantu pembaca menemukan informasi lokal dengan mudah—mulai dari berita terkini hingga sudut-sudut Banjarnegara yang menyimpan cerita.</p>
+            <p><strong>Majalah Derap Serayu</strong> merupakan media publikasi berkala resmi milik Pemerintah Kabupaten (Pemkab) Banjarnegara. Media ini hadir sebagai sarana komunikasi publik, keterbukaan informasi, dan diseminasi kebijakan pembangunan daerah kepada masyarakat Banjarnegara.</p>
+            <p>Sebelum ada media majalah "Derap Serayu" Pemkab Banjarnegara melalui Bagian Humas telah memiliki tabloid bulanan "Cakrawala" yang terbit sejak Agustus Tahun 2000 bertepatan dengan Hari Jadi Banjarnegara. Pelindung: Bupati Drs. H. Nurachmad, pemimpin redaksi: Drs. Suyatno M.Si selaku Kabag Humas.</p>
+            <p>Setelah 2 tahun terbit, tabloid "Cakrawala" berganti nama menjadi "Derap Serayu" dalam format majalah pada bulan Agustus Tahun 2002. Nama "Derap Serayu" diambil dari Sungai Serayu-urat nadi geografis, ekonomi, dan simbol kehidupan masyarakat banjarnegara serta kawasan Banyumas Raya. Kata "Derap" menggambarkan ritme, dinamisme, serta langkah maju pembangunan daerah.</p>
+            <p>Majalah ini lahir dari kebutuhan Pemkab Banjarnegara untuk memiliki media cetak mandiri yang mampu:
+                <ul>
+                    <li>Menyebarluaskan program prioritas bupati dan kebijakan pemerintah daerah ke tingkat kecamatan hingga desa.</li>
+                    <li>Menjadi jembatan komunikasi timbal balik antara birokrasi dan warga.</li>
+                    <li>Mendokumentasikan capaian pembangunan, potensi agribisnis, serta kebudayaan lokal Banjarnegara.</li>
+                </ul>
+            </p>
         </section>
 
         <section class="content-section" aria-labelledby="values-title">
             <div class="section-heading">
-                <p class="section-kicker">Yang kami hadirkan</p>
-                <h2 id="values-title">Cerita lokal, lebih dekat</h2>
-                <p>Derap Serayu merangkum berbagai sisi Banjarnegara agar pembaca dapat menjelajahinya dalam satu ruang.</p>
+                <h2 id="values-title">Pengelolaan dan Struktur Redaksi</h2>
+                <p>Derap Serayu mengelola kontennya melalui struktur redaksi yang terdiri dari Bagian Humas Setda, Dinas Komunikasi dan Informatika (Dinkominfo), dan Tim Redaksi yang bertugas memastikan kualitas informasi dan keberagaman rubrik.</p>
             </div>
             <div class="values-grid">
                 <article class="value-card">
-                    <div class="value-icon"><i class="fa-regular fa-newspaper" aria-hidden="true"></i></div>
-                    <h3>Informasi daerah</h3>
-                    <p>Ikuti kabar dan artikel yang membantu pembaca mengetahui hal-hal yang sedang terjadi di Banjarnegara.</p>
+                    <div><i aria-hidden="true"></i></div>
+                    <h3>Bagian Humas Setda (Awal Berdiri)</h3>
+                    <p>Pada masa awal penerbitannya Tahun 2002, Derap Serayu dikelola di bawah koordinasi Bagian Hubungan Masyarakat (Humas) dan Protokol Sekretariat Daerah (Setda) Kabupaten Banjarnegara. Pelindung: Bupati Drs. H. Djasri MM MT dan Wakil Bupati Drs. H. Hadi Supeno M.SI, pemimpin redaksi: Drs. Suyatno M.Si yang dilanjutkan oleh Drs. Suprijanto selaku Kabag Humas.</p>
                 </article>
                 <article class="value-card">
-                    <div class="value-icon"><i class="fa-solid fa-mountain-sun" aria-hidden="true"></i></div>
-                    <h3>Budaya dan potensi</h3>
-                    <p>Jelajahi budaya, wisata, teknologi, opini, sosok, dan potensi daerah melalui rubrik yang beragam.</p>
+                    <div><i aria-hidden="true"></i></div>
+                    <h3>Dinas Komunikasi dan Informatika (Dinkominfo)</h3>
+                    <p>Seiring restrukturisasi organisasi perangkat daerah (OPD) dan penerapan UU Keterbukaan Informasi Publik, pengelolaan majalah dan saluran publikasi daerah dialihkan ke Dinkominfo Kabupaten Banjarnegara pada 2016.</p>
                 </article>
                 <article class="value-card">
-                    <div class="value-icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
-                    <h3>Kisah masyarakat</h3>
-                    <p>Temukan cerita dari warga dan lingkungan yang membentuk kehidupan serta identitas Banjarnegara.</p>
+                    <div><i aria-hidden="true"></i></div>
+                    <h3>Tim Redaksi</h3>
+                    <p>Tim Redaksi terdiri atas pejabat humas/pranata humas, reporter dinas, serta kontributor tulisan dari jajaran OPD dan masyarakat umum.</p>
                 </article>
             </div>
         </section>
 
-        <section class="reader-panel" aria-labelledby="reader-title">
+        <section class="intro-card" aria-label="Profil Derap Serayu">
             <div>
-                <p class="section-kicker">Untuk pembaca</p>
-                <h2 id="reader-title">Jelajahi dengan caramu</h2>
-                <p>Membaca berita tidak perlu akun. Akun pembaca bersifat opsional dan memberi akses untuk menyimpan artikel pilihan agar mudah ditemukan lagi.</p>
-            </div>
-            <div class="reader-steps">
-                <div class="reader-step">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                    <div><strong>Cari dan jelajahi</strong><span>Gunakan pencarian atau pilih rubrik sesuai minat.</span></div>
-                </div>
-                <div class="reader-step">
-                    <i class="fa-solid fa-book-open" aria-hidden="true"></i>
-                    <div><strong>Baca tanpa akun</strong><span>Artikel publik terbuka untuk semua pembaca.</span></div>
-                </div>
-                <div class="reader-step">
-                    <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
-                    <div><strong>Simpan artikel pilihan</strong><span>Masuk atau daftar sebagai pembaca untuk menggunakan fitur tersimpan.</span></div>
-                </div>
+                <h2 id="reader-title">Rubrikasi dan Karakteristik Konten</h2>
+                <p>Sepanjang perjalanannya sebagai media cetak berkala, Derap Serayu memuat rubrik-rubrik unggulan seperti:</p>
+                <ul>
+                    <li>Laporan Utama (Fokus Utama): Mengupas program strategi Pemda (Infstruktur jalan, penanggulangan kemiskinan, ketahanan pangan, dan mitigasi bencana).</li>
+                    <li>Potensi Daerah & Wisata: Liputan promosi pariwisata (seperti Dataran Tinggi Dieng, arung jeram Sungai Serayu, dan curug) serta komoditas unggulan (Kopi, salak pondoh, durian).</li>
+                    <li>Lintas Serayu Kecamatan: Ragam inovasi pelayanan publik di tingkat satuan kerja perangkat daerah.</li>
+                    <li>Seni Budaya, Olahraga, Profil, Derapsiana, dan sebagainya: Pengenalan kearifan lokal, batik tulis gumelem, kuliner khas (Dawet Ayu), dan tradisi Banjarnegara.</li>
+                </ul>
             </div>
         </section>
 
-        <section class="contact-card" aria-labelledby="contact-title">
-            <h2 id="contact-title">Punya masukan atau pertanyaan?</h2>
-            <p>Untuk informasi dan kanal layanan resmi Pemerintah Kabupaten Banjarnegara, kunjungi situs resminya. Kamu juga dapat kembali menjelajahi berita di Derap Serayu.</p>
-            <div class="contact-actions">
-                <a class="primary" href="{{ route('articles.index') }}"><i class="fa-solid fa-newspaper" aria-hidden="true"></i> Jelajahi berita</a>
-                <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Situs resmi Banjarnegara</a>
-            </div>
+        <section class="intro-card" aria-label="Profil Derap Serayu">
+            <h2 id="contact-title">Transformasi ke Era Digital</h2>
+            <p>Perubahan pola konsumsi media dari media cetak fisik ke media daring mendorong Pemkab Banjarnegara melakukan penyesuaian terhadap Derap Serayu:</p>
+            <ul>
+                <li>Digitalisasi Terbitan: Diterbitkan dalam format digital/e-magazine (PDF interaktif) agar lebih mudah diakses oleh publik melalui portal resmi daerah.</li>
+                <li>Integrasi Portal Berita dan Medsos: Jenama Derap Serayu kini dikembangkan menjadi sub-portal berita digital (derapserayu.banjarnegarakab.go.id) dan berkolaborasi dengan platform media sosial resmi Pemkab untuk menyampaikan informasi terkini secara cepat.</li>
+            </ul>
         </section>
     </main>
 
@@ -1024,15 +1028,25 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="{{ route('home') }}" class="footer-logo" aria-label="Derap Serayu, beranda">
-                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                        <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                     </a>
-                    <p class="footer-description">Media informasi dan cerita Banjarnegara yang menghadirkan berita, budaya, wisata, potensi, serta kisah dari masyarakat.</p>
+                    <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
                     <div class="footer-social" aria-label="Media sosial Derap Serayu">
-                        <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                        <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                        <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-                        <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
-                        <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                        <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                        <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                        <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                        <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -1040,6 +1054,7 @@
                     <a href="{{ route('home') }}">Beranda</a>
                     <a href="{{ route('about') }}">Tentang Kami</a>
                     <a href="{{ route('articles.index') }}">Berita</a>
+                    <a href="{{ route('galeri') }}">Galeri</a>
                 </div>
                 <div class="footer-column">
                     <h3>Informasi</h3>
@@ -1078,11 +1093,11 @@
             </div>
             <div class="footer-quote">
                 <div class="footer-quote-mark" aria-hidden="true">“</div>
-                <p>Dari gunung hingga lembah, setiap sudut Banjarnegara punya cerita.</p>
-                <small>DERAP SERAYU — BANJARNEGARA</small>
+                <p>{{ $siteSettings['footer_quote'] }}</p>
+                <small>{{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA</small>
             </div>
             <div class="footer-bottom">
-                <div>© {{ date('Y') }} Derap Serayu. Semua hak dilindungi.</div>
+                <div>© {{ date('Y') }} {{ $siteSettings['site_name'] }}. {{ $siteSettings['footer_copyright'] }}</div>
                 <div class="footer-bottom-links">
                     <a href="{{ route('information.privacy') }}">Kebijakan Privasi</a>
                     <a href="{{ route('information.terms') }}">Syarat &amp; Ketentuan</a>

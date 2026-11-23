@@ -597,6 +597,12 @@ input {
 
 }
 
+.feature-layout:not(:has(.popular-card)) {
+
+    grid-template-columns: minmax(0, 1fr);
+
+}
+
 
 /* FEATURE CARD */
 
@@ -626,6 +632,46 @@ input {
 
     grid-template-columns: 1fr;
     min-height: 190px;
+    width: 100%;
+
+}
+
+.feature-card-empty .feature-info {
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 22px;
+    padding: 44px 48px;
+
+}
+
+.feature-empty-icon {
+
+    display: grid;
+    place-items: center;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #e8f6fb;
+    color: #0bb5dc;
+    font-size: 24px;
+
+}
+
+.feature-empty-text {
+
+    flex: 1 1 320px;
+    min-width: 0;
+
+}
+
+.feature-card-empty .feature-info p {
+
+    max-width: none;
+    font-size: 12px;
 
 }
 
@@ -1832,7 +1878,6 @@ input {
 
 }
 
-
 .footer-quote-section {
 
     padding: 32px 20px 39px;
@@ -1844,7 +1889,6 @@ input {
     text-align: center;
 
 }
-
 
 .footer-quote-mark {
 
@@ -2655,8 +2699,9 @@ input {
 }
 
 .opini-main-nav > a[aria-current="page"] {
-    background: #e8f8fc;
-    color: #0789a9;
+    background: #08add5;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(8, 173, 213, .25);
 }
 
 .opini-visually-hidden {
@@ -2802,6 +2847,8 @@ input {
 
 </style>
 
+@include('partials.site-theme-styles')
+
 </head>
 
 
@@ -2831,11 +2878,11 @@ input {
             <a href="https://ppid.banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> PPID</a>
             <a href="https://www.instagram.com/mpp.banjarnegara/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-headset" aria-hidden="true"></i> Layanan Publik</a>
             <a href="https://banjarnegarakab.go.id/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-phone" aria-hidden="true"></i> Kontak</a>
-            <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
-            <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-            <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-            <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara" title="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -2850,8 +2897,8 @@ input {
     <div class="opini-header-card">
         <a class="opini-brand" href="{{ route('home') }}" aria-label="Derap Serayu, beranda">
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
             >
             <span class="opini-brand-fallback">Derap<span>Serayu</span></span>
@@ -2876,12 +2923,7 @@ input {
             </details>
         </nav>
 
-        <form class="opini-search" action="{{ route('articles.index') }}" method="GET" role="search">
-            <label class="opini-visually-hidden" for="opini-search">Cari berita dan opini</label>
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input id="opini-search" type="search" name="q" value="{{ request('q') }}" placeholder="Cari berita atau opini..." maxlength="100">
-            <button type="submit">Cari</button>
-        </form>
+        @include('partials.search-box', ['action' => route('opini')])
 
         <div class="account-actions">
             @auth
@@ -2911,11 +2953,14 @@ input {
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -3031,107 +3076,105 @@ input {
                 </div>
             @else
                 <div class="feature-info">
-                    <h2>Belum ada opini yang diterbitkan</h2>
-                    <p>Opini akan muncul di sini setelah ditinjau dan diterbitkan oleh redaksi.</p>
+                    <span class="feature-empty-icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
+                    <div class="feature-empty-text">
+                        <h2>Belum ada opini yang diterbitkan</h2>
+                        <p>Opini akan muncul di sini setelah ditinjau dan diterbitkan oleh redaksi.</p>
+                    </div>
                 </div>
             @endif
         </article>
 
+        @if ($featuredOpinion)
+            <aside class="popular-card">
 
+                <div class="popular-heading">
 
-        {{-- POPULAR --}}
+                    <h3><i class="fa-regular fa-lightbulb" aria-hidden="true"></i> Opini Populer</h3>
 
-        <aside class="popular-card">
+                    <a href="#opini-terbaru" class="see-all">Lihat Semua →</a>
 
-            <div class="popular-heading">
+                </div>
 
-                <h3><i class="fa-regular fa-lightbulb" aria-hidden="true"></i> Opini Populer</h3>
+                @forelse ($popularOpinions as $opinion)
+                    <a class="popular-item opinion-card-link" href="{{ route('articles.show', $opinion->slug) }}">
+                        <span class="popular-number">{{ $loop->iteration }}</span>
+                        <span class="popular-thumb">
+                            <img
+                                src="{{ $opinion->cover_image_path ? asset('storage/'.$opinion->cover_image_path) : asset('images/bg-kawah.jpg') }}"
+                                alt="{{ $opinion->caption ?: $opinion->title }}"
+                            >
+                        </span>
+                        <span class="popular-info">
+                            <span class="popular-info-title">{{ $opinion->title }}</span>
+                            <span>{{ number_format($opinion->views) }} dibaca</span>
+                        </span>
+                    </a>
+                @empty
+                    <p class="popular-empty-state">Belum ada opini populer yang diterbitkan.</p>
+                @endforelse
 
-                <a href="#opini-terbaru" class="see-all">Lihat Semua →</a>
-
-            </div>
-
-            @forelse ($popularOpinions as $opinion)
-                <a class="popular-item opinion-card-link" href="{{ route('articles.show', $opinion->slug) }}">
-                    <span class="popular-number">{{ $loop->iteration }}</span>
-                    <span class="popular-thumb">
-                        <img
-                            src="{{ $opinion->cover_image_path ? asset('storage/'.$opinion->cover_image_path) : asset('images/bg-kawah.jpg') }}"
-                            alt="{{ $opinion->caption ?: $opinion->title }}"
-                        >
-                    </span>
-                    <span class="popular-info">
-                        <span class="popular-info-title">{{ $opinion->title }}</span>
-                        <span>{{ number_format($opinion->views) }} dibaca</span>
-                    </span>
-                </a>
-            @empty
-                <p class="popular-empty-state">Belum ada opini populer yang diterbitkan.</p>
-            @endforelse
-
-        </aside>
-
+            </aside>
+        @endif
     </section>
-
-
 
     {{-- =================================================
          OPINI TERBARU
     ================================================== --}}
 
-    <section id="opini-terbaru">
-        <div class="section-header">
-            <div class="section-title">
-                <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
-                <h2>Opini Terbaru</h2>
-                <div class="small-line"></div>
+    @if ($featuredOpinion || $searchTerm !== '')
+        <section id="opini-terbaru">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                    <h2>{{ $searchTerm !== '' ? 'Hasil untuk “'.$searchTerm.'”' : 'Opini Terbaru' }}</h2>
+                    <div class="small-line"></div>
+                </div>
+                <span class="section-see-all">{{ $opinions->total() }} artikel terbit</span>
             </div>
-            <span class="section-see-all">{{ $opinions->total() }} artikel terbit</span>
-        </div>
 
-        <div class="opinion-grid">
-            @forelse ($opinions as $opinion)
-                <article class="opinion-card">
-                    <a class="opinion-card-image" href="{{ route('articles.show', $opinion->slug) }}">
-                        <img
-                            src="{{ $opinion->cover_image_path ? asset('storage/'.$opinion->cover_image_path) : asset('images/bg-kawah.jpg') }}"
-                            alt="{{ $opinion->caption ?: $opinion->title }}"
-                        >
-                        <span class="card-category">OPINI</span>
-                    </a>
-                    <div class="opinion-card-body">
-                        <h3>
-                            <a class="opinion-card-link" href="{{ route('articles.show', $opinion->slug) }}">
-                                {{ $opinion->title }}
-                            </a>
-                        </h3>
-                        <p>{{ $opinion->summary }}</p>
-                        <div class="card-meta">
-                            <span>{{ $opinion->author_name }}</span>
-                            @if ($opinion->published_at)
-                                <span aria-hidden="true">·</span>
-                                <time datetime="{{ $opinion->published_at->toDateString() }}">{{ $opinion->published_at->translatedFormat('d M Y') }}</time>
-                            @endif
+            <div class="opinion-grid">
+                @forelse ($opinions as $opinion)
+                    <article class="opinion-card">
+                        <a class="opinion-card-image" href="{{ route('articles.show', $opinion->slug) }}">
+                            <img
+                                src="{{ $opinion->cover_image_path ? asset('storage/'.$opinion->cover_image_path) : asset('images/bg-kawah.jpg') }}"
+                                alt="{{ $opinion->caption ?: $opinion->title }}"
+                            >
+                            <span class="card-category">OPINI</span>
+                        </a>
+                        <div class="opinion-card-body">
+                            <h3>
+                                <a class="opinion-card-link" href="{{ route('articles.show', $opinion->slug) }}">
+                                    {{ $opinion->title }}
+                                </a>
+                            </h3>
+                            <p>{{ $opinion->summary }}</p>
+                            <div class="card-meta">
+                                <span>{{ $opinion->author_name }}</span>
+                                @if ($opinion->published_at)
+                                    <span aria-hidden="true">·</span>
+                                    <time datetime="{{ $opinion->published_at->toDateString() }}">{{ $opinion->published_at->translatedFormat('d M Y') }}</time>
+                                @endif
+                            </div>
+                        </div>
+                    </article>
+                @empty
+                    <div class="opinion-empty-state">
+                        <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+                        <div>
+                            <strong>Tidak ada opini yang cocok</strong>
+                            <span>Coba kata kunci lain untuk mencari opini.</span>
                         </div>
                     </div>
-                </article>
-            @empty
-                <div class="opinion-empty-state">
-                    <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
-                    <div>
-                        <strong>Belum ada opini yang diterbitkan</strong>
-                        <span>Artikel Opini akan tampil di sini setelah ditinjau dan diterbitkan oleh redaksi.</span>
-                    </div>
-                </div>
-            @endforelse
-        </div>
+                @endforelse
+            </div>
 
-        @if ($opinions->hasPages())
-            <div class="opinion-pagination">{{ $opinions->links() }}</div>
-        @endif
-    </section>
-
-
+            @if ($opinions->hasPages())
+                <div class="opinion-pagination">{{ $opinions->links() }}</div>
+            @endif
+        </section>
+    @endif
 
     {{-- =================================================
          CTA PENULIS
@@ -3175,10 +3218,7 @@ input {
 
     </section>
 
-
 </main>
-
-
 
 {{-- =====================================================
      FOOTER
@@ -3200,38 +3240,42 @@ input {
                     href="{{ url('/') }}"
                     class="footer-brand"
                 >
-                    <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                    <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                 </a>
 
 
-                <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya, wisata,
-                    potensi, serta kisah dari masyarakat.
-
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                 <div class="footer-social">
 
-                    <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara">
+                    <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
 
-                    <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara">
+                    <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
 
-                    <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara">
+                    <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara">
                         <i class="fa-brands fa-youtube"></i>
                     </a>
 
-                    <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara">
+                    <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
 
-                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X">
+                    <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
 
@@ -3259,6 +3303,10 @@ input {
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
 
             </div>
@@ -3404,14 +3452,13 @@ input {
 
             <div class="footer-quote">
 
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara punya cerita.
+                {{ $siteSettings['footer_quote'] }}
 
             </div>
 
             <div class="footer-quote-author">
 
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
 
             </div>
 
@@ -3425,8 +3472,8 @@ input {
 
             <div class="footer-copyright">
 
-                © {{ now()->year }} Derap Serayu.
-                Semua hak dilindungi.
+                © {{ now()->year }} {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 

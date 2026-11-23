@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Review Artikel | Derap Serayu</title>
+    <title>Review Artikel | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -241,6 +241,16 @@
             border: 1px solid #d6eaf5;
             border-radius: 13px;
             color: #6996b0;
+        }
+
+        .article-search-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 22px;
+        }
+
+        .article-search-row .search-box {
+            width: min(560px, 100%);
         }
 
         .search-box i {
@@ -488,7 +498,7 @@
             min-height: 132px;
             border: 1px solid var(--border);
             border-radius: 16px;
-            background: #fff;
+            background: #ffffff;
             box-shadow: var(--shadow);
         }
 
@@ -2476,192 +2486,19 @@
         }
 
     </style>
+    @include('partials.site-theme-styles')
+    @include('editor.partials.sidebar-styles')
+    @include('editor.partials.topbar-styles')
 </head>
 
 <body>
 <div class="layout">
 
-    {{-- SIDEBAR --}}
-    <aside class="sidebar" id="sidebar">
-        <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-logo-wrapper">
-                <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Logo Derap Serayu"
-                    class="brand-logo"
-                >
-            </div>
-        </a>
-
-        <div class="nav-section">RUANG REDAKSI</div>
-
-        <nav class="nav-list">
-            <a
-                href="{{ route('admin.dashboard') }}"
-                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-            >
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a
-                href="{{ route('admin.articles.index') }}"
-                class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}"
-            >
-                <i class="fa-regular fa-newspaper"></i>
-                <span>Review Artikel</span>
-            </a>
-
-            <a
-                href="{{ route('home') }}"
-                class="nav-link"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                <span>Lihat Website</span>
-            </a>
-        </nav>
-    </aside>
+    @include('editor.partials.sidebar')
 
     {{-- MAIN CONTENT --}}
     <main class="main">
-        <header class="topbar">
-            <button class="mobile-menu" id="mobileMenu" type="button"
-                    aria-label="Buka navigasi">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" id="dashboardSearch"
-                       placeholder="Cari artikel, penulis, atau status...">
-            </div>
-
-            <div class="topbar-right">
-                <div class="topbar-date">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span id="currentDate">Memuat tanggal...</span>
-                </div>
-
-                
-            <div class="admin-account">
-                <button
-                    type="button"
-                    class="admin-chip"
-                    id="adminAccountButton"
-                    aria-expanded="false"
-                    aria-controls="adminAccountDropdown"
-                >
-                    <span class="admin-chip-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </span>
-
-                    <span class="admin-chip-text">
-                        {{ Auth::user()->name ?? 'Administrator' }}
-                    </span>
-
-                    <i class="fas fa-chevron-down admin-chevron"></i>
-                </button>
-
-                <div class="admin-dropdown" id="adminAccountDropdown" hidden>
-                    <div class="admin-dropdown-profile">
-                        <div class="admin-avatar">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
-                        </div>
-
-                        <div class="admin-profile-info">
-                            <strong>{{ Auth::user()->name ?? 'Administrator' }}</strong>
-                            <span>{{ Auth::user()->email ?? '' }}</span>
-                            <small>
-                                <i class="fas fa-circle"></i>
-                                Administrator
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="admin-dropdown-divider"></div>
-
-                    <div class="admin-dropdown-label">AKUN SAYA</div>
-
-                    <button
-                        type="button"
-                        class="admin-dropdown-item"
-                        id="adminAccountInfoButton"
-                    >
-                        <i class="fas fa-user-circle"></i>
-                        <span>Informasi Akun</span>
-                    </button>
-
-                    <div class="admin-dropdown-divider"></div>
-
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-
-                        <button type="submit"
-                                class="admin-dropdown-item admin-logout-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Keluar dari akun</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Modal informasi akun -->
-            <div class="admin-modal-overlay" id="adminAccountModal" hidden>
-                <div class="admin-modal">
-                    <div class="admin-modal-header">
-                        <div>
-                            <span class="admin-modal-eyebrow">DERAP SERAYU</span>
-                            <h3>Informasi Akun</h3>
-                        </div>
-
-                        <button type="button"
-                                class="admin-modal-close"
-                                id="adminAccountModalClose"
-                                aria-label="Tutup">
-                            &times;
-                        </button>
-                    </div>
-
-                    <div class="admin-modal-body">
-                        <div class="admin-modal-avatar">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Nama Administrator</label>
-                            <div>{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Email</label>
-                            <div>{{ Auth::user()->email ?? '-' }}</div>
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Peran Akun</label>
-                            <div>
-                                <span class="admin-role-badge">
-                                    <i class="fas fa-shield-alt"></i>
-                                    Administrator
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-modal-footer">
-                        <button type="button"
-                                class="admin-modal-ok"
-                                id="adminAccountModalOk">
-                            Tutup
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-        </header>
+        @include('editor.partials.topbar', ['pageTitle' => 'Tinjauan Artikel'])
 
         <div class="content">
 
@@ -2679,6 +2516,17 @@
                     <i class="fa-solid fa-list-check"></i>
                 </div>
             </section>
+
+            <div class="article-search-row">
+                <form class="search-box" method="GET" action="{{ route('admin.articles.index') }}" role="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="articleSearch" name="search"
+                           value="{{ request('search') }}"
+                           maxlength="100"
+                           placeholder="Cari judul, ringkasan, atau penulis...">
+                    <input type="hidden" name="status" value="{{ $statusAktif }}">
+                </form>
+            </div>
 
             {{-- HERO --}}
             <section class="hero">
@@ -2722,17 +2570,7 @@
 
             {{-- SUMMARY CARDS --}}
             @php
-                $jumlahReview = (clone $articles)->getCollection()
-                    ->where('status', 'review')->count();
-
-                $jumlahTerbit = (clone $articles)->getCollection()
-                    ->where('status', 'published')->count();
-
-                $jumlahRevisi = (clone $articles)->getCollection()
-                    ->where('status', 'rejected')->count();
-
-                $jumlahDraft = (clone $articles)->getCollection()
-                    ->where('status', 'draft')->count();
+                $jumlahTerbit = $jumlahPublished;
             @endphp
 
             <section class="stats">
@@ -2752,21 +2590,6 @@
                     </div>
                 </a>
 
-                {{-- Artikel Terbit --}}
-                <a href="{{ route('admin.articles.index', ['status' => 'published']) }}"
-                class="stat-card {{ request('status') === 'published' ? 'active' : '' }}">
-                    <div class="stat-top">
-                        <div class="stat-label">Artikel Terbit</div>
-                        <div class="stat-icon">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </div>
-                    </div>
-                    <div class="stat-value">{{ $jumlahTerbit }}</div>
-                    <div class="stat-description">
-                        Artikel berstatus published
-                    </div>
-                </a>
-
                 {{-- Perlu Revisi --}}
                 <a href="{{ route('admin.articles.index', ['status' => 'rejected']) }}"
                 class="stat-card {{ request('status') === 'rejected' ? 'active' : '' }}">
@@ -2781,22 +2604,6 @@
                         Artikel yang perlu diperbaiki
                     </div>
                 </a>
-
-                {{-- Draft --}}
-                <a href="{{ route('admin.articles.index', ['status' => 'draft']) }}"
-                class="stat-card {{ request('status') === 'draft' ? 'active' : '' }}">
-                    <div class="stat-top">
-                        <div class="stat-label">Draf</div>
-                        <div class="stat-icon">
-                            <i class="fa-regular fa-file-lines"></i>
-                        </div>
-                    </div>
-                    <div class="stat-value">{{ $jumlahDraft }}</div>
-                    <div class="stat-description">
-                        Naskah yang belum dikirim untuk review
-                    </div>
-                </a>
-
             </section>
 
             {{-- ARTICLE TABLE --}}
@@ -2832,10 +2639,10 @@
                             Coba pilih status lain atau periksa kembali kiriman penulis.
                         </p>
 
-                        @if(!empty($status))
-                            <a href="{{ route('admin.articles.index') }}" class="btn">
+                        @if(request()->filled('search'))
+                            <a href="{{ route('admin.articles.index', ['status' => $statusAktif]) }}" class="btn">
                                 <i class="fa-solid fa-rotate-left"></i>
-                                Tampilkan Semua Artikel
+                                Hapus Pencarian
                             </a>
                         @endif
                     </div>
@@ -2973,7 +2780,7 @@
                                                         id="review_note_{{ $article->id }}"
                                                         name="review_note"
                                                         required
-                                                        maxlength="5000"
+                                                        maxlength="2000"
                                                         placeholder="Jelaskan bagian yang perlu diperbaiki...">{{ old('review_note') }}</textarea>
 
                                                     <button class="btn btn-danger" type="submit">
@@ -3025,7 +2832,7 @@
                 @endif
             </section>
 
-            <footer class="footer">
+            <footer class="footer admin-workspace-footer">
                 <div>
                     <strong>Derap Serayu</strong> · Digital Magazine Banjarnegara
                 </div>
@@ -3042,194 +2849,24 @@
 
 <script>
 (function () {
-    function initAdminTopbar() {
-        // Ambil elemen
-        const dateElement = document.getElementById('currentDate');
-        const yearElement = document.getElementById('currentYear');
+    const yearElement = document.getElementById('currentYear');
 
-        const accountButton = document.getElementById('adminAccountButton');
-        const dropdown = document.getElementById('adminAccountDropdown');
-        const infoButton = document.getElementById('adminAccountInfoButton');
-
-        const modal = document.getElementById('adminAccountModal');
-        const closeButton = document.getElementById('adminAccountModalClose');
-        const okButton = document.getElementById('adminAccountModalOk');
-
-        const menuToggle = document.getElementById('menuToggle')
-            || document.getElementById('mobileMenu');
-        const sidebar = document.getElementById('sidebar');
-
-        // 1. TANGGAL OTOMATIS
-        function updateDate() {
-            if (dateElement) {
-                dateElement.textContent =
-                    new Intl.DateTimeFormat('id-ID', {
-                        day: '2-digit',
-                        month: 'short',
-                        year: 'numeric',
-                        timeZone: 'Asia/Jakarta'
-                    }).format(new Date());
-            }
-
-            if (yearElement) {
-                yearElement.textContent = new Date().getFullYear();
-            }
-        }
-
-        updateDate();
-
-        // 2. DROPDOWN AKUN
-        function openDropdown() {
-            if (!dropdown || !accountButton) return;
-
-            dropdown.hidden = false;
-            accountButton.setAttribute('aria-expanded', 'true');
-        }
-
-        function closeDropdown() {
-            if (!dropdown || !accountButton) return;
-
-            dropdown.hidden = true;
-            accountButton.setAttribute('aria-expanded', 'false');
-        }
-
-        if (accountButton && dropdown) {
-            // Pastikan kondisi awal tertutup
-            closeDropdown();
-
-            accountButton.addEventListener('click', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                if (dropdown.hidden) {
-                    openDropdown();
-                } else {
-                    closeDropdown();
-                }
-            });
-
-            dropdown.addEventListener('click', function (event) {
-                event.stopPropagation();
-            });
-
-            document.addEventListener('click', function (event) {
-                if (
-                    !dropdown.contains(event.target) &&
-                    !accountButton.contains(event.target)
-                ) {
-                    closeDropdown();
-                }
-            });
-        }
-
-        // 3. MODAL INFORMASI AKUN
-        function openModal() {
-            if (!modal) return;
-
-            closeDropdown();
-            modal.hidden = false;
-            document.body.classList.add('modal-open');
-        }
-
-        function closeModal() {
-            if (!modal) return;
-
-            modal.hidden = true;
-            document.body.classList.remove('modal-open');
-        }
-
-        if (infoButton) {
-            infoButton.addEventListener('click', openModal);
-        }
-
-        if (closeButton) {
-            closeButton.addEventListener('click', closeModal);
-        }
-
-        if (okButton) {
-            okButton.addEventListener('click', closeModal);
-        }
-
-        if (modal) {
-            modal.addEventListener('click', function (event) {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-        }
-
-        // 4. SIDEBAR RESPONSIF
-        if (menuToggle && sidebar) {
-            menuToggle.addEventListener('click', function (event) {
-                event.stopPropagation();
-
-                const isOpen =
-                    sidebar.classList.contains('open') ||
-                    sidebar.classList.contains('show');
-
-                sidebar.classList.remove('open', 'show');
-
-                if (!isOpen) {
-                    sidebar.classList.add('open');
-                }
-
-                menuToggle.setAttribute(
-                    'aria-expanded',
-                    String(!isOpen)
-                );
-            });
-
-            document.addEventListener('click', function (event) {
-                if (
-                    window.innerWidth <= 950 &&
-                    !sidebar.contains(event.target) &&
-                    !menuToggle.contains(event.target)
-                ) {
-                    sidebar.classList.remove('open', 'show');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-
-        // 5. TOMBOL ESCAPE
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                closeDropdown();
-                closeModal();
-
-                if (sidebar && window.innerWidth <= 950) {
-                    sidebar.classList.remove('open', 'show');
-
-                    if (menuToggle) {
-                        menuToggle.setAttribute('aria-expanded', 'false');
-                    }
-                }
-            }
-        });
-
-        // 6. PENCARIAN ARTIKEL YANG SEDANG TAMPIL
-        const searchInput = document.getElementById('articleSearch');
-
-        if (searchInput) {
-            searchInput.addEventListener('input', function () {
-                const keyword = this.value.toLocaleLowerCase('id-ID').trim();
-
-                document.querySelectorAll('.article-row').forEach(function (row) {
-                    row.hidden = !row.textContent
-                        .toLocaleLowerCase('id-ID')
-                        .includes(keyword);
-                });
-            });
-        }
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
 
-    // Bisa berjalan baik jika script berada di head maupun di akhir body.
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAdminTopbar, {
-            once: true
+    const searchInput = document.getElementById('articleSearch');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            const keyword = this.value.toLocaleLowerCase('id-ID').trim();
+
+            document.querySelectorAll('.article-row').forEach(function (row) {
+                row.hidden = !row.textContent
+                    .toLocaleLowerCase('id-ID')
+                    .includes(keyword);
+            });
         });
-    } else {
-        initAdminTopbar();
     }
 })();
 </script>

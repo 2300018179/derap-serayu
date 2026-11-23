@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lupa Kata Sandi - Derap Serayu</title>
+    <title>Lupa Kata Sandi - {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
                     rgba(3, 48, 68, .20),
                     rgba(3, 48, 68, .06)
                 ),
-                url("{{ asset('images/bg-kawahsikidang-login.jpg') }}");
+                url("{{ $siteSettings['reset_password_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['reset_password_bg_image_path']) : asset('images/bg-kawahsikidang-login.jpg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -494,9 +494,11 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
-<body>
+<body class="auth-page">
     <!-- MAIN -->
     <main class="main">
 
@@ -536,8 +538,8 @@
             <a href="/" class="logo">
 
                 <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Derap Serayu"
+                    src="{{ $siteLogoUrl }}"
+                    alt="{{ $siteSettings['site_name'] }}"
                 >
 
             </a>
@@ -560,7 +562,7 @@
                 </div>
             @endif
             @if(session('status'))
-                <div role="status" style="margin-bottom:16px;color:#176b56">{{ session('status') }}</div>
+                <div role="status" style="margin-bottom:16px;color:#176b56;background:#eefcf7;padding:12px;border-radius:10px;border:1px solid #c1efdf;">{!! session('status') !!}</div>
             @endif
 
             <form action="{{ route('password.email') }}" method="POST">

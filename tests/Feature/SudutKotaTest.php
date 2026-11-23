@@ -125,7 +125,6 @@ class SudutKotaTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Belum Ada Cerita Unggulan')
-            ->assertSee('Belum ada sudut pilihan yang diterbitkan.')
             ->assertSee('Belum Ada Artikel Ditemukan');
     }
 

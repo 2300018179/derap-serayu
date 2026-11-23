@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard Editorial | Derap Serayu</title>
+    <title>Dashboard Admin | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -215,7 +215,7 @@
         /* MAIN CONTENT */
 
         .main {
-            margin-left: 270px;
+            margin-left: 260px;
             min-height: 100vh;
         }
 
@@ -231,36 +231,6 @@
             position: sticky;
             top: 0;
             z-index: 50;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: min(560px, 55%);
-            padding: 13px 16px;
-            background: #fff;
-            border: 1px solid #d6eaf5;
-            border-radius: 13px;
-            color: #6996b0;
-        }
-
-        .search-box i {
-            color: #65a3c2;
-        }
-
-        .search-box input {
-            width: 100%;
-            border: 0;
-            outline: none;
-            background: transparent;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 12px;
-        }
-
-        .search-box input::placeholder {
-            color: #8ca8ba;
         }
 
         .topbar-right {
@@ -628,6 +598,14 @@
         .stat-card:nth-child(3)::after { background: #6ad7b0; }
         .stat-card:nth-child(4)::after { background: #f5a28f; }
         .stat-card:nth-child(5)::after { background: #b4a1f2; }
+        .stat-card:nth-child(6)::after { background: #6ad7b0; }
+        .stat-card:nth-child(7)::after { background: #f5c46c; }
+        .stat-card:nth-child(8)::after { background: #b4a1f2; }
+        .stat-card:nth-child(9)::after { background: #f5a28f; }
+        .stat-card:nth-child(10)::after { background: #77d9ed; }
+        .stat-card:nth-child(11)::after { background: #f5c46c; }
+        .stat-card:nth-child(12)::after { background: #6ad7b0; }
+        .stat-card:nth-child(13)::after { background: #b4a1f2; }
 
         /* CONTENT PANELS */
 
@@ -898,80 +876,94 @@
 
         .bottom-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 20px;
             margin-bottom: 28px;
         }
 
-        .quick-stats {
+        .district-coverage-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
         }
 
-        .quick-stat {
-            padding: 15px 12px;
-            background: #f0faff;
-            border: 1px solid #e0f1f8;
-            border-radius: 13px;
-        }
-
-        .quick-stat i {
-            color: var(--cyan-dark);
-            font-size: 17px;
-        }
-
-        .quick-stat strong {
-            display: block;
-            margin-top: 10px;
-            font-size: 23px;
-            font-family: 'Playfair Display', serif;
+        .district-section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
             color: var(--navy);
+            font-size: 12px;
+            font-weight: 800;
         }
 
-        .quick-stat span {
-            display: block;
-            margin-top: 5px;
+        .district-section-heading span {
             color: var(--muted);
-            font-size: 9px;
-            line-height: 1.5;
+            font-size: 10px;
+            font-weight: 600;
         }
 
-        .guide-list {
+        .district-article-list {
             display: flex;
             flex-direction: column;
             gap: 13px;
         }
 
-        .guide-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .guide-number {
-            width: 31px;
-            height: 31px;
-            flex-shrink: 0;
-            border-radius: 10px;
+        .district-article-row {
             display: grid;
-            place-items: center;
-            background: #e4f7fc;
-            color: var(--cyan-dark);
-            font-size: 11px;
-            font-weight: 800;
+            gap: 7px;
         }
 
-        .guide-item h4 {
+        .district-article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: #42657b;
             font-size: 11px;
+        }
+
+        .district-article-meta strong {
             color: var(--navy);
-            margin-bottom: 4px;
+            font-size: 11px;
         }
 
-        .guide-item p {
+        .district-progress {
+            height: 7px;
+            overflow: hidden;
+            background: #e8f3f8;
+            border-radius: 999px;
+        }
+
+        .district-progress span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #0da8c9, #54c7d7);
+            border-radius: inherit;
+        }
+
+        .district-empty-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .district-empty-chip {
+            padding: 8px 11px;
+            color: #55788d;
+            background: #f3f9fc;
+            border: 1px solid #e2eff5;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .district-coverage-note {
+            margin-top: 18px;
+            color: var(--muted);
             font-size: 10px;
             line-height: 1.7;
-            color: var(--muted);
         }
 
         /* FOOTER */
@@ -995,12 +987,8 @@
         /* RESPONSIVE */
 
         @media (max-width: 1250px) {
-            .sidebar {
-                width: 235px;
-            }
-
             .main {
-                margin-left: 235px;
+                margin-left: 260px;
             }
 
             .stats-grid {
@@ -1022,8 +1010,12 @@
                 box-shadow: 10px 0 30px rgba(0,0,0,.12);
             }
 
-            .sidebar.open {
+            .sidebar.show {
                 transform: translateX(0);
+            }
+
+            .sidebar-overlay.show {
+                display: block;
             }
 
             .main {
@@ -1037,11 +1029,6 @@
             .topbar {
                 gap: 12px;
                 padding: 12px 18px;
-            }
-
-            .search-box {
-                flex: 1;
-                width: auto;
             }
 
             .dashboard-grid,
@@ -1622,189 +1609,33 @@
             .stat-action {
                 font-size: 9px;
             }
+
+            .district-coverage-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
         }
     </style>
+    @include('editor.partials.sidebar-styles')
+    @include('partials.site-theme-styles')
+    @include('editor.partials.topbar-styles')
 </head>
 
 <body>
 <div class="app">
 
-    {{-- SIDEBAR --}}
-    <aside class="sidebar" id="sidebar">
-        <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-logo-wrapper">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
-                     class="brand-logo">
-            </div>
-        </a>
-
-        <div class="nav-section">Ruang Redaksi</div>
-
-        <nav class="nav-list">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link active">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="{{ route('admin.articles.index') }}" class="nav-link">
-                <i class="fa-regular fa-newspaper"></i>
-                <span>Review Artikel</span>
-            </a>
-
-            <a href="{{ route('home') }}" class="nav-link" target="_blank">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                <span>Lihat Website</span>
-            </a>
-        </nav>
-    </aside>
+    @include('editor.partials.sidebar')
 
     {{-- MAIN --}}
     <main class="main">
 
-        {{-- TOPBAR --}}
-        <header class="topbar">
-            <button class="mobile-menu" id="mobileMenu" type="button"
-                    aria-label="Buka navigasi">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" id="dashboardSearch"
-                       placeholder="Cari artikel, penulis, atau status...">
-            </div>
-
-            <div class="topbar-right">
-                <div class="topbar-date">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span id="currentDate">Memuat tanggal...</span>
-                </div>
-
-                
-            <div class="admin-account">
-                <button
-                    type="button"
-                    class="admin-chip"
-                    id="adminAccountButton"
-                    aria-expanded="false"
-                    aria-controls="adminAccountDropdown"
-                >
-                    <span class="admin-chip-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </span>
-
-                    <span class="admin-chip-text">
-                        {{ Auth::user()->name ?? 'Administrator' }}
-                    </span>
-
-                    <i class="fas fa-chevron-down admin-chevron"></i>
-                </button>
-
-                <div class="admin-dropdown" id="adminAccountDropdown" hidden>
-                    <div class="admin-dropdown-profile">
-                        <div class="admin-avatar">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
-                        </div>
-
-                        <div class="admin-profile-info">
-                            <strong>{{ Auth::user()->name ?? 'Administrator' }}</strong>
-                            <span>{{ Auth::user()->email ?? '' }}</span>
-                            <small>
-                                <i class="fas fa-circle"></i>
-                                Administrator
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="admin-dropdown-divider"></div>
-
-                    <div class="admin-dropdown-label">AKUN SAYA</div>
-
-                    <button
-                        type="button"
-                        class="admin-dropdown-item"
-                        id="adminAccountInfoButton"
-                    >
-                        <i class="fas fa-user-circle"></i>
-                        <span>Informasi Akun</span>
-                    </button>
-
-                    <div class="admin-dropdown-divider"></div>
-
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-
-                        <button type="submit"
-                                class="admin-dropdown-item admin-logout-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Keluar dari akun</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Modal informasi akun -->
-            <div class="admin-modal-overlay" id="adminAccountModal" hidden>
-                <div class="admin-modal">
-                    <div class="admin-modal-header">
-                        <div>
-                            <span class="admin-modal-eyebrow">DERAP SERAYU</span>
-                            <h3>Informasi Akun</h3>
-                        </div>
-
-                        <button type="button"
-                                class="admin-modal-close"
-                                id="adminAccountModalClose"
-                                aria-label="Tutup">
-                            &times;
-                        </button>
-                    </div>
-
-                    <div class="admin-modal-body">
-                        <div class="admin-modal-avatar">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Nama Administrator</label>
-                            <div>{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Email</label>
-                            <div>{{ Auth::user()->email ?? '-' }}</div>
-                        </div>
-
-                        <div class="admin-modal-field">
-                            <label>Peran Akun</label>
-                            <div>
-                                <span class="admin-role-badge">
-                                    <i class="fas fa-shield-alt"></i>
-                                    Administrator
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-modal-footer">
-                        <button type="button"
-                                class="admin-modal-ok"
-                                id="adminAccountModalOk">
-                            Tutup
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-        </header>
+        @include('editor.partials.topbar', ['pageTitle' => 'Dashboard'])
 
         <div class="content">
 
             {{-- PAGE HEADING --}}
             <section class="page-heading">
                 <div>
-                    <h1>Dashboard Editorial</h1>
+                    <h1>Dashboard Admin</h1>
                     <p>Kelola cerita, pantau kiriman, dan hadirkan kisah terbaik dari Banjarnegara.</p>
                 </div>
             </section>
@@ -1845,13 +1676,13 @@
             <section class="editorial-statistics">
                 <div class="section-heading">
                     <div>
-                        <h3>Ringkasan Editorial</h3>
-                        <p>Gambaran aktivitas artikel Derap Serayu.</p>
+                        <h3>Ringkasan Website</h3>
+                        <p>Gambaran pengguna, konten, dan aktivitas Derap Serayu.</p>
                     </div>
 
                     <div class="section-note">
                         <i class="fa-solid fa-chart-column"></i>
-                        Statistik editorial
+                        Statistik website
                     </div>
                 </div>
 
@@ -1948,7 +1779,7 @@
                         </div>
 
                         <div class="stat-number">
-                            {{ $totalRevisi ?? 0 }}
+                            {{ $perluRevisi ?? 0 }}
                         </div>
 
                         <div class="stat-label">Perlu Revisi</div>
@@ -1961,9 +1792,8 @@
                         </div>
                     </a>
 
-                    {{-- PENULIS TERDAFTAR --}}
-                    <a href="{{ route('admin.articles.index', ['status' => 'writer']) }}"
-                    class="stat-card stat-card-link">
+                    {{-- PENGELOLAAN PENGGUNA --}}
+                    <a href="{{ route('admin.users.index') }}" class="stat-card stat-card-link">
                         <div class="stat-top">
                             <div class="stat-icon purple">
                                 <i class="fa-solid fa-users"></i>
@@ -1974,18 +1804,165 @@
                         </div>
 
                         <div class="stat-number">
-                            {{ $totalPenulis ?? 0 }}
+                            {{ $totalPengguna ?? 0 }}
                         </div>
 
-                        <div class="stat-label">Penulis Terdaftar</div>
+                        <div class="stat-label">Akun Pengguna</div>
                         <div class="stat-description">
-                            Kontributor Derap Serayu
+                            {{ $penggunaAktif ?? 0 }} aktif, {{ $totalAdmin ?? 0 }} admin,
+                            {{ $totalEditor ?? 0 }} editor, {{ $totalPenulis ?? 0 }} penulis,
+                            {{ $totalPembaca ?? 0 }} pembaca
                         </div>
 
                         <div class="stat-action">
-                            Lihat penulis <i class="fa-solid fa-arrow-right"></i>
+                            Kelola akun dan peran <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </a>
+
+                    <a href="{{ route('kecamatan.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon green">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ $jumlahKecamatan ?? 0 }}</div>
+                        <div class="stat-label">Total Kecamatan</div>
+                        <div class="stat-description">Kecamatan yang tersedia di website</div>
+
+                        <div class="stat-action">
+                            Jelajahi kecamatan <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('kecamatan.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ $kecamatanDenganArtikel ?? 0 }}</div>
+                        <div class="stat-label">Kecamatan dengan Artikel</div>
+                        <div class="stat-description">Memiliki artikel yang sudah terbit</div>
+
+                        <div class="stat-action">
+                            Lihat kecamatan <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('articles.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">
+                                <i class="fa-regular fa-eye"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ number_format($totalTayangan ?? 0, 0, ',', '.') }}</div>
+                        <div class="stat-label">Total Tayangan</div>
+                        <div class="stat-description">Tayangan pada seluruh artikel</div>
+
+                        <div class="stat-action">
+                            Lihat artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('articles.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ $totalKategori ?? 0 }}</div>
+                        <div class="stat-label">Kategori Artikel</div>
+                        <div class="stat-description">Kategori yang digunakan pada artikel</div>
+
+                        <div class="stat-action">
+                            Jelajahi artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('articles.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon red">
+                                <i class="fa-regular fa-comments"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ number_format($totalKomentar ?? 0, 0, ',', '.') }}</div>
+                        <div class="stat-label">Total Komentar</div>
+                        <div class="stat-description">Komentar pada seluruh artikel</div>
+
+                        <div class="stat-action">
+                            Lihat artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('articles.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon green">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ number_format($totalSuka ?? 0, 0, ',', '.') }}</div>
+                        <div class="stat-label">Total Suka</div>
+                        <div class="stat-description">Apresiasi pembaca pada artikel</div>
+
+                        <div class="stat-action">
+                            Lihat artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('articles.index') }}" class="stat-card stat-card-link">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </div>
+                            <span class="stat-arrow">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number">{{ number_format($totalArtikelTersimpan ?? 0, 0, ',', '.') }}</div>
+                        <div class="stat-label">Artikel Tersimpan</div>
+                        <div class="stat-description">Artikel yang disimpan pembaca</div>
+
+                        <div class="stat-action">
+                            Lihat artikel <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat-number">{{ $totalPelangganNewsletter ?? 0 }}</div>
+                        <div class="stat-label">Pelanggan Newsletter</div>
+                        <div class="stat-description">Pembaca yang berlangganan kabar terbaru</div>
+                    </div>
 
                 </div>
             </section>
@@ -2132,86 +2109,81 @@
                 </div>
             </section>
 
-            {{-- LOWER SUMMARY --}}
+            {{-- DISTRICT COVERAGE --}}
             <section class="bottom-grid">
-
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
                             <div class="panel-icon">
-                                <i class="fa-solid fa-chart-simple"></i>
+                                <i class="fa-solid fa-map-location-dot"></i>
                             </div>
                             <div>
-                                <h3>Ikhtisar Publikasi</h3>
-                                <p>Status keseluruhan konten editorial.</p>
+                                <h3>Sebaran Artikel per Kecamatan</h3>
+                                <p>Wilayah dengan artikel terbit dan wilayah yang belum terjangkau.</p>
                             </div>
                         </div>
+
+                        <a href="{{ route('kecamatan.index') }}" class="text-link">
+                            Lihat semua kecamatan <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
 
-                    <div class="quick-stats">
-                        <div class="quick-stat">
-                            <i class="fa-regular fa-file-lines"></i>
-                            <strong>{{ $totalArtikel ?? 0 }}</strong>
-                            <span>Total seluruh artikel</span>
-                        </div>
-
-                        <div class="quick-stat">
-                            <i class="fa-regular fa-circle-check"></i>
-                            <strong>{{ $totalTerbit ?? 0 }}</strong>
-                            <span>Artikel telah terbit</span>
-                        </div>
-
-                        <div class="quick-stat">
-                            <i class="fa-regular fa-clock"></i>
-                            <strong>{{ $menungguTinjauan ?? 0 }}</strong>
-                            <span>Menunggu tinjauan</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <div class="panel-title">
-                            <div class="panel-icon">
-                                <i class="fa-regular fa-lightbulb"></i>
+                    <div class="district-coverage-grid">
+                        <div>
+                            <div class="district-section-heading">
+                                Artikel terbit terbanyak
+                                <span>Top {{ $kecamatanTeratas->count() }}</span>
                             </div>
-                            <div>
-                                <h3>Panduan Editorial</h3>
-                                <p>Alur kerja pengelolaan artikel.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="guide-list">
-                        <div class="guide-item">
-                            <div class="guide-number">01</div>
-                            <div>
-                                <h4>Periksa kiriman penulis</h4>
-                                <p>Buka antrean tinjauan dan baca naskah yang masuk.</p>
+                            <div class="district-article-list">
+                                @forelse ($kecamatanTeratas as $kecamatan)
+                                    <div class="district-article-row">
+                                        <div class="district-article-meta">
+                                            <strong>{{ $kecamatan['nama'] }}</strong>
+                                            <span>{{ $kecamatan['jumlahArtikel'] }} artikel</span>
+                                        </div>
+                                        <div class="district-progress" role="img" aria-label="{{ $kecamatan['nama'] }}: {{ $kecamatan['jumlahArtikel'] }} artikel terbit">
+                                            <span style="width: {{ round(($kecamatan['jumlahArtikel'] / $maxArtikelPerKecamatan) * 100) }}%"></span>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="empty-state">
+                                        <i class="fa-regular fa-newspaper"></i>
+                                        <p>Belum ada artikel terbit yang dipetakan ke kecamatan.</p>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
 
-                        <div class="guide-item">
-                            <div class="guide-number">02</div>
-                            <div>
-                                <h4>Evaluasi isi artikel</h4>
-                                <p>Perhatikan judul, isi, kategori, gambar, dan kelayakan publikasi.</p>
+                        <div>
+                            <div class="district-section-heading">
+                                Belum memiliki artikel terbit
+                                <span>{{ $jumlahKecamatan - $kecamatanDenganArtikel }} dari {{ $jumlahKecamatan }}</span>
                             </div>
-                        </div>
 
-                        <div class="guide-item">
-                            <div class="guide-number">03</div>
-                            <div>
-                                <h4>Tentukan status artikel</h4>
-                                <p>Terbitkan artikel yang layak atau berikan catatan revisi sesuai alur aplikasi.</p>
-                            </div>
+                            @if ($kecamatanBelumTerjangkau->isNotEmpty())
+                                <div class="district-empty-list">
+                                    @foreach ($kecamatanBelumTerjangkau as $kecamatan)
+                                        <span class="district-empty-chip">{{ $kecamatan['nama'] }}</span>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="empty-state">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <p>Semua kecamatan sudah memiliki artikel terbit.</p>
+                                </div>
+                            @endif
+
+                            <p class="district-coverage-note">
+                                Daftar menampilkan hingga lima kecamatan tanpa artikel terbit. Jumlah hanya menghitung artikel berstatus terbit.
+                            </p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {{-- FOOTER --}}
-            <footer class="footer">
+            <footer class="footer admin-workspace-footer">
                 <div>
                     <strong>Derap Serayu</strong> · Digital Magazine Banjarnegara
                 </div>
@@ -2225,136 +2197,11 @@
 </div>
 
 <script>
-    // Tanggal otomatis mengikuti perangkat pengguna.
-    const dateElement = document.getElementById('currentDate');
     const yearElement = document.getElementById('currentYear');
 
-    const now = new Date();
-
-    if (dateElement) {
-        dateElement.textContent = new Intl.DateTimeFormat('id-ID', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        }).format(now);
-    }
-
     if (yearElement) {
-        yearElement.textContent = now.getFullYear();
+        yearElement.textContent = new Date().getFullYear();
     }
-
-    // Toggle sidebar pada layar kecil.
-    const mobileMenu = document.getElementById('mobileMenu');
-    const sidebar = document.getElementById('sidebar');
-
-    if (mobileMenu && sidebar) {
-        mobileMenu.addEventListener('click', function () {
-            sidebar.classList.toggle('open');
-        });
-
-        document.addEventListener('click', function (event) {
-            if (
-                window.innerWidth <= 950 &&
-                !sidebar.contains(event.target) &&
-                !mobileMenu.contains(event.target)
-            ) {
-                sidebar.classList.remove('open');
-            }
-        });
-    }
-
-    // Pencarian cepat pada daftar antrean dan artikel yang tampil di dashboard.
-    const searchInput = document.getElementById('dashboardSearch');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            const keyword = this.value.toLowerCase().trim();
-            const items = document.querySelectorAll('.searchable-item');
-
-            items.forEach(function (item) {
-                const content = item.textContent.toLowerCase();
-                item.style.display = content.includes(keyword) ? '' : 'none';
-            });
-        });
-    }
-  
-    document.addEventListener('DOMContentLoaded', function () {
-        const accountButton = document.getElementById('adminAccountButton');
-        const dropdown = document.getElementById('adminAccountDropdown');
-        const infoButton = document.getElementById('adminAccountInfoButton');
-        const modal = document.getElementById('adminAccountModal');
-        const closeButton = document.getElementById('adminAccountModalClose');
-        const okButton = document.getElementById('adminAccountModalOk');
-
-        if (!accountButton || !dropdown) return;
-
-        function openDropdown() {
-            dropdown.hidden = false;
-            accountButton.setAttribute('aria-expanded', 'true');
-        }
-
-        function closeDropdown() {
-            dropdown.hidden = true;
-            accountButton.setAttribute('aria-expanded', 'false');
-        }
-
-        accountButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            if (dropdown.hidden) {
-                openDropdown();
-            } else {
-                closeDropdown();
-            }
-        });
-
-        dropdown.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-
-        document.addEventListener('click', function () {
-            closeDropdown();
-        });
-
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                closeDropdown();
-
-                if (modal) {
-                    modal.hidden = true;
-                }
-            }
-        });
-
-        if (infoButton && modal) {
-            infoButton.addEventListener('click', function () {
-                closeDropdown();
-                modal.hidden = false;
-            });
-        }
-
-        function closeModal() {
-            if (modal) {
-                modal.hidden = true;
-            }
-        }
-
-        if (closeButton) {
-            closeButton.addEventListener('click', closeModal);
-        }
-
-        if (okButton) {
-            okButton.addEventListener('click', closeModal);
-        }
-
-        if (modal) {
-            modal.addEventListener('click', function (event) {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-        }
-    });
 
 </script>
 

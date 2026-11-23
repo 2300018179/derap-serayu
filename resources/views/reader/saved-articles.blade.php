@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Artikel Tersimpan | Derap Serayu</title>
+    <title>Artikel Tersimpan | {{ $siteSettings['site_name'] }}</title>
     <meta name="description" content="Kumpulan artikel pilihan yang kamu simpan di Derap Serayu.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1689,6 +1689,8 @@
     color: #72e3fa;
 }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 <body>
 
@@ -1753,7 +1755,7 @@
             </a>
 
             <a
-                href="https://www.instagram.com/kabupatenbanjarnegara/"
+                href="{{ $siteSettings['instagram_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -1763,7 +1765,7 @@
             </a>
 
             <a
-                href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                href="{{ $siteSettings['facebook_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -1773,7 +1775,7 @@
             </a>
 
             <a
-                href="https://www.youtube.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['youtube_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -1783,7 +1785,7 @@
             </a>
 
             <a
-                href="https://x.com/pemkab_bna"
+                href="{{ $siteSettings['x_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -1793,7 +1795,7 @@
             </a>
 
             <a
-                href="https://www.tiktok.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['tiktok_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -1822,8 +1824,8 @@
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -1942,6 +1944,7 @@
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2169,8 +2172,8 @@
                 >
 
                     <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Derap Serayu"
+                    src="{{ $siteLogoUrl }}"
+                    alt="{{ $siteSettings['site_name'] }}"
                     onerror="
                         this.style.display='none';
                         this.nextElementSibling.style.display='flex';
@@ -2180,20 +2183,23 @@
                 </a>
 
 
-                <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya,
-                    wisata, potensi, serta kisah dari
-                    masyarakat.
-
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                 <div class="footer-social">
 
                     <a
-                        href="https://www.instagram.com/kabupatenbanjarnegara/"
+                        href="{{ $siteSettings['instagram_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -2203,7 +2209,7 @@
                     </a>
 
                     <a
-                        href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                        href="{{ $siteSettings['facebook_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -2213,7 +2219,7 @@
                     </a>
 
                     <a
-                        href="https://www.youtube.com/@pemkabbanjarnegara"
+                        href="{{ $siteSettings['youtube_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -2223,7 +2229,7 @@
                     </a>
 
                     <a
-                        href="https://www.tiktok.com/@pemkabbanjarnegara"
+                        href="{{ $siteSettings['tiktok_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -2233,7 +2239,7 @@
                     </a>
 
                     <a
-                        href="https://x.com/pemkab_bna"
+                        href="{{ $siteSettings['x_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -2436,14 +2442,12 @@
 
             <p>
 
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara
-                punya cerita.
+                {{ $siteSettings['footer_quote'] }}
 
             </p>
 
             <small>
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
             </small>
 
         </div>
@@ -2457,8 +2461,8 @@
             <div>
 
                 © {{ date('Y') }}
-                Derap Serayu.
-                Semua hak dilindungi.
+                {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 
@@ -2498,5 +2502,6 @@
 
 </footer>
 
+@include('partials.search-script')
 </body>
 </html>

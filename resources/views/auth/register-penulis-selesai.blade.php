@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pendaftaran Penulis Berhasil | Derap Serayu</title>
+    <title>Pendaftaran Penulis Berhasil | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                     rgba(3, 48, 68, .20),
                     rgba(3, 48, 68, .06)
                 ),
-                url('{{ asset('images/bg-diengplateau-registerrr.jpg') }}')
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-diengplateau-registerrr.jpg') }}')
                 center center / cover no-repeat fixed;
         }
 
@@ -771,9 +771,11 @@
         }
 
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
-<body>
+<body class="auth-page">
 
     <!-- =========================
          TOP BAR
@@ -832,7 +834,7 @@
 
             <img
                 src="{{ asset('images/logo-derap-serayu.png') }}"
-                alt="Derap Serayu"
+                alt="{{ $siteSettings['site_name'] }}"
             >
 
         </div>
@@ -871,16 +873,7 @@
         </div>
 
 
-        <div class="search">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                placeholder="Cari..."
-            >
-
-        </div>
+        @include('partials.search-box')
 
 
         <button class="menu-btn">
@@ -1015,19 +1008,17 @@
                             </small>
 
                             <strong>
-                                Annisa Dwi Lestari
+                                {{ auth()->user()?->name ?? 'Penulis Derap Serayu' }}
                             </strong>
 
                         </div>
 
                     </div>
 
-
-
                     <!-- BUTTON -->
 
                     <a
-                        href="{{ route('login') }}"
+                        href="{{ route('penulis.dashboard') }}"
                         style="text-decoration: none;"
                     >
 
@@ -1036,7 +1027,7 @@
                             class="btn-login"
                         >
 
-                            Masuk ke Derap Serayu
+                            Masuk ke Dashboard Penulis
 
                             <i class="fa-solid fa-arrow-right"></i>
 
@@ -1044,12 +1035,10 @@
 
                     </a>
 
-
-
                     <!-- HOME -->
 
                     <a
-                        href="#"
+                        href="{{ route('home') }}"
                         class="home-link"
                     >
 

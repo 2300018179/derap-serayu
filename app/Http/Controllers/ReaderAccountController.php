@@ -3,22 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ReaderAccountController extends Controller
 {
-    public function profile(Request $request): View
-    {
-        $reader = $request->user();
-
-        return view('reader.profile', [
-            'reader' => $reader,
-            'savedArticleCount' => $reader->savedArticles()->count(),
-        ]);
-    }
-
     public function savedArticles(Request $request): View
     {
         $articles = $request->user()

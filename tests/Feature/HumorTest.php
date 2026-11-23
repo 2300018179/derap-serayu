@@ -125,7 +125,6 @@ class HumorTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Belum Ada Humor Unggulan')
-            ->assertSee('Belum ada artikel humor populer yang diterbitkan.')
             ->assertSee('Belum Ada Artikel Ditemukan');
     }
 

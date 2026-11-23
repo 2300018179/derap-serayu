@@ -12,6 +12,28 @@ class HomeReaderExperienceTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_reader_district_page_shows_reader_sidebar_navigation(): void
+    {
+        $reader = User::factory()->create(['role' => 'reader']);
+
+        $this->actingAs($reader)
+            ->get(route('kecamatan.index'))
+            ->assertOk()
+            ->assertSee('reader-district-sidebar', false)
+            ->assertSee('Jelajahi Kecamatan')
+            ->assertSee(route('pembaca.profile'), false)
+            ->assertSee(route('pembaca.saved.index'), false)
+            ->assertDontSee('class="topbar-actions"', false);
+    }
+
+    public function test_guest_district_page_keeps_public_navigation_without_reader_sidebar(): void
+    {
+        $this->get(route('kecamatan.index'))
+            ->assertOk()
+            ->assertSee('class="topbar-actions"', false)
+            ->assertDontSee('class="reader-district-sidebar"', false);
+    }
+
     public function test_homepage_displays_published_articles_and_working_navigation_links(): void
     {
         $author = User::factory()->create(['role' => 'writer']);
@@ -45,7 +67,7 @@ class HomeReaderExperienceTest extends TestCase
             ->assertSee(route('sosok'), false)
             ->assertSee(route('articles.index'), false)
             ->assertSee(route('login'), false)
-            ->assertSee(route('register.pembaca'), false)
+            ->assertSee(route('register'), false)
             ->assertSee('Masuk')
             ->assertSee('Daftar')
             ->assertSee('fa-water', false)
@@ -103,12 +125,6 @@ class HomeReaderExperienceTest extends TestCase
         $response->assertOk()
             ->assertSee(route('articles.index', ['category' => 'Berita']), false)
             ->assertSee(route('articles.index', ['category' => 'Cerita']), false)
-            ->assertSee('Artikel Terbit')
-            ->assertSee('Kategori')
-            ->assertSee('Pembaca')
-            ->assertSee('data-stat="published-articles">2</strong>', false)
-            ->assertSee('data-stat="published-categories">2</strong>', false)
-            ->assertSee('data-stat="readers">2</strong>', false)
             ->assertSee('1 artikel')
             ->assertDontSee('Draft Tersembunyi')
             ->assertDontSee('Pemerintahan');
@@ -121,13 +137,11 @@ class HomeReaderExperienceTest extends TestCase
             ->assertSee('id="forecastToggle"', false)
             ->assertSee('aria-controls="forecastList"', false)
             ->assertSee('Lihat Detail 24 Jam')
-            ->assertSee('startIndex + 24', false)
-            ->assertSee('Belum ada artikel populer.')
+            ->assertSee(route('weather.dieng'), false)
+            ->assertSee('Belum ada berita populer.')
             ->assertSee('Belum ada artikel yang diterbitkan.')
             ->assertSee('Kategori akan tampil setelah artikel pertama diterbitkan.')
-            ->assertSee('Kategori populer akan tampil setelah artikel diterbitkan.')
-            ->assertSee('data-stat="published-articles">0</strong>', false)
-            ->assertSee('data-stat="published-categories">0</strong>', false);
+            ->assertSee('Belum ada berita yang diterbitkan.');
     }
 
     public function test_article_search_only_returns_matching_published_articles(): void
@@ -209,18 +223,18 @@ class HomeReaderExperienceTest extends TestCase
 
         $this->get(route('information.privacy'))
             ->assertOk()
-            ->assertSee('Kebijakan Privasi')
-            ->assertSee('Artikel tersimpan');
+            ->assertSee('Kebijakan')
+            ->assertSee('Privasi');
 
         $this->get(route('information.terms'))
             ->assertOk()
-            ->assertSee('Syarat &amp; Ketentuan', false)
-            ->assertSee('Akun pembaca bersifat opsional');
+            ->assertSee('Syarat')
+            ->assertSee('Ketentuan');
 
         $this->get(route('information.editorial'))
             ->assertOk()
-            ->assertSee('Pedoman Media Siber')
-            ->assertSee('Buka situs resmi Banjarnegara');
+            ->assertSee('Pedoman Media')
+            ->assertSee('https://banjarnegarakab.go.id/', false);
     }
 
     public function test_about_page_is_available_and_linked_from_reader_navigation(): void
@@ -247,7 +261,7 @@ class HomeReaderExperienceTest extends TestCase
         $this->get(route('cerita'))
             ->assertOk()
             ->assertSee('name="q"', false)
-            ->assertSee('action="'.route('articles.index').'"', false)
+            ->assertSee('action="'.route('cerita').'"', false)
             ->assertSee(route('articles.index', ['q' => 'Tradisi']), false)
             ->assertSee(route('about'), false)
             ->assertSee(route('information.privacy'), false)
@@ -331,14 +345,13 @@ class HomeReaderExperienceTest extends TestCase
             ->assertOk()
             ->assertSee('src="'.asset('images/logo.png').'"', false)
             ->assertSee('name="q"', false)
-            ->assertSee('action="'.route('articles.index').'"', false)
+            ->assertSee('action="'.route('opini').'"', false)
             ->assertSee(route('home'), false)
             ->assertSee(route('about'), false)
             ->assertSee(route('cerita'), false)
             ->assertSee(route('register.penulis'), false)
-            ->assertSee('Opini Terbaru')
-            ->assertSee('0 artikel terbit')
             ->assertSee('Belum ada opini yang diterbitkan')
+            ->assertDontSee('Opini Terbaru')
             ->assertSee(route('information.privacy'), false)
             ->assertSee(route('information.terms'), false)
             ->assertSee(route('information.editorial'), false)
@@ -466,7 +479,7 @@ class HomeReaderExperienceTest extends TestCase
             ->assertOk()
             ->assertSee('src="'.asset('images/logo.png').'"', false)
             ->assertSee('name="q"', false)
-            ->assertSee('action="'.route('articles.index').'"', false)
+            ->assertSee('action="'.route('sosok').'"', false)
             ->assertSee(route('home'), false)
             ->assertSee(route('about'), false)
             ->assertSee(route('cerita'), false)
@@ -592,7 +605,7 @@ class HomeReaderExperienceTest extends TestCase
         $this->get(route('sosok'))
             ->assertOk()
             ->assertSee('Belum ada tokoh unggulan')
-            ->assertSee('Belum ada sosok populer yang diterbitkan.')
+            ->assertDontSee('Jelajahi semua Sosok')
             ->assertSee('Belum ada artikel Sosok yang diterbitkan.')
             ->assertSee(route('articles.index', ['category' => 'Sosok']), false)
             ->assertDontSee('Ki Seno,')

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Humor & Celoteh | Derap Serayu</title>
+    <title>Humor & Celoteh | {{ $siteSettings['site_name'] }}</title>
 
     {{-- GOOGLE FONT --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -210,10 +210,15 @@
 
         .sosok-main-nav > a:hover,
         .sosok-nav-dropdown summary:hover,
-        .sosok-nav-dropdown[open] summary,
+        .sosok-nav-dropdown[open] summary {
+            background: #e8f8fc;
+            color: #08add5;
+        }
+
         .sosok-main-nav > a.active {
-            background: var(--cyan-soft);
-            color: var(--cyan-dark);
+            background: #08add5;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(8, 173, 213, .25);
         }
 
         .sosok-nav-dropdown {
@@ -554,9 +559,7 @@
            HERO & FEATURED SECTION
         ========================================================= */
         .humor-hero {
-            padding: 38px 6.5% 20px;
-            max-width: 1300px;
-            margin: 0 auto;
+            padding: 38px max(6.5%, calc((100% - 1300px) / 2)) 20px;
         }
 
         .humor-container {
@@ -601,7 +604,7 @@
 
         .humor-grid {
             display: grid;
-            grid-template-columns: 1.6fr 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 28px;
             align-items: stretch;
         }
@@ -1003,14 +1006,12 @@
            EXPLORE ARTICLES & PAGINATION
         ========================================================= */
         .explore-section {
-            padding: 10px 6.5% 50px;
-            max-width: 1300px;
-            margin: 0 auto;
+            padding: 10px max(6.5%, calc((100% - 1300px) / 2)) 50px;
         }
 
         .explore-layout {
             display: grid;
-            grid-template-columns: 2.5fr 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 32px;
             align-items: start;
         }
@@ -1416,9 +1417,7 @@
            DISCOVER BANJARNEGARA BANNER
         ========================================================= */
         .discover-section {
-            padding: 20px 6.5% 60px;
-            max-width: 1300px;
-            margin: 0 auto;
+            padding: 20px max(6.5%, calc((100% - 1300px) / 2)) 60px;
         }
 
         .discover-card {
@@ -1895,6 +1894,8 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
 <body>
@@ -1927,8 +1928,8 @@
         <div class="sosok-header-card">
             <a class="sosok-brand" href="{{ route('home') }}" aria-label="Beranda Derap Serayu">
                 <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Logo Derap Serayu"
+                    src="{{ $siteLogoUrl }}"
+                    alt="{{ $siteSettings['site_name'] }}"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
                 >
                 <span class="sosok-brand-fallback">Derap<span>Serayu</span></span>
@@ -1953,15 +1954,7 @@
                 </details>
             </nav>
 
-            <form class="sosok-search" action="{{ route('humor') }}" method="GET" role="search">
-                <label class="sosok-visually-hidden" for="humor-search">Cari humor dan cerita jenaka</label>
-                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                <input id="humor-search" type="search" name="q" value="{{ request('q') }}" placeholder="Cari humor & celoteh..." maxlength="100">
-                @if(request('kategori'))
-                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-                @endif
-                <button type="submit">Cari</button>
-            </form>
+            @include('partials.search-box', ['action' => route('humor')])
 
             <div class="account-actions">
             @auth
@@ -1991,11 +1984,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2039,7 +2035,7 @@
             <div class="hero-intro">
                 <h1 class="hero-title">
                     <i class="fa-solid fa-face-laugh-squint"></i>
-                    Humor &amp; Celoteh
+                    Humor
                 </h1>
                 <p class="hero-description">
                     Menyajikan guyonan khas banyumasan, anekdot pos ronda, satir ringan, dan tawa segar seputar keseharian warga Banjarnegara yang bikin hari lebih ceria.
@@ -2092,79 +2088,9 @@
                         <p>Kisah jenaka dan guyonan pilihan redaksi akan segera hadir di sini.</p>
                     </div>
                 @endif
-
-                {{-- ARTIKEL POPULER SIDEBAR --}}
-                <div class="popular-column">
-                    <div class="popular-header">
-                        <div class="popular-title">
-                            <i class="fa-solid fa-fire"></i>
-                            Paling Mengocok Perut
-                        </div>
-                        <span class="popular-badge">TRENDING</span>
-                    </div>
-
-                    <div class="popular-list">
-                        @forelse($popularArticles as $index => $popular)
-                            <a href="{{ route('articles.show', $popular->slug) }}" class="popular-item">
-                                <span class="popular-number">0{{ $index + 1 }}</span>
-                                <div class="popular-img-wrap">
-                                    <img class="popular-img"
-                                         src="{{ $popular->cover_image_url ?? asset('images/mendoan.jpg') }}"
-                                         alt="{{ $popular->title }}"
-                                         onerror="this.src='{{ asset('images/mendoan.jpg') }}'">
-                                </div>
-                                <div class="popular-info">
-                                    <span class="popular-tag">
-                                        {{ is_array($popular->tags) && count($popular->tags) > 0 ? $popular->tags[0] : 'Humor' }}
-                                    </span>
-                                    <h4 class="popular-item-title">{{ $popular->title }}</h4>
-                                    <div class="popular-meta">
-                                        <span><i class="fa-regular fa-eye"></i> {{ number_format($popular->views) }}</span>
-                                        <span>&bull;</span>
-                                        <span>{{ $popular->published_at?->diffForHumans() ?? 'Baru saja' }}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        @empty
-                            <div class="empty-state" style="padding: 24px;">
-                                <p>Belum ada artikel humor populer yang diterbitkan.</p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
             </div>
         </div>
     </main>
-
-    {{-- KATEGORI FILTER DENGAN COUNT DARI DB --}}
-    <section class="topics-section" id="kategori-humor">
-        <div class="section-header-row">
-            <div class="section-heading-group">
-                <small><i class="fa-solid fa-layer-group"></i> PILIH SUASANA TAWA</small>
-                <h3>Kategori Celoteh &amp; Jenaka</h3>
-            </div>
-
-            @if($activeKategori || $searchTerm)
-                <a href="{{ route('humor') }}" class="filter-reset-link">
-                    <i class="fa-solid fa-xmark"></i> Reset Filter
-                </a>
-            @endif
-        </div>
-
-        <div class="topics-grid">
-            @foreach($categories as $cat)
-                @php($isActive = $activeKategori === $cat['name'])
-                <a href="{{ $isActive ? route('humor') : route('humor', ['kategori' => $cat['name']]) }}#daftar-humor"
-                   class="topic-card {{ $isActive ? 'active' : '' }}">
-                    <div class="topic-icon-wrap">
-                        <i class="{{ $cat['icon'] }}"></i>
-                    </div>
-                    <div class="topic-card-name">{{ $cat['name'] }}</div>
-                    <span class="topic-card-count">{{ $cat['count'] }} Artikel</span>
-                </a>
-            @endforeach
-        </div>
-    </section>
 
     {{-- DAFTAR ARTIKEL HUMOR LENGKAP & PAGINASI --}}
     <section class="explore-section" id="daftar-humor">
@@ -2187,39 +2113,7 @@
             <div class="article-col">
                 <div class="article-grid">
                     @forelse($articles as $article)
-                        <article class="article-card">
-                            <div class="article-card-thumb">
-                                <img src="{{ $article->cover_image_url ?? asset('images/dawet.jpg') }}"
-                                     alt="{{ $article->title }}"
-                                     onerror="this.src='{{ asset('images/dawet.jpg') }}'">
-                                <span class="article-tag-badge">
-                                    {{ is_array($article->tags) && count($article->tags) > 0 ? $article->tags[0] : 'Humor' }}
-                                </span>
-                            </div>
-                            <div class="article-card-body">
-                                <div class="article-card-meta">
-                                    <span><i class="fa-regular fa-calendar"></i> {{ $article->published_at?->locale('id')->isoFormat('D MMM Y') ?? 'Baru saja' }}</span>
-                                    <span>&bull;</span>
-                                    <span><i class="fa-regular fa-eye"></i> {{ number_format($article->views) }}</span>
-                                </div>
-                                <h3 class="article-card-title">
-                                    <a href="{{ route('articles.show', $article->slug) }}">
-                                        {{ $article->title }}
-                                    </a>
-                                </h3>
-                                <p class="article-card-desc">
-                                    {{ $article->summary ?? \Illuminate\Support\Str::limit(strip_tags($article->content), 120) }}
-                                </p>
-                                <div class="article-card-footer">
-                                    <span class="author-name-text">
-                                        <i class="fa-solid fa-user-pen"></i> {{ $article->author_name ?? $article->user?->name ?? 'Redaksi' }}
-                                    </span>
-                                    <a href="{{ route('articles.show', $article->slug) }}" class="card-more-link">
-                                        Baca <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
+                        @include('partials.article-card', ['cardFallbackImage' => 'images/dawet.jpg'])
                     @empty
                         <div class="empty-state">
                             <div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -2246,64 +2140,6 @@
                         {{ $articles->links() }}
                     </div>
                 @endif
-            </div>
-
-            {{-- SIDEBAR TRENDING & WIDGET --}}
-            <aside class="explore-sidebar">
-                <div class="side-widget">
-                    <h4 class="widget-title">
-                        <i class="fa-solid fa-hashtag"></i>
-                        Topik &amp; Tag Jenaka
-                    </h4>
-                    <div class="tech-tags-list">
-                        @foreach($trendingTags as $trend)
-                            <a href="{{ route('humor', ['q' => $trend['query']]) }}#daftar-humor" class="tech-tag-item">
-                                <span>{{ $trend['tag'] }}</span>
-                                <span class="tech-tag-action"><i class="fa-solid fa-arrow-right"></i></span>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="side-widget" style="background: linear-gradient(135deg, #074567 0%, #032b42 100%); color: #fff;">
-                    <h4 class="widget-title" style="color: #fff;">
-                        <i class="fa-solid fa-face-laugh-beam" style="color: var(--cyan-light);"></i>
-                        Punya Cerita Lucu Warga?
-                    </h4>
-                    <p style="font-size: 12px; color: #c5e6f3; line-height: 1.6; margin-bottom: 16px;">
-                        Punya celetukan pos ronda, pengalaman unik di pasar, atau kisah jenaka khas Banjarnegara? Bagikan tulisanmu di Derap Serayu!
-                    </p>
-                    <a href="{{ route('penulis.dashboard') }}" class="discover-btn" style="padding: 9px 18px; font-size: 12px; width: 100%; justify-content: center;">
-                        <i class="fa-solid fa-pen-nib"></i> Tulis Cerita Humor
-                    </a>
-                </div>
-            </aside>
-        </div>
-    </section>
-
-    {{-- STATISTIK HUMOR & SENYUM WARGA --}}
-    <section class="stats-section">
-        <div class="stats-inner">
-            <div class="stats-intro">
-                <small>SENYUM &amp; KELAKAR</small>
-                <h3>Bahagia Bersama Warga</h3>
-                <p>Indikator kehangatan tawa, canda pos ronda, dan keramahan khas masyarakat Banjarnegara.</p>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Bebas Stres</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">30K+</div>
-                <div class="stat-label">Tawa Terbaca</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">20</div>
-                <div class="stat-label">Kecamatan Ceria</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">24 Jam</div>
-                <div class="stat-label">Senyum Hangat</div>
             </div>
         </div>
     </section>
@@ -2336,27 +2172,31 @@
 
                 <a href="{{ route('home') }}" class="footer-brand" aria-label="Derap Serayu, beranda">
                     <div class="footer-logo-box">
-                        <img src="{{ asset('images/logo.png') }}" alt="Derap Serayu">
+                        <img src="{{ $siteLogoUrl }}" alt="{{ $siteSettings['site_name'] }}">
                     </div>
                 </a>
 
 
-                <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya, wisata,
-                    potensi, serta kisah dari masyarakat.
-
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                 <div class="footer-social">
 
-                    <a href="https://www.instagram.com/kabupatenbanjarnegara/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="https://www.youtube.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-                    <a href="https://www.tiktok.com/@pemkabbanjarnegara" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
-                    <a href="https://x.com/pemkab_bna" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['tiktok_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="{{ $siteSettings['x_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="X Pemerintah Kabupaten Banjarnegara"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
 
                 </div>
 
@@ -2382,6 +2222,10 @@
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
 
             </div>
@@ -2525,14 +2369,13 @@
 
             <div class="footer-quote">
 
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara punya cerita.
+                {{ $siteSettings['footer_quote'] }}
 
             </div>
 
             <div class="footer-quote-author">
 
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
 
             </div>
 
@@ -2546,8 +2389,8 @@
 
             <div class="footer-copyright">
 
-                © {{ now()->year }} Derap Serayu.
-                Semua hak dilindungi.
+                © {{ now()->year }} {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ isset($article) ? 'Edit Artikel' : 'Tulis Artikel' }} | Derap Serayu</title>
+    <title>{{ isset($article) ? 'Edit Artikel' : 'Tulis Artikel' }} | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -448,6 +448,259 @@
         .two-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .two-fields .field { margin-bottom: 0; }
 
+        .preview-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: rgba(4, 12, 13, .82);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .22s ease, visibility .22s ease;
+        }
+
+        .preview-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.preview-open { overflow: hidden; }
+
+        .preview-shell {
+            width: min(980px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto minmax(0, 1fr);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 24px;
+            background: #eef4f3;
+            box-shadow: 0 24px 80px rgba(0,0,0,.42);
+        }
+
+        .preview-toolbar {
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 18px;
+            background: #10201f;
+            color: #f6f9fa;
+            border-bottom: 1px solid rgba(255,255,255,.10);
+        }
+
+        .preview-toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .preview-toolbar-brand i {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            color: #79e5ef;
+            background: rgba(8,184,213,.12);
+        }
+
+        .preview-close {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+            color: #fff;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .preview-close:hover {
+            border-color: rgba(255,255,255,.34);
+            background: rgba(255,255,255,.12);
+            transform: rotate(4deg);
+        }
+
+        .preview-scroll {
+            overflow-y: auto;
+            background:
+                radial-gradient(circle at 85% 8%, rgba(8,184,213,.10), transparent 20rem),
+                #eef4f3;
+        }
+
+        .preview-article {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 44px 52px 56px;
+            color: #203130;
+        }
+
+        .preview-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            color: #087f95;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .preview-category::before {
+            content: "";
+            width: 24px;
+            height: 3px;
+            border-radius: 999px;
+            background: #10a8c0;
+        }
+
+        .preview-title {
+            max-width: 760px;
+            margin: 0;
+            color: #10201f;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1.08;
+            letter-spacing: -1.4px;
+        }
+
+        .preview-summary {
+            max-width: 680px;
+            margin: 20px 0 24px;
+            color: #607170;
+            font-size: 18px;
+            line-height: 1.65;
+        }
+
+        .preview-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 9px 12px;
+            padding: 16px 0 22px;
+            color: #667777;
+            font-size: 13px;
+        }
+
+        .preview-author {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #263936;
+            font-weight: 800;
+        }
+
+        .preview-author-avatar {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #fff;
+            background: linear-gradient(135deg, #08aabd, #00b789);
+            font-size: 13px;
+        }
+
+        .preview-meta-separator {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #a5b1af;
+        }
+
+        .preview-cover {
+            display: none;
+            width: 100%;
+            max-height: 440px;
+            margin: 4px 0 20px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 18px 44px rgba(31,72,69,.16);
+        }
+
+        .preview-cover.visible { display: block; }
+
+        .preview-caption {
+            display: none;
+            margin: -8px 0 28px;
+            color: #7a8988;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .preview-caption.visible { display: block; }
+
+        .preview-content {
+            padding-top: 8px;
+            color: #344443;
+            font-size: 17px;
+            line-height: 1.85;
+        }
+
+        .preview-content h2,
+        .preview-content h3 {
+            color: #173433;
+            line-height: 1.3;
+            margin: 32px 0 12px;
+        }
+
+        .preview-content p { margin: 0 0 18px; }
+        .preview-content ul,
+        .preview-content ol { padding-left: 24px; }
+        .preview-content blockquote {
+            margin: 26px 0;
+            padding: 18px 22px;
+            border-left: 4px solid #11a9c1;
+            border-radius: 0 12px 12px 0;
+            background: #ddebed;
+            color: #44605e;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+        }
+
+        .preview-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 34px;
+        }
+
+        .preview-tag {
+            padding: 7px 11px;
+            border: 1px solid #cbdad8;
+            border-radius: 999px;
+            color: #58706d;
+            background: #f8fbfa;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .preview-attachment {
+            display: none;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 28px;
+            padding: 16px;
+            border: 1px solid #bfdde0;
+            border-radius: 14px;
+            background: #dff3f3;
+            color: #315b5c;
+        }
+
+        .preview-attachment.visible { display: flex; }
+        .preview-attachment i { margin-top: 3px; color: #087f95; }
+
         .side-panel {
             border-color: rgba(8,184,213,.3);
             padding: 21px;
@@ -602,6 +855,20 @@
             .two-fields { grid-template-columns: 1fr; }
             .title-input { font-size: 16px; }
             .editor-area { min-height: 250px; padding: 15px; }
+            .preview-modal { padding: 0; }
+            .preview-shell {
+                width: 100%;
+                height: 100dvh;
+                max-height: none;
+                border: 0;
+                border-radius: 0;
+            }
+            .preview-toolbar { min-height: 58px; padding: 10px 12px; }
+            .preview-article { padding: 30px 20px 42px; }
+            .preview-title { font-size: clamp(32px, 10vw, 42px); }
+            .preview-summary { font-size: 16px; }
+            .preview-content { font-size: 16px; }
+            .preview-cover { max-height: 300px; border-radius: 12px; }
         }
 
         :root {
@@ -1381,9 +1648,31 @@
             font-size: 10px;
         }
 
+        .account-profile-link-wrap {
+            padding: 8px 8px 0;
+            border-top: 1px solid #e9f2f7;
+        }
+
+        .account-profile-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 9px;
+            color: #073f5e;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .account-profile-link:hover {
+            background: #e8f8fc;
+            color: #08add5;
+        }
+
         .account-logout-form {
             padding: 8px;
-            border-top: 1px solid #e9f2f7;
         }
 
         .account-logout-form button {
@@ -1938,188 +2227,48 @@
         }
 
     </style>
+    @if (request()->routeIs('editor.*'))
+        @include('editor.partials.shell-styles')
+    @else
+        @include('penulis.partials.shell-style')
+    @endif
 </head>
 <body>
 
-<aside class="sidebar">
-    <a href="{{ route('penulis.dashboard') }}" class="brand">
-        <span class="brand-logo-wrapper">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
-                 class="brand-logo">
-        </span>
-    </a>
+@php($routePrefix = $routePrefix ?? (request()->routeIs('editor.*') ? 'editor' : 'penulis'))
 
-    <nav class="nav">
-        <a href="{{ route('penulis.dashboard') }}">
-            <i class="fa-solid fa-border-all"></i><span>Dashboard</span>
-        </a>
-        <a href="{{ url('/penulis/create') }}" class="active">
-            <i class="fa-solid fa-pen-nib"></i><span>Tulis Artikel</span>
-        </a>
-        <a href="{{ route('penulis.articles.index') }}">
-            <i class="fa-regular fa-file-lines"></i><span>Artikel Saya</span>
-        </a>
-        <a href="{{ url('/') }}" target="_blank">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>Lihat Website</span>
-        </a>
-    </nav>
-</aside>
+@if ($routePrefix === 'editor')
+    @include('editor.partials.sidebar')
+@else
+    @include('penulis.partials.sidebar')
+@endif
 
 <main class="main">
-    <div class="topbar">
-        <div class="topbar-context">
-            <i class="fa-solid fa-pen-nib"></i>
-            <span>Ruang Kerja Penulis</span>
-        </div>
-
-        <div class="top-spacer"></div>
-
-            @php
-                $artikelPerhatian = $artikelPerhatian ?? collect();
-                $jumlahNotifikasi = $artikelPerhatian->count();
-            @endphp
-
-            <div class="top-item top-dropdown">
-                <button type="button"
-                        class="notification-button dropdown-trigger"
-                        id="notificationToggle"
-                        aria-label="Buka notifikasi"
-                        aria-expanded="false"
-                        onclick="toggleTopDropdown('notificationDropdown', this)">
-                    <i class="fa-regular fa-bell"></i>
-
-                    @if($jumlahNotifikasi > 0)
-                        <span class="notification-dot">
-                            {{ $jumlahNotifikasi > 9 ? '9+' : $jumlahNotifikasi }}
-                        </span>
-                    @endif
-                </button>
-
-                <div class="top-dropdown-menu notification-dropdown"
-                    id="notificationDropdown">
-
-                    <div class="dropdown-heading">
-                        <div>
-                            <strong>Notifikasi</strong>
-                            <small>Informasi terbaru artikelmu</small>
-                        </div>
-
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
-
-                    <div class="dropdown-scroll">
-                        @forelse($artikelPerhatian as $artikel)
-                            <a href="{{ route('penulis.articles.edit', $artikel) }}"
-                            class="dropdown-notice">
-
-                                <span class="dropdown-notice-icon
-                                    {{ $artikel->status === 'rejected' ? 'notice-orange' : 'notice-blue' }}">
-                                    <i class="fa-solid
-                                        {{ $artikel->status === 'rejected' ? 'fa-pen-to-square' : 'fa-clock' }}">
-                                    </i>
-                                </span>
-
-                                <span class="dropdown-notice-text">
-                                    <strong>
-                                        {{ $artikel->status === 'rejected'
-                                            ? 'Artikel perlu direvisi'
-                                            : 'Artikel menunggu tinjauan' }}
-                                    </strong>
-
-                                    <small>{{ $artikel->title }}</small>
-
-                                    @if($artikel->review_note)
-                                        <small class="notice-note">
-                                            Catatan: {{ $artikel->review_note }}
-                                        </small>
-                                    @endif
-
-                                    <small class="notice-date">
-                                        {{ $artikel->updated_at->format('d M Y, H:i') }}
-                                    </small>
-                                </span>
-                            </a>
-                        @empty
-                            <div class="dropdown-empty">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <strong>Semua aman!</strong>
-                                <p>Belum ada artikel yang perlu ditinjau atau direvisi.</p>
-                            </div>
-                        @endforelse
-                    </div>
-
-                    <a href="{{ route('penulis.articles.index') }}"
-                    class="dropdown-footer-link">
-                        Lihat semua artikel
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="top-item weather" id="weatherWidget">
-                <i class="fa-solid fa-cloud-sun sun" id="weatherIcon"></i>
-
-                <div>
-                    <strong id="weatherTemperature">Memuat...</strong>
-                    <small id="weatherDescription">Cuaca Banjarnegara</small>
-                </div>
-            </div>
-
-            <div class="top-item user-top top-dropdown">
-                <button type="button"
-                        class="user-account-trigger dropdown-trigger"
-                        onclick="toggleTopDropdown('accountDropdown', this)"
-                        aria-expanded="false"
-                        aria-label="Buka menu akun">
-
-                    <div class="user-avatar">
-                        {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
-                    </div>
-
-                    <div class="user-text">
-                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                        <small>Penulis</small>
-                    </div>
-
-                    <i class="fa-solid fa-chevron-down account-chevron"></i>
-                </button>
-
-                <div class="top-dropdown-menu account-dropdown"
-                    id="accountDropdown">
-
-                    <div class="account-dropdown-header">
-                        <div class="user-avatar">
-                            {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
-                        </div>
-
-                        <div>
-                            <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                            <small>{{ auth()->user()->email ?? '' }}</small>
-                            <span class="account-role">
-                                <i class="fa-solid fa-pen-nib"></i> Akun Penulis
-                            </span>
-                        </div>
-                    </div>
-
-                    <form method="POST" action="{{ route('logout') }}"
-                        class="account-logout-form">
-                        @csrf
-
-                        <button type="submit">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            Keluar dari Akun
-                        </button>
-                    </form>
-                </div>
-            </div>
-    </div>
+    @include('penulis.partials.topbar', [
+        'pageTitle' => isset($article) ? 'Edit Artikel' : 'Tulis Artikel',
+    ])
 
     <div class="page-content">
     <header class="page-header">
         <div>
-            <div class="eyebrow"><i class="fa-solid fa-feather-pointed"></i> RUANG KREATIF PENULIS</div>
-            <h1>TULIS BERITA BARU</h1>
-            <p class="subtitle">Bagikan cerita menarik untuk pembaca Serayu.</p>
+            <div class="eyebrow">
+                <i class="fa-solid {{ $routePrefix === 'editor' ? 'fa-pen-to-square' : 'fa-feather-pointed' }}"></i>
+                {{ $routePrefix === 'editor' ? 'RUANG KERJA EDITOR' : 'RUANG KREATIF PENULIS' }}
+            </div>
+            <h1>
+                @if (isset($article))
+                    EDIT ARTIKEL
+                @elseif ($routePrefix === 'editor')
+                    TULIS ARTIKEL
+                @else
+                    TULIS BERITA BARU
+                @endif
+            </h1>
+            <p class="subtitle">
+                {{ $routePrefix === 'editor'
+                    ? 'Susun artikel baru dengan format editorial yang sama, lalu simpan sebagai draf atau kirim untuk ditinjau.'
+                    : 'Bagikan cerita menarik untuk pembaca Serayu.' }}
+            </p>
         </div>
     </header>
 
@@ -2142,7 +2291,9 @@
 
     @php($initialMethod = old('document_method', isset($article) && $article->document_path ? 'upload' : 'write'))
     <form id="articleForm"
-          action="{{ isset($article) ? route('penulis.articles.update', $article) : route('penulis.artikel.store') }}"
+          action="{{ isset($article)
+              ? route($routePrefix === 'editor' ? 'editor.articles.update' : 'penulis.articles.update', $article)
+              : route($routePrefix === 'editor' ? 'editor.articles.store' : 'penulis.artikel.store') }}"
           method="POST"
           enctype="multipart/form-data">
         @csrf
@@ -2244,7 +2395,7 @@
                         @if(isset($article) && $article->document_path)
                             <div class="file-help" id="existingDocument">
                                 Naskah tersimpan:
-                                <a href="{{ route('penulis.articles.document', $article) }}" target="_blank" rel="noopener">
+                                <a href="{{ route($routePrefix === 'editor' ? 'editor.articles.document' : 'penulis.articles.document', $article) }}" target="_blank" rel="noopener">
                                     {{ $article->document_name ?: basename($article->document_path) }}
                                 </a>
                                 <span style="display:block">Jika metode diubah ke tulis langsung, naskah ini akan dihapus saat disimpan.</span>
@@ -2330,6 +2481,9 @@
                         <select id="status" name="status" class="control">
                             <option value="draft" @selected(old('status', $article->status ?? 'draft') === 'draft')>Simpan sebagai Draft</option>
                             <option value="review" @selected(old('status', $article->status ?? '') === 'review')>Kirim untuk Ditinjau</option>
+                            @if($routePrefix === 'editor' && isset($article) && $article->status === 'published')
+                                <option value="published" @selected(old('status', $article->status) === 'published')>Tetap Terbit</option>
+                            @endif
                         </select>
                     </div>
 
@@ -2340,7 +2494,7 @@
                         <button type="submit" class="button button-cyan" id="submitButton">
                             <i class="fa-regular fa-paper-plane"></i> {{ isset($article) ? 'Simpan Perubahan' : 'Simpan Artikel' }}
                         </button>
-                        <a href="{{ route('penulis.dashboard') }}" class="button button-plain">
+                        <a href="{{ route($routePrefix === 'editor' ? 'editor.dashboard' : 'penulis.dashboard') }}" class="button button-plain">
                             <i class="fa-solid fa-xmark"></i> Batal
                         </a>
                     </div>
@@ -2369,6 +2523,51 @@
                         </select>
                     </div>
 
+                    {{-- KECAMATAN ASAL ARTIKEL --}}
+                    <div class="field">
+                        <label for="kecamatan">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            Kecamatan Asal <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="kecamatan"
+                            name="kecamatan"
+                            class="control"
+                            required
+                        >
+                            <option value="">Pilih Kecamatan Asal</option>
+
+                            @foreach(config('kecamatan', []) as $kecamatan)
+                                <option
+                                    value="{{ $kecamatan }}"
+                                    @selected(
+                                        old(
+                                            'kecamatan',
+                                            $article->kecamatan ?? ''
+                                        ) === $kecamatan
+                                    )
+                                >
+                                    {{ $kecamatan }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <div class="tag-hint">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Pilih kecamatan tempat kamu berasal atau tempat
+                            artikel ini dibuat. Artikel akan dikelompokkan
+                            berdasarkan kecamatan yang dipilih.
+                        </div>
+
+                        @error('kecamatan')
+                            <small style="display:block;color:#d64c5a;margin-top:8px">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
+
+
                     <div class="field">
                         <label for="tags"><i class="fa-solid fa-hashtag"></i> Tags</label>
                         <input id="tags" name="tags" class="control"
@@ -2395,6 +2594,53 @@
             </div>
         </div>
     </form>
+
+    <div class="preview-modal" id="articlePreviewModal" role="dialog" aria-modal="true"
+         aria-labelledby="previewModalTitle" aria-hidden="true">
+        <div class="preview-shell" role="document">
+            <div class="preview-toolbar">
+                <div class="preview-toolbar-brand">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Pratinjau Artikel</span>
+                </div>
+                <button type="button" class="preview-close" id="closePreviewButton"
+                        aria-label="Tutup pratinjau">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="preview-scroll">
+                <article class="preview-article">
+                    <div class="preview-category" id="previewCategory"></div>
+                    <h1 class="preview-title" id="previewModalTitle"></h1>
+                    <p class="preview-summary" id="previewSummary"></p>
+
+                    <div class="preview-meta">
+                        <span class="preview-author">
+                            <span class="preview-author-avatar" id="previewAuthorInitial">D</span>
+                            <span id="previewAuthor"></span>
+                        </span>
+                        <span class="preview-meta-separator"></span>
+                        <time id="previewDate"></time>
+                        <span class="preview-meta-separator"></span>
+                        <span id="previewLocation"></span>
+                    </div>
+
+                    <img class="preview-cover" id="previewCover" alt="">
+                    <p class="preview-caption" id="previewCaption"></p>
+                    <div class="preview-content" id="previewContent"></div>
+                    <div class="preview-tags" id="previewTags"></div>
+                    <div class="preview-attachment" id="previewAttachment">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <div>
+                            <strong>Lampiran artikel</strong>
+                            <div id="previewAttachmentName"></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
 
     <div class="footer-note">
         © {{ date('Y') }} Derap Serayu · Media Informasi Banjarnegara
@@ -2589,7 +2835,53 @@
         existingCoverPreview?.classList.toggle('visible', !removeCoverImage.checked && !coverInput.files.length);
     });
 
-    // Preview artikel sederhana
+    // Pratinjau artikel dalam tampilan layaknya artikel publik
+    const previewModal = document.getElementById('articlePreviewModal');
+    const closePreviewButton = document.getElementById('closePreviewButton');
+    const previewCloseElements = [closePreviewButton];
+
+    const sanitizePreviewHtml = html => {
+        const template = document.createElement('template');
+        template.innerHTML = html;
+
+        template.content.querySelectorAll('script, iframe, object, embed, form, style, link')
+            .forEach(element => element.remove());
+
+        template.content.querySelectorAll('*').forEach(element => {
+            [...element.attributes].forEach(attribute => {
+                const name = attribute.name.toLowerCase();
+                const value = attribute.value.trim().toLowerCase();
+                if (name.startsWith('on') || name === 'style'
+                    || ((name === 'href' || name === 'src') && value.startsWith('javascript:'))) {
+                    element.removeAttribute(attribute.name);
+                }
+            });
+        });
+
+        return template.innerHTML;
+    };
+
+    const closeArticlePreview = () => {
+        previewModal.classList.remove('visible');
+        previewModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('preview-open');
+        document.getElementById('previewButton').focus();
+    };
+
+    previewCloseElements.forEach(element => element.addEventListener('click', closeArticlePreview));
+
+    previewModal.addEventListener('click', event => {
+        if (event.target === previewModal) {
+            closeArticlePreview();
+        }
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && previewModal.classList.contains('visible')) {
+            closeArticlePreview();
+        }
+    });
+
     document.getElementById('previewButton').addEventListener('click', () => {
         const title = document.getElementById('title').value.trim();
         const summary = document.getElementById('summary').value.trim();
@@ -2600,80 +2892,83 @@
             return;
         }
 
-        let previewContent;
         let attachmentName = '';
-        if (currentMethod === 'write') {
-            previewContent = editor.innerText.trim() || '(Isi artikel belum ditulis.)';
-        } else {
+        if (currentMethod === 'upload') {
             const file = documentFile.files[0];
             attachmentName = file?.name
                 || (!removeExistingDocument?.checked
                     ? document.getElementById('existingDocument')?.querySelector('a')?.textContent.trim()
                     : '')
                 || '';
-            previewContent = attachmentName
-                ? 'Naskah artikel tersedia sebagai lampiran unduhan.'
-                : 'Belum ada dokumen yang dipilih.';
         }
 
-        const previewWindow = window.open('', '_blank');
-        if (!previewWindow) {
-            alert('Izinkan pop-up browser untuk membuka preview.');
-            return;
-        }
-
+        const caption = document.getElementById('caption').value.trim();
+        const author = document.getElementById('author').value.trim() || 'Penulis Derap Serayu';
+        const kecamatan = document.getElementById('kecamatan').value;
+        const tags = document.getElementById('tags').value
+            .split(',')
+            .map(tag => tag.trim())
+            .filter(Boolean);
         const coverPreview = coverInput.files[0]
             ? URL.createObjectURL(coverInput.files[0])
             : (existingCoverPreview?.classList.contains('visible') ? existingCoverPreview.src : '');
 
-        const previewDocument = previewWindow.document;
-        previewDocument.title = title + ' | Preview Derap Serayu';
-        previewDocument.documentElement.lang = 'id';
+        document.getElementById('previewCategory').textContent = category;
+        document.getElementById('previewModalTitle').textContent = title;
+        document.getElementById('previewSummary').textContent = summary;
+        document.getElementById('previewAuthor').textContent = author;
+        document.getElementById('previewAuthorInitial').textContent =
+            author.split(/\s+/).filter(Boolean).slice(0, 2).map(word => word.charAt(0).toUpperCase()).join('') || 'D';
+        document.getElementById('previewDate').textContent =
+            new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+        document.getElementById('previewLocation').textContent = kecamatan || 'Banjarnegara';
 
-        const style = previewDocument.createElement('style');
-        style.textContent = `
-            body{font-family:Arial,sans-serif;max-width:780px;margin:45px auto;padding:0 22px;color:#243233;line-height:1.8}
-            .brand{color:#079fba;font-weight:bold;letter-spacing:1px}
-            .category{color:#078da8;font-size:12px;font-weight:bold;text-transform:uppercase}
-            h1{font-size:36px;line-height:1.2}
-            .summary{font-size:18px;color:#657273}
-            .content{white-space:pre-line;margin-top:30px}
-            img{width:100%;max-height:420px;object-fit:cover;border-radius:14px}
-            .note{padding:15px;background:#eaf8fa;border-radius:10px;color:#23616b}
-        `;
-        previewDocument.head.append(style);
+        const previewCover = document.getElementById('previewCover');
+        previewCover.classList.toggle('visible', Boolean(coverPreview));
+        previewCover.src = coverPreview;
+        previewCover.alt = caption || title;
 
-        const addTextElement = (tagName, className, text) => {
-            const element = previewDocument.createElement(tagName);
-            if (className) element.className = className;
-            element.textContent = text;
-            previewDocument.body.append(element);
-            return element;
-        };
+        const previewCaption = document.getElementById('previewCaption');
+        previewCaption.textContent = caption;
+        previewCaption.classList.toggle('visible', Boolean(caption));
 
-        addTextElement('div', 'brand', 'DERAP SERAYU');
-        addTextElement('p', 'category', category);
-        addTextElement('h1', '', title);
-        addTextElement('p', 'summary', summary);
-
-        if (coverPreview) {
-            const image = previewDocument.createElement('img');
-            image.src = coverPreview;
-            image.alt = document.getElementById('caption').value.trim() || title;
-            previewDocument.body.append(image);
+        const previewContent = document.getElementById('previewContent');
+        previewContent.replaceChildren();
+        if (currentMethod === 'write') {
+            if (editor.innerText.trim()) {
+                previewContent.innerHTML = sanitizePreviewHtml(editor.innerHTML);
+            } else {
+                const placeholder = document.createElement('p');
+                placeholder.textContent = 'Isi artikel belum ditulis.';
+                previewContent.append(placeholder);
+            }
+        } else {
+            const placeholder = document.createElement('p');
+            placeholder.textContent = attachmentName
+                ? 'Naskah artikel tersedia sebagai lampiran dokumen.'
+                : 'Belum ada dokumen yang dipilih.';
+            previewContent.append(placeholder);
         }
 
-        previewDocument.body.append(previewDocument.createElement('hr'));
-        addTextElement('div', 'content', previewContent);
+        const previewTags = document.getElementById('previewTags');
+        previewTags.replaceChildren();
+        tags.forEach(tag => {
+            const element = document.createElement('span');
+            element.className = 'preview-tag';
+            element.textContent = '#' + tag.replace(/^#+/, '');
+            previewTags.append(element);
+        });
 
-        if (currentMethod === 'upload') {
-            addTextElement(
-                'p',
-                'note',
-                'Lampiran yang akan dapat diunduh setelah artikel diterbitkan: '
-                    + (attachmentName || 'belum dipilih')
-            );
-        }
+        const previewAttachment = document.getElementById('previewAttachment');
+        previewAttachment.classList.toggle('visible', currentMethod === 'upload');
+        document.getElementById('previewAttachmentName').textContent =
+            attachmentName || 'Belum ada dokumen dipilih';
+
+        previewModal.classList.add('visible');
+        previewModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('preview-open');
+        previewModal.querySelector('.preview-scroll').scrollTop = 0;
+        closePreviewButton.focus();
     });
 
     // Sebelum form dikirim, salin isi editor ke input tersembunyi.
@@ -2907,11 +3202,39 @@
         }
     });
 
+    /* Muat cuaca ketika halaman dibuka. */
     loadBanjarnegaraWeather();
 
-    // Perbarui informasi cuaca setiap 10 menit.
+    /* Perbarui cuaca setiap 10 menit. */
     setInterval(loadBanjarnegaraWeather, 10 * 60 * 1000);
 
+    /* Tutup dropdown ketika klik di luar menu. */
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.top-dropdown')) return;
+
+        document.querySelectorAll('.top-dropdown-menu.show')
+            .forEach(menu => menu.classList.remove('show'));
+
+        document.querySelectorAll('.dropdown-trigger')
+            .forEach(button => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+    });
+
+    /* Tutup dropdown dengan tombol Escape. */
+    document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+
+        document.querySelectorAll('.top-dropdown-menu.show')
+            .forEach(menu => menu.classList.remove('show'));
+
+        document.querySelectorAll('.dropdown-trigger')
+            .forEach(button => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+    });
+
 </script>
+@include('penulis.partials.shell-script')
 </body>
 </html>

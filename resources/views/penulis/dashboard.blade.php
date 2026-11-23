@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Penulis | Derap Serayu</title>
+    <title>Dashboard Penulis | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -472,7 +472,7 @@
         /* STAT CARDS */
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
             margin-top: 13px;
         }
@@ -1885,9 +1885,31 @@
         font-size: 10px;
     }
 
+    .account-profile-link-wrap {
+        padding: 8px 8px 0;
+        border-top: 1px solid #e9f2f7;
+    }
+
+    .account-profile-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 9px;
+        color: #073f5e;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .account-profile-link:hover {
+        background: #e8f8fc;
+        color: #08add5;
+    }
+
     .account-logout-form {
         padding: 8px;
-        border-top: 1px solid #e9f2f7;
     }
 
     .account-logout-form button {
@@ -1972,199 +1994,16 @@
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.17);
     }
     </style>
+    @include('penulis.partials.shell-style')
 </head>
 
 <body>
 <div class="app">
-
-    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
-
-    <aside class="sidebar" id="sidebar">
-        <a href="{{ route('penulis.dashboard') }}" class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo Derap Serayu"
-                 class="logo-img">
-        </a>
-
-        <nav class="side-nav">
-            <a href="{{ route('penulis.dashboard') }}" class="nav-link active">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="{{ route('penulis.artikel.create') }}" class="nav-link">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Tulis Artikel</span>
-            </a>
-
-            <a href="{{ route('penulis.articles.index') }}" class="nav-link">
-                <i class="fa-regular fa-file-lines"></i>
-                <span>Artikel Saya</span>
-            </a>
-
-            <a href="{{ url('/') }}" target="_blank" class="nav-link">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                <span>Lihat Website</span>
-            </a>
-
-        </nav>
-
-        <div class="side-spacer"></div>
-    </aside>
+    @include('penulis.partials.sidebar')
 
     <main class="main">
 
-        <header class="topbar">
-            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Buka menu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <form class="search" id="searchForm" method="GET" action="{{ route('penulis.articles.index') }}">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" id="searchInput" name="search" aria-label="Cari artikel penulis"
-                       placeholder="Cari artikel, topik, atau kata kunci...">
-            </form>
-
-            <div class="top-spacer"></div>
-
-            @php
-                $jumlahNotifikasi = $artikelPerhatian->count();
-            @endphp
-
-            <div class="top-item top-dropdown">
-                <button type="button"
-                        class="notification-button dropdown-trigger"
-                        id="notificationToggle"
-                        aria-label="Buka notifikasi"
-                        aria-expanded="false"
-                        onclick="toggleTopDropdown('notificationDropdown', this)">
-                    <i class="fa-regular fa-bell"></i>
-
-                    @if($jumlahNotifikasi > 0)
-                        <span class="notification-dot">
-                            {{ $jumlahNotifikasi > 9 ? '9+' : $jumlahNotifikasi }}
-                        </span>
-                    @endif
-                </button>
-
-                <div class="top-dropdown-menu notification-dropdown"
-                    id="notificationDropdown">
-
-                    <div class="dropdown-heading">
-                        <div>
-                            <strong>Notifikasi</strong>
-                            <small>Informasi terbaru artikelmu</small>
-                        </div>
-
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
-
-                    <div class="dropdown-scroll">
-                        @forelse($artikelPerhatian as $artikel)
-                            <a href="{{ route('penulis.articles.edit', $artikel) }}"
-                            class="dropdown-notice">
-
-                                <span class="dropdown-notice-icon
-                                    {{ $artikel->status === 'rejected' ? 'notice-orange' : 'notice-blue' }}">
-                                    <i class="fa-solid
-                                        {{ $artikel->status === 'rejected' ? 'fa-pen-to-square' : 'fa-clock' }}">
-                                    </i>
-                                </span>
-
-                                <span class="dropdown-notice-text">
-                                    <strong>
-                                        {{ $artikel->status === 'rejected'
-                                            ? 'Artikel perlu direvisi'
-                                            : 'Artikel menunggu tinjauan' }}
-                                    </strong>
-
-                                    <small>{{ $artikel->title }}</small>
-
-                                    @if($artikel->review_note)
-                                        <small class="notice-note">
-                                            Catatan: {{ $artikel->review_note }}
-                                        </small>
-                                    @endif
-
-                                    <small class="notice-date">
-                                        {{ $artikel->updated_at->format('d M Y, H:i') }}
-                                    </small>
-                                </span>
-                            </a>
-                        @empty
-                            <div class="dropdown-empty">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <strong>Semua aman!</strong>
-                                <p>Belum ada artikel yang perlu ditinjau atau direvisi.</p>
-                            </div>
-                        @endforelse
-                    </div>
-
-                    <a href="{{ route('penulis.articles.index') }}"
-                    class="dropdown-footer-link">
-                        Lihat semua artikel
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="top-item weather" id="weatherWidget">
-                <i class="fa-solid fa-cloud-sun sun" id="weatherIcon"></i>
-
-                <div>
-                    <strong id="weatherTemperature">Memuat...</strong>
-                    <small id="weatherDescription">Cuaca Banjarnegara</small>
-                </div>
-            </div>
-
-            <div class="top-item user-top top-dropdown">
-                <button type="button"
-                        class="user-account-trigger dropdown-trigger"
-                        onclick="toggleTopDropdown('accountDropdown', this)"
-                        aria-expanded="false"
-                        aria-label="Buka menu akun">
-
-                    <div class="user-avatar">
-                        {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
-                    </div>
-
-                    <div class="user-text">
-                        <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                        <small>Penulis</small>
-                    </div>
-
-                    <i class="fa-solid fa-chevron-down account-chevron"></i>
-                </button>
-
-                <div class="top-dropdown-menu account-dropdown"
-                    id="accountDropdown">
-
-                    <div class="account-dropdown-header">
-                        <div class="user-avatar">
-                            {{ strtoupper(substr(auth()->user()->name ?? 'P', 0, 1)) }}
-                        </div>
-
-                        <div>
-                            <strong>{{ auth()->user()->name ?? 'Penulis' }}</strong>
-                            <small>{{ auth()->user()->email ?? '' }}</small>
-                            <span class="account-role">
-                                <i class="fa-solid fa-pen-nib"></i> Akun Penulis
-                            </span>
-                        </div>
-                    </div>
-
-                    <form method="POST" action="{{ route('logout') }}"
-                        class="account-logout-form">
-                        @csrf
-
-                        <button type="submit">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            Keluar dari Akun
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-        </header>
+        @include('penulis.partials.topbar')
 
         <div class="content">
 
@@ -2242,6 +2081,36 @@
                         <small>Buka halaman website</small>
                     </div>
                 </a>
+            
+                {{-- STATISTIK LIKE --}}
+                <article class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <div class="label">Total Like</div>
+                        <div class="value">
+                            {{ number_format($totalLike ?? 0, 0, ',', '.') }}
+                        </div>
+                        <small>Like pada artikel yang sudah terbit</small>
+                    </div>
+                </article>
+
+                {{-- STATISTIK KOMENTAR --}}
+                <article class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-regular fa-comments"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <div class="label">Total Komentar</div>
+                        <div class="value">
+                            {{ number_format($totalKomentar ?? 0, 0, ',', '.') }}
+                        </div>
+                        <small>Komentar pada artikel yang sudah terbit</small>
+                    </div>
+                </article>
             </section>
 
             <!-- KONTEN DASHBOARD -->
@@ -2269,6 +2138,8 @@
                                     <div class="article-name">{{ $artikel->title }}</div>
                                     <div class="article-meta">
                                         <span><i class="fa-regular fa-eye"></i>{{ number_format($artikel->views, 0, ',', '.') }} tayangan</span>
+                                        <span><i class="fa-regular fa-heart"></i>{{ number_format($artikel->like_count ?? 0, 0, ',', '.') }} like</span>
+                                        <span><i class="fa-regular fa-comments"></i>{{ number_format($artikel->comments_count ?? 0, 0, ',', '.') }} komentar</span>
                                     </div>
                                 </div>
                             </a>

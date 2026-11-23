@@ -11,7 +11,7 @@
     >
 
     <title>
-        Derap Serayu | Media Informasi Banjarnegara
+        {{ $siteSettings['site_name'] }} | {{ $siteSettings['tagline'] }}
     </title>
 
     {{-- Google Fonts --}}
@@ -853,10 +853,7 @@ body {
 /* Hero Meta */
 
 .hero-meta {
-    position: absolute;
-
-    left: 40px;
-    bottom: 22px;
+    position: relative;
 
     z-index: 3;
 
@@ -865,6 +862,8 @@ body {
     align-items: center;
 
     gap: 18px;
+
+    margin-top: 18px;
 
     font-size: 9px;
 
@@ -1510,6 +1509,111 @@ body {
 
     gap: 10px;
 }
+
+.news-item,
+.popular-entry {
+    min-width: 0;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f7fbfc;
+    border: 1px solid #e9f2f5;
+    transition: .25s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(7, 63, 94, .12);
+}
+
+.news-item > a {
+    flex: 1;
+    display: flex;
+}
+
+.news-item .news-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    border-radius: 0;
+    transform: none;
+}
+
+.news-item .news-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-item .news-meta {
+    margin-top: auto;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 8px;
+    border-top: 1px solid #e3eef2;
+    background: #fff;
+}
+
+.popular-entry .card-actions {
+    margin: 0 0 4px 33px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.popular-entry {
+    border-bottom: 1px solid #e8f0f3;
+}
+
+.popular-entry:last-child {
+    border-bottom: 0;
+}
+
+.popular-entry .popular-item {
+    border-bottom: 0;
+    padding-bottom: 2px;
+}
+
+.card-actions form { margin: 0; display: flex; }
+.card-actions .act-save { margin-left: auto; }
+
+.card-actions .act {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 7px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #4b6b7d;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 1;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popular-entry .card-actions .act {
+    font-size: 9px;
+    padding: 3px 6px;
+}
+
+.card-actions .act:hover { background: #eaf7fb; color: #0b6f8a; }
+.card-actions .act.on,
+.card-actions .act.on i { color: #e0415b; }
+.card-actions .act-save .act.on,
+.card-actions .act-save .act.on i { color: #0b6f8a; }
+.card-actions .act.static { cursor: default; }
 
 .empty-news {
     grid-column: 1 / -1;
@@ -2965,7 +3069,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .popular-card {
+    .popular-card:not(.random-card) {
         display: none;
     }
 
@@ -3087,9 +3191,6 @@ body {
     }
 
     .hero-meta {
-        left: 27px;
-        bottom: 20px;
-
         gap: 8px;
 
         flex-wrap: wrap;
@@ -3219,6 +3320,258 @@ body {
 
 
 /* =========================================================
+   JELAJAHI KECAMATAN
+========================================================= */
+
+.explore-district-card {
+    background:
+        linear-gradient(180deg, rgba(3, 50, 72, .10), rgba(3, 50, 72, .95)),
+        url("{{ asset('images/bg-dieng-home.jpg') }}")
+        center / cover no-repeat;
+}
+
+.district-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #073f5e;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.district-summary .explore-stat strong {
+    font-size: 15px;
+}
+
+.district-section {
+    padding: 35px 0 0;
+}
+
+.district-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.district-heading h2 {
+    margin-top: 8px;
+    color: #073f5e;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.2;
+}
+
+.district-heading h2 span {
+    color: #08add5;
+}
+
+.district-heading p {
+    max-width: 620px;
+    margin-top: 9px;
+    color: #78909d;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.district-total {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    padding: 14px 18px;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 18px;
+    background: rgba(255,255,255,.82);
+    box-shadow: 0 10px 28px rgba(7,63,94,.07);
+}
+
+.district-total > i {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: #e3f8fc;
+    color: #08add5;
+    font-size: 18px;
+}
+
+.district-total strong,
+.district-total span {
+    display: block;
+}
+
+.district-total strong {
+    color: #073f5e;
+    font-size: 23px;
+}
+
+.district-total span {
+    margin-top: 2px;
+    color: #78909d;
+    font-size: 10px;
+}
+
+.district-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.district-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 190px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,.95);
+    border-radius: 20px;
+    background: rgba(255,255,255,.88);
+    box-shadow: 0 10px 28px rgba(7,63,94,.06);
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.district-card::before {
+    content: "";
+    position: absolute;
+    top: -45px;
+    right: -35px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(8,173,213,.15), transparent 70%);
+    pointer-events: none;
+}
+
+.district-card:hover {
+    transform: translateY(-5px);
+    border-color: #a7e8f4;
+    box-shadow: 0 17px 34px rgba(7,63,94,.12);
+}
+
+.district-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.district-number {
+    color: #9ab5c1;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.district-card-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #08add5, #72cfcf);
+    color: white;
+    box-shadow: 0 7px 16px rgba(8,173,213,.2);
+}
+
+.district-card h3 {
+    margin-top: 15px;
+    color: #073f5e;
+    font-family: "Playfair Display", serif;
+    font-size: 17px;
+    line-height: 1.3;
+}
+
+.district-card p {
+    margin-top: 6px;
+    color: #78909d;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.district-card-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+    color: #078fb0;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.district-card-link i {
+    transition: transform .2s ease;
+}
+
+.district-card:hover .district-card-link i {
+    transform: translateX(4px);
+}
+
+.district-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 17px;
+    padding: 14px 16px;
+    border: 1px solid #d8eef4;
+    border-radius: 14px;
+    background: rgba(240,249,253,.85);
+    color: #67889a;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.district-note i {
+    margin-top: 2px;
+    color: #08add5;
+}
+
+@media (max-width: 1050px) {
+    .district-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .district-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .district-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .district-card {
+        min-height: 180px;
+        padding: 14px;
+    }
+
+    .district-card h3 {
+        font-size: 15px;
+    }
+
+    .district-total {
+        padding: 10px 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .district-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* =========================================================
    ANIMATION
 ========================================================= */
 
@@ -3252,6 +3605,8 @@ body {
 }
 
 </style>
+
+@include('partials.site-theme-styles')
 
 </head>
 
@@ -3332,7 +3687,7 @@ body {
             </a>
 
             <a
-                href="https://www.instagram.com/kabupatenbanjarnegara/"
+                href="{{ $siteSettings['instagram_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -3342,7 +3697,7 @@ body {
             </a>
 
             <a
-                href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                href="{{ $siteSettings['facebook_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -3352,7 +3707,7 @@ body {
             </a>
 
             <a
-                href="https://www.youtube.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['youtube_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -3362,7 +3717,7 @@ body {
             </a>
 
             <a
-                href="https://x.com/pemkab_bna"
+                href="{{ $siteSettings['x_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -3372,7 +3727,7 @@ body {
             </a>
 
             <a
-                href="https://www.tiktok.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['tiktok_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -3406,8 +3761,8 @@ body {
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteSettings['logo_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['logo_path']) : asset('images/logo.png') }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -3415,7 +3770,7 @@ body {
             >
 
             <div class="logo-fallback">
-                Derap<span>Serayu</span>
+                {{ $siteSettings['site_name'] }}
             </div>
 
         </a>
@@ -3521,11 +3876,14 @@ body {
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -3592,65 +3950,49 @@ body {
                 <div class="hero-content">
 
                     <div class="hero-script">
-                        Cerita Hari Ini —
+                        {{ $siteSettings['home_eyebrow'] }}
                     </div>
 
+                    <h1 class="hero-title">
+                        {{ $siteSettings['home_heading'] }}
+                    </h1>
+
+                    <p class="hero-description">
+                        {{ $siteSettings['home_description'] }}
+                    </p>
+
                     @if ($featuredArticle)
-                        <h1 class="hero-title">
-                            {{ $featuredArticle->title }}
-                        </h1>
-
-                        <p class="hero-description">
-                            {{ $featuredArticle->summary }}
-                        </p>
-
                         <a
                             href="{{ route('articles.show', $featuredArticle->slug) }}"
                             class="hero-button"
                         >
-                            Baca Selengkapnya
+                            Baca Berita Unggulan
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     @else
-                        <h1 class="hero-title">
-                            Pesona Alam Banjarnegara, Dari
-                            <span>Dataran Tinggi Dieng</span>
-                            hingga Lembah Serayu
-                        </h1>
-
-                        <p class="hero-description">
-                            Banjarnegara bukan hanya tentang Dieng. Di balik sejuknya pegunungan,
-                            tersimpan beragam cerita, budaya, dan potensi luar biasa yang layak untuk kamu jelajahi.
-                        </p>
-
                         <a href="#berita" class="hero-button">
                             Baca Selengkapnya
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     @endif
 
-
-                </div>
-
-
-                <div class="hero-meta">
-
                     @if ($featuredArticle)
-                        <span>
-                            <i class="fa-regular fa-calendar"></i>
-                            {{ $featuredArticle->published_at?->format('d M Y') }}
-                        </span>
+                        <div class="hero-meta">
+                            <span>
+                                <i class="fa-regular fa-calendar"></i>
+                                {{ $featuredArticle->published_at?->format('d M Y') }}
+                            </span>
 
-                        <span>
-                            <i class="fa-regular fa-eye"></i>
-                            {{ number_format($featuredArticle->views, 0, ',', '.') }}
-                        </span>
+                            <span>
+                                <i class="fa-regular fa-eye"></i>
+                                {{ number_format($featuredArticle->views, 0, ',', '.') }}
+                            </span>
 
-                        <span class="hero-category">
-                            {{ $featuredArticle->category }}
-                        </span>
+                            <span class="hero-category">
+                                {{ $featuredArticle->category }}
+                            </span>
+                        </div>
                     @endif
-
                 </div>
 
 
@@ -3676,7 +4018,7 @@ body {
 
                     <h2>
                         <i class="fa-solid fa-fire"></i>
-                        Artikel Populer
+                        Berita Populer
                     </h2>
 
                     <a href="{{ route('articles.index') }}">
@@ -3687,6 +4029,7 @@ body {
 
 
                 @forelse ($popularArticles as $index => $article)
+                    <div class="popular-entry">
                     <a
                         class="popular-item"
                         href="{{ route('articles.show', $article->slug) }}"
@@ -3725,8 +4068,10 @@ body {
                         </div>
 
                     </a>
+                    @include('partials.article-actions')
+                    </div>
                 @empty
-                    <p class="empty-news">Belum ada artikel populer.</p>
+                    <p class="empty-news">Belum ada berita populer.</p>
                 @endforelse
 
             </aside>
@@ -3735,8 +4080,7 @@ body {
 
             {{-- EXPLORE --}}
 
-            <aside class="explore-card">
-
+            <aside class="explore-card explore-district-card">
                 <div class="explore-content">
 
                     <div class="explore-script">
@@ -3745,51 +4089,33 @@ body {
                     </div>
 
                     <p class="explore-description">
-
-                        Lebih dari sekadar destinasi,
-                        ini tentang pengalaman.
-
+                        Temukan cerita, berita, da potensi lokal dari berbagai
+                        kecamatan dan desa di Banjarnegara.
                     </p>
-
-                    <a
-                        class="play-button"
-                        href="#jelajah"
-                        aria-label="Lihat destinasi dan cerita Banjarnegara"
-                    >
-                        <i class="fa-solid fa-compass"></i>
-                    </a>
-
                 </div>
 
-
-                <div class="explore-stats">
+                <div class="explore-stats district-summary">
+                    <div class="explore-stat">
+                        <i class="fa-solid fa-map"></i>
+                        <strong>20</strong>
+                        <span>Kecamatan</span>
+                    </div>
 
                     <div class="explore-stat">
-                        <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
-                        <strong data-stat="published-articles">{{ number_format($publishedArticleCount, 0, ',', '.') }}</strong>
+                        <i class="fa-solid fa-newspaper"></i>
+                        <strong>{{ number_format($publishedArticleCount, 0, ',', '.') }}</strong>
                         <span>Artikel Terbit</span>
                     </div>
 
                     <div class="explore-stat">
-                        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                        <strong data-stat="published-categories">{{ number_format($publishedCategoryCount, 0, ',', '.') }}</strong>
+                        <i class="fa-solid fa-book-open"></i>
+                        <strong>{{ number_format($publishedCategoryCount, 0, ',', '.') }}</strong>
                         <span>Kategori</span>
                     </div>
-
-                    <div class="explore-stat">
-                        <i class="fa-solid fa-users" aria-hidden="true"></i>
-                        <strong data-stat="readers">{{ number_format($readerCount, 0, ',', '.') }}</strong>
-                        <span>Pembaca</span>
-                    </div>
-
                 </div>
-
             </aside>
-
         </div>
-
     </div>
-
 </section>
 
 
@@ -3898,66 +4224,11 @@ body {
 
                 <div class="news-grid">
 
-
-                    @php
-
-                        $news = $publishedArticles->map(fn ($article) => [
-                                'category' => strtoupper($article->category),
-                                'title' => $article->title,
-                                'description' => $article->summary,
-                                'views' => number_format($article->views, 0, ',', '.'),
-                                'image' => $article->cover_image_path
-                                    ? asset('storage/'.$article->cover_image_path)
-                                    : asset('images/bg-dieng-home.jpg'),
-                                'date' => $article->published_at?->format('d M Y'),
-                                'url' => route('articles.show', $article->slug),
-                            ])->all();
-
-                    @endphp
-
-
-                    @foreach ($news as $item)
-
-                        <a href="{{ $item['url'] }}" style="color:inherit;text-decoration:none">
-                        <article class="news-card">
-
-                            <div class="news-image" style="background-image:linear-gradient(180deg,transparent,rgba(3,48,68,.25)),url('{{ $item['image'] }}');background-size:cover;background-position:center">
-
-                                <span class="news-category">
-                                    {{ $item['category'] }}
-                                </span>
-
-                            </div>
-
-                            <div class="news-content">
-
-                                <h3>
-                                    {{ $item['title'] }}
-                                </h3>
-
-                                <p>
-                                    {{ $item['description'] }}
-                                </p>
-
-                                <div class="news-meta">
-
-                                    <span>
-                                        <i class="fa-regular fa-eye"></i>
-                                        {{ $item['views'] }}
-                                    </span>
-
-                                    <span>{{ $item['date'] }}</span>
-
-                                </div>
-
-                            </div>
-
-                        </article>
-                        </a>
-
+                    @foreach ($publishedArticles as $article)
+                        @include('partials.article-card')
                     @endforeach
 
-                    @if (empty($news))
+                    @if ($publishedArticles->isEmpty())
                         <p class="empty-news">Belum ada artikel yang diterbitkan. Silakan kembali lagi nanti.</p>
                     @endif
 
@@ -3967,31 +4238,65 @@ body {
 
 
 
-            {{-- TRENDING --}}
+            <aside class="popular-card random-card">
 
-            <aside class="trending-card">
+                <div class="section-mini-title">
 
-                <div class="trending-title">
+                    <h2>
+                        <i class="fa-solid fa-shuffle"></i>
+                        Berita Random
+                    </h2>
 
-                    <i class="fa-solid fa-chart-line"></i>
+                    <a href="{{ route('articles.index') }}">
+                        Lihat Semua →
+                    </a>
 
-                    <h2>Artikel Random</h2>
                 </div>
 
-                @forelse ($trendingCategories as $category)
+                @forelse ($randomArticles as $index => $article)
+                    <div class="popular-entry">
                     <a
-                        class="trending-item"
-                        href="{{ route('articles.index', ['category' => $category['title']]) }}"
+                        class="popular-item"
+                        href="{{ route('articles.show', $article->slug) }}"
+                        style="color:inherit;text-decoration:none"
                     >
-                        <span class="trending-hashtag">
-                            {{ $category['title'] }}
-                        </span>
-                        <span class="trending-views">
-                            {{ number_format($category['count'], 0, ',', '.') }} artikel →
-                        </span>
+
+                        <div class="popular-number">
+                            {{ $index + 1 }}
+                        </div>
+
+                        <div
+                            class="popular-image"
+                            @if ($article->cover_image_path)
+                                style="background-image:url('{{ asset('storage/'.$article->cover_image_path) }}');background-size:cover;background-position:center"
+                            @endif
+                        ></div>
+
+                        <div class="popular-content">
+
+                            <span class="popular-tag">
+                                {{ strtoupper($article->category) }}
+                            </span>
+
+                            <h3>
+                                {{ $article->title }}
+                            </h3>
+
+                            <small>
+                                <i class="fa-regular fa-eye"></i>
+                                {{ number_format($article->views, 0, ',', '.') }}
+                                @if ($article->published_at)
+                                    &nbsp; · &nbsp; {{ $article->published_at->diffForHumans() }}
+                                @endif
+                            </small>
+
+                        </div>
+
                     </a>
+                    @include('partials.article-actions')
+                    </div>
                 @empty
-                    <p class="empty-news">Kategori populer akan tampil setelah artikel diterbitkan.</p>
+                    <p class="empty-news">Belum ada berita yang diterbitkan.</p>
                 @endforelse
 
             </aside>
@@ -4306,114 +4611,103 @@ body {
 ===================================================== --}}
 
 <section
-    class="explore-section"
-    id="jelajah"
->
-
+    class="explore-section district-section" id="jelajah">
     <div class="container">
 
-        <div class="explore-large">
-
-            <div class="explore-large-content">
-
-                <span class="explore-large-label">
-                    JELAJAH BANJARNEGARA
+        <div class="district-heading">
+            <div>
+                <span class="district-eyebrow">
+                    <i class="fa-solid fa-compass"></i>
+                    CERITA DARI SETIAP WILAYAH
                 </span>
 
                 <h2>
-                    Dari gunung hingga lembah,
-                    <span>
-                        semua punya cerita.
-                    </span>
+                    Jelajahi <span>20 Kecamatan</span>
+                    Banjarnegara
                 </h2>
 
                 <p>
-
-                    Temukan destinasi, kuliner, budaya,
-                    UMKM, dan berbagai cerita menarik
-                    dari setiap sudut Banjarnegara.
-
+                    Pilih kecamatan untuk menemukan artikel, budaya,
+                    potensi desa, dan kisah masyarakat setempat.
                 </p>
-
-                <a
-                    href="{{ route('potensi') }}"
-                    class="explore-button"
-                >
-
-                    Jelajahi Sekarang
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
             </div>
 
 
-            <div class="explore-tags">
-
-                <div class="explore-tag">
-
-                    <i class="fa-solid fa-mountain"></i>
-
-                    <span>
-                        Dieng
-                    </span>
-
+            <div class="district-total">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div>
+                    <strong>20 Kecamatan</strong>
+                    <span>Kecamatan</span>
                 </div>
-
-                <div class="explore-tag">
-
-                    <i class="fa-solid fa-utensils"></i>
-
-                    <span>
-                        Kuliner
-                    </span>
-
-                </div>
-
-                <div class="explore-tag">
-
-                    <i class="fa-solid fa-landmark"></i>
-
-                    <span>
-                        Budaya
-                    </span>
-
-                </div>
-
-                <div class="explore-tag">
-
-                    <i class="fa-solid fa-store"></i>
-
-                    <span>
-                        UMKM
-                    </span>
-
-                </div>
-
-                <div class="explore-tag">
-
-                    <i class="fa-solid fa-users"></i>
-
-                    <span>
-                        Anak Muda
-                    </span>
-
-                </div>
-
             </div>
-
         </div>
 
-    </div>
+        @php
+            $districts = [
+                'Banjarnegara',
+                'Banjarmangu',
+                'Batur',
+                'Bawang',
+                'Kalibening',
+                'Karangkobar',
+                'Madukara',
+                'Mandiraja',
+                'Pagedongan',
+                'Pagentan',
+                'Pandanarum',
+                'Pejawaran',
+                'Punggelan',
+                'Purwanegara',
+                'Purwareja Klampok',
+                'Rakit',
+                'Sigaluh',
+                'Susukan',
+                'Wanadadi',
+                'Wanayasa',
+            ];
+        @endphp
 
+        <div class="district-grid">
+            @foreach($districts as $index => $district)
+                <a class="district-card" href="{{ route('articles.index', ['kecamatan' => $district]) }}" 
+                aria-label="Lihat artikel di Kecamatan {{ $district }}">
+                    <div class="district-card-top">
+                        <span class="district-number">
+                            {{ sprintf('%02d', $index + 1) }}
+                        </span>
+
+                        <span class="district-card-icon">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </span>
+                    </div>
+
+                    <h3>
+                        {{ $district }}
+                    </h3>
+
+                    <p>
+                        Jelajahi cerita dan potensi wilayah 
+                    </p>
+
+                    <span class="district-card-link">
+                        Lihat artikel
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+            @endforeach
+        </div>
+
+        <div class="district-note">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>
+                Artikel akan ditampilkan berdasarkan kecamatan atau desa 
+                yang tercatat pada informasi lokasi artikel.
+            </p>
+        </div>
+    </div>
 </section>
 
-
-
 </main>
-
-
 
 {{-- =====================================================
      FOOTER
@@ -4445,8 +4739,8 @@ body {
                 >
 
                     <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Derap Serayu"
+                    src="{{ $siteSettings['logo_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['logo_path']) : asset('images/logo.png') }}"
+                    alt="{{ $siteSettings['site_name'] }}"
                     onerror="
                         this.style.display='none';
                         this.nextElementSibling.style.display='flex';
@@ -4457,67 +4751,35 @@ body {
 
 
                 <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya,
-                    wisata, potensi, serta kisah dari
-                    masyarakat.
-
+                    {{ $siteSettings['footer_description'] }}
                 </p>
 
+                @if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+                    <p class="footer-description">
+                        @if($siteSettings['contact_email'])
+                            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+                        @endif
+                        @if($siteSettings['contact_phone'])
+                            <br>{{ $siteSettings['contact_phone'] }}
+                        @endif
+                    </p>
+                @endif
 
                 <div class="footer-social">
-
-                    <a
-                        href="https://www.instagram.com/kabupatenbanjarnegara/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
-                        title="Instagram"
-                    >
-                        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                    </a>
-
-                    <a
-                        href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
-                        title="Facebook"
-                    >
-                        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
-                    </a>
-
-                    <a
-                        href="https://www.youtube.com/@pemkabbanjarnegara"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
-                        title="YouTube"
-                    >
-                        <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-                    </a>
-
-                    <a
-                        href="https://www.tiktok.com/@pemkabbanjarnegara"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
-                        title="TikTok"
-                    >
-                        <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
-                    </a>
-
-                    <a
-                        href="https://x.com/pemkab_bna"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="X Pemerintah Kabupaten Banjarnegara"
-                        title="X"
-                    >
-                        <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-                    </a>
-
+                    @foreach([
+                        'instagram_url' => ['Instagram', 'fa-instagram'],
+                        'facebook_url' => ['Facebook', 'fa-facebook-f'],
+                        'youtube_url' => ['YouTube', 'fa-youtube'],
+                        'tiktok_url' => ['TikTok', 'fa-tiktok'],
+                        'x_url' => ['X', 'fa-x-twitter'],
+                    ] as $field => [$label, $icon])
+                        @if($siteSettings[$field])
+                            <a href="{{ $siteSettings[$field] }}" target="_blank" rel="noopener noreferrer"
+                               aria-label="{{ $label }} {{ $siteSettings['site_name'] }}" title="{{ $label }}">
+                                <i class="fa-brands {{ $icon }}" aria-hidden="true"></i>
+                            </a>
+                        @endif
+                    @endforeach
                 </div>
 
             </div>
@@ -4542,6 +4804,10 @@ body {
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
 
             </div>
@@ -4711,15 +4977,11 @@ body {
             </div>
 
             <p>
-
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara
-                punya cerita.
-
+                {{ $siteSettings['footer_quote'] }}
             </p>
 
             <small>
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
             </small>
 
         </div>
@@ -4733,8 +4995,8 @@ body {
             <div>
 
                 © {{ date('Y') }}
-                Derap Serayu.
-                Semua hak dilindungi.
+                {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 
@@ -4786,540 +5048,87 @@ body {
    WEATHER
 ========================================================= */
 
-const latitude = -7.2096;
-const longitude = 109.9156;
-
-
-/* Weather information */
-
-function getWeatherInfo(code) {
-
-    const weather = {
-
-        0: {
-            text: "Cerah",
-            icon: "☀️"
-        },
-
-        1: {
-            text: "Cerah Berawan",
-            icon: "🌤️"
-        },
-
-        2: {
-            text: "Berawan Sebagian",
-            icon: "⛅"
-        },
-
-        3: {
-            text: "Berawan",
-            icon: "☁️"
-        },
-
-        45: {
-            text: "Berkabut",
-            icon: "🌫️"
-        },
-
-        48: {
-            text: "Kabut Tebal",
-            icon: "🌫️"
-        },
-
-        51: {
-            text: "Gerimis Ringan",
-            icon: "🌦️"
-        },
-
-        53: {
-            text: "Gerimis",
-            icon: "🌦️"
-        },
-
-        55: {
-            text: "Gerimis Lebat",
-            icon: "🌧️"
-        },
-
-        56: {
-            text: "Gerimis Beku Ringan",
-            icon: "🌧️"
-        },
-
-        57: {
-            text: "Gerimis Beku Lebat",
-            icon: "🌧️"
-        },
-
-        61: {
-            text: "Hujan Ringan",
-            icon: "🌦️"
-        },
-
-        63: {
-            text: "Hujan",
-            icon: "🌧️"
-        },
-
-        65: {
-            text: "Hujan Lebat",
-            icon: "🌧️"
-        },
-
-        66: {
-            text: "Hujan Beku Ringan",
-            icon: "🌧️"
-        },
-
-        67: {
-            text: "Hujan Beku Lebat",
-            icon: "🌧️"
-        },
-
-        71: {
-            text: "Salju Ringan",
-            icon: "🌨️"
-        },
-
-        73: {
-            text: "Salju",
-            icon: "🌨️"
-        },
-
-        75: {
-            text: "Salju Lebat",
-            icon: "❄️"
-        },
-
-        77: {
-            text: "Butiran Salju",
-            icon: "🌨️"
-        },
-
-        80: {
-            text: "Hujan Lokal",
-            icon: "🌦️"
-        },
-
-        81: {
-            text: "Hujan Lokal",
-            icon: "🌧️"
-        },
-
-        82: {
-            text: "Hujan Lebat",
-            icon: "⛈️"
-        },
-
-        85: {
-            text: "Hujan Salju Ringan",
-            icon: "🌨️"
-        },
-
-        86: {
-            text: "Hujan Salju Lebat",
-            icon: "🌨️"
-        },
-
-        95: {
-            text: "Badai Petir",
-            icon: "⛈️"
-        },
-
-        96: {
-            text: "Badai Petir",
-            icon: "⛈️"
-        },
-
-        99: {
-            text: "Badai Petir",
-            icon: "⛈️"
-        }
-
-    };
-
-    return weather[code] || {
-
-        text: "Tidak diketahui",
-
-        icon: "🌤️"
-
-    };
-
+function setText(id, value) {
+    document.getElementById(id).textContent = value;
 }
-
-
-/* Format hour */
-
-function formatHour(dateString) {
-
-    const date =
-        new Date(dateString);
-
-    return date.toLocaleTimeString(
-        "id-ID",
-        {
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    );
-
-}
-
-
-/* Load weather */
 
 async function loadDiengWeather() {
-
     try {
-
-        const url =
-            "https://api.open-meteo.com/v1/forecast" +
-
-            "?latitude=" +
-            latitude +
-
-            "&longitude=" +
-            longitude +
-
-            "&current=" +
-            "temperature_2m," +
-            "relative_humidity_2m," +
-            "apparent_temperature," +
-            "weather_code," +
-            "wind_speed_10m," +
-            "visibility" +
-
-            "&hourly=" +
-            "temperature_2m," +
-            "precipitation_probability," +
-            "weather_code" +
-
-            "&timezone=Asia%2FJakarta" +
-
-            "&forecast_days=2";
-
-
-        const response =
-            await fetch(url);
-
+        const response = await fetch("{{ route('weather.dieng') }}", {
+            headers: { Accept: "application/json" }
+        });
 
         if (!response.ok) {
-
-            throw new Error(
-                "Weather request failed"
-            );
-
+            throw new Error("Weather request failed");
         }
 
+        const data = await response.json();
+        const current = data.current;
+        const dash = "--";
 
-        const data =
-            await response.json();
+        setText("topWeatherIcon", current.icon);
+        document.getElementById("topWeatherIcon").setAttribute("title", current.text);
+        setText("topTemperature", current.temp + "°C");
+        setText("weatherIcon", current.icon);
+        setText("weatherCondition", current.text);
+        setText("temperature", current.temp + "°");
+        setText("feelsLike", current.feels_like === null ? dash : current.feels_like + "°");
+        setText("humidity", current.humidity === null ? dash : current.humidity + "%");
+        setText("windSpeed", current.wind === null ? dash : current.wind + " km/j");
+        setText("visibility", current.visibility_km === null ? dash : current.visibility_km.toFixed(1) + " km");
+        setText("rainChance", current.rain === null ? dash : current.rain + "%");
 
-        if (
-            !data.current
-            || !Array.isArray(data.hourly?.time)
-            || data.hourly.time.length === 0
-            || !Array.isArray(data.hourly.precipitation_probability)
-            || !Array.isArray(data.hourly.temperature_2m)
-            || !Array.isArray(data.hourly.weather_code)
-            || data.hourly.precipitation_probability.length < data.hourly.time.length
-            || data.hourly.temperature_2m.length < data.hourly.time.length
-            || data.hourly.weather_code.length < data.hourly.time.length
-            || !Number.isFinite(data.current.temperature_2m)
-            || !Number.isFinite(data.current.apparent_temperature)
-            || !Number.isFinite(data.current.relative_humidity_2m)
-            || !Number.isFinite(data.current.wind_speed_10m)
-        ) {
-            throw new Error("Weather response is incomplete");
-        }
+        document.getElementById("weatherUpdated").innerHTML =
+            '<i class="fa-regular fa-clock"></i> Sumber ' + data.source + " · pukul " + data.updated + " WIB";
 
-        const current =
-            data.current;
-
-
-        const weatherInfo =
-            getWeatherInfo(
-                current.weather_code
-            );
-
-        const forecastIndex = data.hourly.time.findIndex(function (hour) {
-            return hour >= current.time;
-        });
-        const startIndex = forecastIndex >= 0
-            ? forecastIndex
-            : data.hourly.time.length - 1;
-
-        document
-            .getElementById("topWeatherIcon")
-            .textContent =
-            weatherInfo.icon;
-
-        document
-            .getElementById("topWeatherIcon")
-            .setAttribute("title", weatherInfo.text);
-
-
-        /* Current */
-
-        document
-            .getElementById("weatherIcon")
-            .textContent =
-            weatherInfo.icon;
-
-
-        document
-            .getElementById("weatherCondition")
-            .textContent =
-            weatherInfo.text;
-
-
-        document
-            .getElementById("temperature")
-            .textContent =
-            Math.round(
-                current.temperature_2m
-            ) + "°";
-
-
-        document
-            .getElementById("feelsLike")
-            .textContent =
-            Math.round(
-                current.apparent_temperature
-            ) + "°";
-
-
-        document
-            .getElementById("humidity")
-            .textContent =
-            Math.round(
-                current.relative_humidity_2m
-            ) + "%";
-
-
-        document
-            .getElementById("windSpeed")
-            .textContent =
-            Math.round(
-                current.wind_speed_10m
-            ) + " km/j";
-
-
-        document
-            .getElementById("visibility")
-            .textContent =
-            current.visibility
-                ? (
-                    current.visibility / 1000
-                ).toFixed(1) + " km"
-                : "--";
-
-
-        document
-            .getElementById("rainChance")
-            .textContent =
-            data.hourly
-                .precipitation_probability[startIndex]
-            + "%";
-
-
-        document
-            .getElementById("weatherUpdated")
-            .innerHTML =
-
-            '<i class="fa-regular fa-clock"></i>' +
-
-            " Diperbarui " +
-
-            formatHour(
-                current.time
-            );
-
-
-        /* Topbar temperature */
-
-        document
-            .getElementById("topTemperature")
-            .textContent =
-            Math.round(
-                current.temperature_2m
-            ) + "°C";
-
-
-        /* Forecast */
-
-        const forecastList =
-            document.getElementById(
-                "forecastList"
-            );
-
-
+        const forecastList = document.getElementById("forecastList");
         forecastList.innerHTML = "";
 
+        data.forecast.forEach(function (slot, index) {
+            const item = document.createElement("div");
+            item.className = "forecast-item" + (index === 0 ? " active" : "");
+            item.title = slot.text;
 
-        for (
-            let i = startIndex;
-            i <
-            Math.min(
-                startIndex + 24,
-                data.hourly.time.length
-            );
-            i++
-        ) {
+            [
+                ["forecast-time", slot.time],
+                ["forecast-weather-icon", slot.icon],
+                ["forecast-temp", slot.temp + "°"],
+                ["forecast-rain", slot.rain === null ? "💧 --" : "💧 " + slot.rain + "%"]
+            ].forEach(function (entry) {
+                const span = document.createElement("span");
+                span.className = entry[0];
+                span.textContent = entry[1];
+                item.appendChild(span);
+            });
 
-            const info =
-                getWeatherInfo(
-                    data.hourly
-                        .weather_code[i]
-                );
+            forecastList.appendChild(item);
+        });
 
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "forecast-item" +
-                (
-                    i === startIndex
-                        ? " active"
-                        : ""
-                );
-
-
-            item.innerHTML = `
-
-                <span class="forecast-time">
-
-                    ${
-                        formatHour(
-                            data.hourly.time[i]
-                        )
-                    }
-
-                </span>
-
-
-                <span class="forecast-weather-icon">
-
-                    ${info.icon}
-
-                </span>
-
-
-                <span class="forecast-temp">
-
-                    ${
-                        Math.round(
-                            data.hourly
-                                .temperature_2m[i]
-                        )
-                    }°
-
-                </span>
-
-
-                <span class="forecast-rain">
-
-                    💧
-                    ${
-                        data.hourly
-                            .precipitation_probability[i]
-                    }%
-
-                </span>
-
-            `;
-
-
-            forecastList.appendChild(
-                item
-            );
-
-        }
-
-        const forecastToggle =
-            document.getElementById("forecastToggle");
-
-        const hasAdditionalForecast =
-            forecastList.children.length > 3;
+        const forecastToggle = document.getElementById("forecastToggle");
+        const hasAdditionalForecast = forecastList.children.length > 3;
 
         forecastToggle.hidden = !hasAdditionalForecast;
         forecastToggle.disabled = !hasAdditionalForecast;
         forecastToggle.textContent = "Lihat Detail 24 Jam";
-
-
     } catch (error) {
+        console.error("Weather error:", error);
 
-        console.error(
-            "Weather error:",
-            error
-        );
+        setText("weatherCondition", "Data cuaca tidak tersedia");
+        setText("topWeatherIcon", "❔");
+        document.getElementById("topWeatherIcon").removeAttribute("title");
+        setText("topTemperature", "--°C");
+        document.getElementById("weatherUpdated").textContent = "Silakan coba beberapa saat lagi";
 
+        document.getElementById("forecastList").innerHTML =
+            '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#8aa0aa;font-size:10px;">Data cuaca sedang tidak dapat dimuat.</div>';
 
-        document
-            .getElementById(
-                "weatherCondition"
-            )
-            .textContent =
-            "Data cuaca tidak tersedia";
-
-        document
-            .getElementById("topWeatherIcon")
-            .textContent = "❔";
-
-        document
-            .getElementById("topWeatherIcon")
-            .removeAttribute("title");
-
-        document
-            .getElementById("topTemperature")
-            .textContent = "--°C";
-
-
-        document
-            .getElementById(
-                "weatherUpdated"
-            )
-            .innerHTML =
-            "Silakan coba beberapa saat lagi";
-
-
-        document
-            .getElementById(
-                "forecastList"
-            )
-            .innerHTML = `
-
-                <div style="
-                    grid-column:1/-1;
-                    text-align:center;
-                    padding:20px;
-                    color:#8aa0aa;
-                    font-size:10px;
-                ">
-
-                    Data cuaca sedang tidak
-                    dapat dimuat.
-
-                </div>
-
-            `;
-
-        const forecastToggle =
-            document.getElementById("forecastToggle");
+        const forecastToggle = document.getElementById("forecastToggle");
 
         forecastToggle.textContent = "Prakiraan tidak tersedia";
         forecastToggle.disabled = true;
         forecastToggle.hidden = false;
-
     }
-
 }
-
 
 /* Run */
 
@@ -5399,6 +5208,7 @@ document.addEventListener(
 </script>
 
 
+@include('partials.search-script')
 </body>
 
 </html>

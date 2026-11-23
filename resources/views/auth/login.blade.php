@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Masuk | Derap Serayu</title>
+    <title>Masuk | {{ $siteSettings['site_name'] }}</title>
 
 
     <!-- Google Fonts -->
@@ -335,7 +335,7 @@
                     rgba(3, 48, 68, .06)
                 ),
 
-                url('{{ asset('images/bg-kawahsikidang-login.jpg') }}');
+                url('{{ $siteSettings['login_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['login_bg_image_path']) : asset('images/bg-kawahsikidang-login.jpg') }}');
 
             background-size: cover;
 
@@ -987,6 +987,34 @@
             transform: translateX(5px);
         }
 
+        .google-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 46px;
+            margin-top: 15px;
+            color: #34495e;
+            background: #fff;
+            border: 1px solid #d8e2e6;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s, border-color .2s;
+        }
+
+        .google-login:hover {
+            background: #f7fafc;
+            border-color: #b7c8d1;
+        }
+
+        .google-login i {
+            color: #4285f4;
+            font-size: 15px;
+        }
+
 
         /* =====================================================
            DIVIDER
@@ -1270,10 +1298,12 @@
 
     </style>
 
+@include('partials.site-theme-styles')
+
 </head>
 
 
-<body>
+<body class="auth-page">
     <!-- =====================================================
          LOGIN
     ====================================================== -->
@@ -1412,8 +1442,8 @@
                     <a href="/" class="logo">
 
                         <img
-                            src="{{ asset('images/logo.png') }}"
-                            alt="Derap Serayu"
+                            src="{{ $siteLogoUrl }}"
+                            alt="{{ $siteSettings['site_name'] }}"
                         >
 
                     </a>
@@ -1595,6 +1625,10 @@
 
                     </div>
 
+                    <a href="{{ route('google.redirect') }}" class="google-login">
+                        <i class="fa-brands fa-google" aria-hidden="true"></i>
+                        Masuk dengan Google
+                    </a>
 
 
                     <!-- REGISTER -->

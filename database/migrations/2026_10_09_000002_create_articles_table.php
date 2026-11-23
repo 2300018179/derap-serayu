@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('summary', 500);
             $table->string('category', 100);
             $table->string('status', 20)->default('draft')->index();
+            $table->string('kecamatan', 100)->nullable()->index();
             $table->string('author_name', 150);
             $table->json('tags')->nullable();
             $table->string('caption')->nullable();

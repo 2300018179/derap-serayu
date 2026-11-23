@@ -69,6 +69,12 @@ class InformationPageController extends Controller
 
         abort_unless(isset($pages[$page]), 404);
 
-        return view('information.show', ['page' => $pages[$page]]);
+        $styledViews = [
+            'privasi' => 'information.privacy',
+            'syarat-ketentuan' => 'information.terms',
+            'pedoman-media-siber' => 'information.cyber-guidelines',
+        ];
+
+        return view($styledViews[$page], ['page' => $pages[$page]]);
     }
 }

@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OpiniController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $searchTerm = trim($request->validate([
+            'q' => ['nullable', 'string', 'max:100'],
+        ])['q'] ?? '');
+
         $featuredOpinion = $this->publishedOpinions()
             ->orderByDesc('views')
             ->latest('published_at')
@@ -25,11 +30,14 @@ class OpiniController extends Controller
             ->get();
 
         $opinions = $this->publishedOpinions()
+            ->search($searchTerm)
             ->latest('published_at')
             ->orderByDesc('id')
-            ->paginate(8);
+            ->withCount(['likes', 'comments'])
+            ->paginate(8)
+            ->withQueryString();
 
-        return view('opini', compact('featuredOpinion', 'popularOpinions', 'opinions'));
+        return view('opini', compact('featuredOpinion', 'popularOpinions', 'opinions', 'searchTerm'));
     }
 
     private function publishedOpinions(): Builder

@@ -6,13 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
+        if (Schema::hasColumn('articles', 'kecamatan')) {
+            return;
+        }
+
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('kecamatan')->nullable()->index();
+            $table->string('kecamatan', 100)
+                ->nullable()
+                ->index()
+                ->after('category');
         });
     }
 

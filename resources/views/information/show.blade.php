@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $page['title'] }} | Derap Serayu</title>
+    <title>{{ $page['title'] }} | {{ $siteSettings['site_name'] }}</title>
     <meta name="description" content="{{ $page['intro'] }}">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,8 @@
         h2{margin:0 0 8px;font:700 20px 'Playfair Display',serif}.section p{margin:0;color:#496c81}
         .section a,.back{color:#078fb0;font-weight:700}.back{display:inline-block;margin-top:24px;text-decoration:none}
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 <body>
 <header><a href="{{ route('home') }}">Derap Serayu</a></header>

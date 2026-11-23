@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pendaftaran Berhasil | Derap Serayu</title>
+    <title>Pendaftaran Berhasil | {{ $siteSettings['site_name'] }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
                     rgba(3,48,68,.18),
                     rgba(3,48,68,.05)
                 ),
-                url('{{ asset('images/bg-dieng-register.jpg') }}')
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-dieng-register.jpg') }}')
                 center center / cover no-repeat fixed;
         }
 
@@ -518,9 +518,11 @@
             }
         }
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
-<body>
+<body class="auth-page">
 
     <!-- TOP BAR -->
     <div class="topbar">
@@ -564,7 +566,7 @@
     <nav class="navbar">
 
         <div class="brand">
-            <img src="{{ asset('images/logo-derap-serayu.png') }}" alt="Derap Serayu">
+            <img src="{{ asset('images/logo-derap-serayu.png') }}" alt="{{ $siteSettings['site_name'] }}">
         </div>
 
         <div class="nav-menu">
@@ -597,10 +599,7 @@
             </a>
         </div>
 
-        <div class="search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Cari...">
-        </div>
+        @include('partials.search-box')
 
         <button class="menu-btn">
             <i class="fa-solid fa-bars"></i>
@@ -670,19 +669,19 @@
 
                     <div>
                         <small>AKUN PEMBACA</small>
-                        <strong>annisa******@gmail.com</strong>
+                        <strong>{{ auth()->user()?->email ?? 'Akun Pembaca Anda' }}</strong>
                     </div>
 
                 </div>
 
-                <a href="{{ route('login') }}" style="text-decoration: none;">
+                <a href="{{ route('home') }}" style="text-decoration: none;">
                     <button class="btn-login">
-                        Masuk ke Akun
+                        Mulai Jelajahi Berita
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </a>
 
-                <a href="#" class="back-link">
+                <a href="{{ route('home') }}" class="back-link">
                     <i class="fa-solid fa-house"></i>
                     Kembali ke Beranda
                 </a>

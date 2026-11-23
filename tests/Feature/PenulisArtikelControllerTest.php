@@ -65,6 +65,96 @@ class PenulisArtikelControllerTest extends TestCase
         $response->assertSee('name="document_method"', false);
         $response->assertSee('id="documentMethodInput"', false);
         $response->assertSee('value="write"', false);
+        $response->assertSee(route('penulis.dashboard'), false);
+        $response->assertSee(route('penulis.articles.index', ['status' => 'review']), false);
+        $response->assertSee('Menunggu Tinjauan');
+        $response->assertDontSee(route('editor.dashboard'), false);
+    }
+
+    public function test_writer_pages_show_their_latest_article_status_notifications(): void
+    {
+        $writer = User::factory()->create(['role' => 'writer']);
+
+        $writer->articles()->create([
+            'title' => 'Artikel menunggu tinjauan',
+            'slug' => 'artikel-menunggu-tinjauan',
+            'summary' => 'Ringkasan artikel.',
+            'category' => 'Berita',
+            'status' => 'review',
+            'author_name' => $writer->name,
+        ]);
+        $writer->articles()->create([
+            'title' => 'Artikel perlu revisi',
+            'slug' => 'artikel-perlu-revisi',
+            'summary' => 'Ringkasan artikel.',
+            'category' => 'Berita',
+            'status' => 'rejected',
+            'author_name' => $writer->name,
+            'review_note' => 'Mohon tambahkan sumber informasi.',
+        ]);
+        $publishedArticle = $writer->articles()->create([
+            'title' => 'Artikel sudah diterbitkan',
+            'slug' => 'artikel-sudah-diterbitkan',
+            'summary' => 'Ringkasan artikel.',
+            'category' => 'Berita',
+            'status' => 'published',
+            'author_name' => $writer->name,
+            'published_at' => now(),
+        ]);
+
+        $otherWriter = User::factory()->create(['role' => 'writer']);
+        $otherWriter->articles()->create([
+            'title' => 'Artikel milik penulis lain',
+            'slug' => 'artikel-milik-penulis-lain',
+            'summary' => 'Ringkasan artikel.',
+            'category' => 'Berita',
+            'status' => 'published',
+            'author_name' => $otherWriter->name,
+            'published_at' => now(),
+        ]);
+
+        $pages = [
+            route('penulis.dashboard'),
+            route('penulis.profile'),
+            route('penulis.articles.index'),
+            route('penulis.artikel.create'),
+        ];
+
+        foreach ($pages as $page) {
+            $response = $this->actingAs($writer)->get($page);
+
+            $response->assertOk()
+                ->assertSee('Artikel menunggu tinjauan')
+                ->assertSee('Artikel perlu direvisi')
+                ->assertSee('Artikel sudah terbit')
+                ->assertSee('Mohon tambahkan sumber informasi.')
+                ->assertDontSee('Artikel milik penulis lain');
+        }
+
+        $this->actingAs($writer)->get(route('penulis.profile'))
+            ->assertSee(route('articles.show', $publishedArticle->slug), false)
+            ->assertDontSee(route('penulis.articles.edit', $publishedArticle), false);
+    }
+
+    public function test_article_notification_text_is_html_escaped(): void
+    {
+        $writer = User::factory()->create(['role' => 'writer']);
+        $unsafeText = '<script>alert(1)</script>';
+        $writer->articles()->create([
+            'title' => $unsafeText,
+            'slug' => 'artikel-perlu-revisi',
+            'summary' => 'Ringkasan artikel.',
+            'category' => 'Berita',
+            'status' => 'rejected',
+            'author_name' => $writer->name,
+            'review_note' => $unsafeText,
+        ]);
+
+        $response = $this->actingAs($writer)->get(route('penulis.profile'));
+
+        $response->assertOk()
+            ->assertSee('&lt;script&gt;', false)
+            ->assertDontSee($unsafeText, false);
     }
 
     public function test_article_preview_javascript_is_not_rendered_as_page_text(): void
@@ -103,6 +193,7 @@ class PenulisArtikelControllerTest extends TestCase
             'title' => 'Judul artikel',
             'summary' => 'Ringkasan artikel',
             'category' => 'Berita',
+            'kecamatan' => 'Batur',
             'status' => 'draft',
             'document_method' => 'upload',
             'document' => $document,
@@ -267,6 +358,7 @@ class PenulisArtikelControllerTest extends TestCase
                 'title' => 'Judul baru',
                 'summary' => 'Ringkasan baru',
                 'category' => 'Berita',
+                'kecamatan' => 'Batur',
                 'status' => 'draft',
                 'document_method' => 'write',
                 'content' => '<p>Artikel ditulis langsung.</p>',
@@ -304,6 +396,7 @@ class PenulisArtikelControllerTest extends TestCase
                 'title' => 'Judul baru',
                 'summary' => 'Ringkasan baru',
                 'category' => 'Berita',
+                'kecamatan' => 'Batur',
                 'status' => 'draft',
                 'document_method' => 'upload',
             ])
@@ -344,6 +437,7 @@ class PenulisArtikelControllerTest extends TestCase
                 'title' => 'Judul baru',
                 'summary' => 'Ringkasan baru',
                 'category' => 'Berita',
+                'kecamatan' => 'Batur',
                 'status' => 'draft',
                 'document_method' => 'write',
                 'content' => '<p>Isi baru.</p>',
@@ -387,7 +481,7 @@ class PenulisArtikelControllerTest extends TestCase
         $publicResponse = $this->get(route('articles.show', $article->slug));
         $publicResponse->assertOk();
         $publicResponse->assertSee('Isi cerita masyarakat.');
-        $publicResponse->assertDontSee('<script>', false);
+        $publicResponse->assertDontSee('alert("xss")', false);
         $this->assertDatabaseHas('articles', ['id' => $article->id, 'views' => 1]);
     }
 
@@ -400,6 +494,7 @@ class PenulisArtikelControllerTest extends TestCase
             'title' => 'Cerita dari Serayu',
             'summary' => 'Kisah masyarakat di tepi sungai.',
             'category' => 'Cerita & Budaya',
+            'kecamatan' => 'Batur',
             'status' => 'review',
             'document_method' => 'write',
             'content' => '<p>Warga berbagi cerita tentang Serayu.</p>',
@@ -460,6 +555,24 @@ class PenulisArtikelControllerTest extends TestCase
         $response->assertNotFound();
     }
 
+    public function test_writer_notifications_show_on_list_and_create_pages(): void
+    {
+        $writer = User::factory()->create(['role' => 'writer']);
+        $writer->articles()->create([
+            'title' => 'Naskah Perlu Revisi',
+            'slug' => 'naskah-perlu-revisi',
+            'summary' => 'Ringkasan.',
+            'category' => 'Berita',
+            'status' => 'rejected',
+            'author_name' => $writer->name,
+        ]);
+
+        $this->actingAs($writer)->get(route('penulis.articles.index'))
+            ->assertOk()->assertSee('Naskah Perlu Revisi');
+        $this->actingAs($writer)->get(route('penulis.artikel.create'))
+            ->assertOk()->assertSee('Naskah Perlu Revisi');
+    }
+
     public function test_writer_article_list_searches_all_statuses_and_can_filter_by_status(): void
     {
         $writer = User::factory()->create(['role' => 'writer']);
@@ -499,9 +612,56 @@ class PenulisArtikelControllerTest extends TestCase
             ->assertSee('value="Dieng"', false);
     }
 
+    public function test_writer_sidebar_link_opens_the_pending_review_filter(): void
+    {
+        $writer = User::factory()->create(['role' => 'writer']);
+        $writer->articles()->create([
+            'title' => 'Naskah Menunggu Tinjauan',
+            'slug' => 'naskah-menunggu-tinjauan',
+            'summary' => 'Ringkasan untuk ditinjau.',
+            'category' => 'Berita',
+            'status' => 'review',
+            'author_name' => $writer->name,
+        ]);
+        $writer->articles()->create([
+            'title' => 'Naskah Draft',
+            'slug' => 'naskah-draft',
+            'summary' => 'Ringkasan draft.',
+            'category' => 'Berita',
+            'status' => 'draft',
+            'author_name' => $writer->name,
+        ]);
+
+        $pendingReviewUrl = route('penulis.articles.index', ['status' => 'review']);
+
+        $this->actingAs($writer);
+
+        foreach ([
+            route('penulis.dashboard') => '<a href="'.route('penulis.dashboard').'" class="nav-link active">',
+            route('penulis.articles.index') => '<a href="'.route('penulis.articles.index').'" class="nav-link active">',
+            route('penulis.artikel.create') => '<a href="'.route('penulis.artikel.create').'" class="nav-link active">',
+        ] as $page => $activeLink) {
+            $this->get($page)
+                ->assertOk()
+                ->assertSee($pendingReviewUrl, false)
+                ->assertSee('Menunggu Tinjauan')
+                ->assertSee($activeLink, false);
+        }
+
+        $this->get($pendingReviewUrl)
+            ->assertOk()
+            ->assertSee('Naskah Menunggu Tinjauan')
+            ->assertDontSee('Naskah Draft')
+            ->assertSee(
+                '<a href="'.$pendingReviewUrl.'" class="nav-link active">',
+                false
+            );
+    }
+
     public function test_password_reset_link_is_sent_for_a_registered_email(): void
     {
         $writer = User::factory()->create();
+        config(['mail.default' => 'smtp']);
         Notification::fake();
 
         $this->from(route('password.request'))

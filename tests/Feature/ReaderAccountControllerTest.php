@@ -46,7 +46,7 @@ class ReaderAccountControllerTest extends TestCase
             ->assertSee($reader->name)
             ->assertSee($reader->username)
             ->assertSee($reader->email)
-            ->assertSee('Artikel tersimpan');
+            ->assertSee('Artikel Tersimpan');
     }
 
     public function test_reader_can_save_list_and_remove_published_articles(): void
@@ -115,6 +115,41 @@ class ReaderAccountControllerTest extends TestCase
         $this->assertDatabaseCount('saved_articles', 0);
     }
 
+    public function test_admin_can_access_reader_saved_article_features(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $writer = User::factory()->create(['role' => 'writer']);
+        $article = $this->createArticle($writer);
+
+        $this->actingAs($admin)
+            ->get(route('pembaca.saved.index'))
+            ->assertOk()
+            ->assertDontSee($article->title);
+
+        $this->post(route('pembaca.saved.store', $article->slug))
+            ->assertRedirect();
+
+        $this->assertDatabaseHas('saved_articles', [
+            'user_id' => $admin->id,
+            'article_id' => $article->id,
+        ]);
+
+        $this->get(route('pembaca.saved.index'))
+            ->assertOk()
+            ->assertSee($article->title);
+    }
+
+    public function test_admin_profile_links_to_reader_saved_articles(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($admin)
+            ->get(route('admin.profile'))
+            ->assertOk()
+            ->assertSee(route('pembaca.saved.index'), false)
+            ->assertSee('Artikel Tersimpan');
+    }
+
     public function test_login_from_article_prompt_returns_reader_to_that_article(): void
     {
         $author = User::factory()->create(['role' => 'writer']);
@@ -134,7 +169,7 @@ class ReaderAccountControllerTest extends TestCase
     }
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
     private function createArticle(User $author, array $attributes = []): Article
     {

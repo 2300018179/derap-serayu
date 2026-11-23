@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Daftar Penulis | Derap Serayu</title>
+    <title>Daftar Penulis | {{ $siteSettings['site_name'] }}</title>
 
 
     <!-- Google Fonts -->
@@ -321,7 +321,7 @@
                     rgba(3, 48, 68, .15)
                 ),
 
-                url('{{ asset('images/bg-dieng-register.jpg') }}');
+                url('{{ $siteSettings['register_bg_image_path'] ? \Illuminate\Support\Facades\Storage::disk('public')->url($siteSettings['register_bg_image_path']) : asset('images/bg-dieng-register.jpg') }}');
 
             background-size: cover;
             background-position: center center;
@@ -1259,10 +1259,12 @@
 
     </style>
 
+@include('partials.site-theme-styles')
+
 </head>
 
 
-<body>
+<body class="auth-page">
     <!-- =====================================================
          REGISTER
     ====================================================== -->
@@ -1406,66 +1408,11 @@
                 <a href="/" class="logo">
 
                     <img
-                        src="{{ asset('images/logo.png') }}"
-                        alt="Derap Serayu"
+                        src="{{ $siteLogoUrl }}"
+                        alt="{{ $siteSettings['site_name'] }}"
                     >
 
                 </a>
-
-
-                <!-- STEPS -->
-
-                <div class="steps">
-
-
-                    <div class="step active">
-
-                        <div class="step-number">
-                            1
-                        </div>
-
-                        <span>
-                            Data Diri
-                        </span>
-
-                    </div>
-
-
-                    <div class="step-line"></div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            2
-                        </div>
-
-                        <span>
-                            Verifikasi
-                        </span>
-
-                    </div>
-
-
-                    <div class="step-line"></div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            3
-                        </div>
-
-                        <span>
-                            Selesai
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
 
                 <!-- HEADER -->
 

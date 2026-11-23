@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Galeri Visual | Derap Serayu</title>
+    <title>Galeri Visual | {{ $siteSettings['site_name'] }}</title>
     <meta name="description" content="Jelajahi galeri foto alam, budaya, wisata, dan kehidupan masyarakat Banjarnegara di Derap Serayu.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -878,7 +878,8 @@
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 18px;
+            gap: 14px;
+            width: 100%;
         }
 
         .photo-card {
@@ -886,10 +887,10 @@
             min-width: 0;
             height: 260px;
             overflow: hidden;
-            border-radius: 15px;
-            background: #c8e7ee;
-            box-shadow: 0 7px 20px rgba(20, 78, 100, .08);
-            transition: transform .3s ease, box-shadow .3s ease;
+            border-radius: 14px;
+            background: #e1f1ed;
+            box-shadow: 0 5px 18px rgba(15, 65, 53, .08);
+            transition: transform .25s ease, box-shadow .25s ease;
         }
 
         .photo-card:hover {
@@ -2399,6 +2400,8 @@
 }
 
     </style>
+@include('partials.site-theme-styles')
+
 </head>
 
 <body>
@@ -2464,7 +2467,7 @@
             </a>
 
             <a
-                href="https://www.instagram.com/kabupatenbanjarnegara/"
+                href="{{ $siteSettings['instagram_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -2474,7 +2477,7 @@
             </a>
 
             <a
-                href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                href="{{ $siteSettings['facebook_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -2484,7 +2487,7 @@
             </a>
 
             <a
-                href="https://www.youtube.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['youtube_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -2494,7 +2497,7 @@
             </a>
 
             <a
-                href="https://x.com/pemkab_bna"
+                href="{{ $siteSettings['x_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -2504,7 +2507,7 @@
             </a>
 
             <a
-                href="https://www.tiktok.com/@pemkabbanjarnegara"
+                href="{{ $siteSettings['tiktok_url'] }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -2532,8 +2535,8 @@
         >
 
             <img
-                src="{{ asset('images/logo.png') }}"
-                alt="Derap Serayu"
+                src="{{ $siteLogoUrl }}"
+                alt="{{ $siteSettings['site_name'] }}"
                 onerror="
                     this.style.display='none';
                     this.nextElementSibling.style.display='flex';
@@ -2587,36 +2590,6 @@
 
         </nav>
 
-
-        {{-- Search --}}
-
-        <div class="search-area">
-            <form
-                action="{{ route('articles.index') }}"
-                method="GET"
-                class="search-box"
-                role="search"
-                aria-label="Cari artikel"
-            >
-                <button type="submit" aria-label="Cari">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                </button>
-
-                <input
-                    type="search"
-                    name="q"
-                    value="{{ old('q', request('q')) }}"
-                    placeholder="Cari berita, topik, atau kata kunci..."
-                    aria-label="Cari berita, topik, atau kata kunci"
-                    maxlength="100"
-                >
-            </form>
-
-            @error('q')
-                <p class="search-error" role="alert">{{ $message }}</p>
-            @enderror
-        </div>
-
         {{-- Akun --}}
 
         <div class="account-actions">
@@ -2647,11 +2620,14 @@
                                 <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
                                 Dasbor Penulis
                             </a>
+                        @elseif (auth()->user()->role === 'editor')
+                            @include('partials.editor-account-menu')
                         @elseif (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
                                 Dasbor Admin
                             </a>
+                            @include('partials.admin-reader-links')
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
@@ -2743,138 +2719,43 @@
                         <h2>Jelajahi Keindahan Banjarnegara</h2>
                     </div>
                 </div>
-
-                <div class="gallery-toolbar">
-                    <div class="filter-list" aria-label="Filter kategori galeri">
-                        <button class="filter-button active" type="button" data-filter="all">Semua</button>
-                        <button class="filter-button" type="button" data-filter="budaya">Cerita &amp;Budaya</button>
-                        <button class="filter-button" type="button" data-filter="opini">Opini</button>
-                        <button class="filter-button" type="button" data-filter="sosok">Sosok</button>
-                        <button class="filter-button" type="button" data-filter="sudut-kota">Sudut Kota</button>
-                        <button class="filter-button" type="button" data-filter="potensi">Potensi</button>
-                        <button class="filter-button" type="button" data-filter="teknologi">Teknologi</button>
-                        <button class="filter-button" type="button" data-filter="humor">Humor</button>
-                    </div>
-
-                    <div class="gallery-count" id="galleryCount" aria-live="polite">
-                        {{ $artikels->total() }} foto artikel
-                    </div>
-                </div>
-
+                                
                 <div class="gallery-grid" id="galleryGrid">
-
                     @forelse ($artikels as $artikel)
-                        @php
-                            $kategoriArtikel = $artikel->category->name
-                                ?? $artikel->category_name
-                                ?? (is_string($artikel->category ?? null) ? $artikel->category : 'Cerita');
+                        @if (!empty($artikel->cover_image_path))
+                            @php
+                                $kategoriFilter = strtolower(
+                                    $artikel->category->name
+                                    ?? $artikel->category->nama
+                                    ?? 'lainnya'
+                                );
+                            @endphp
 
-                            $kategoriLower = \Illuminate\Support\Str::lower(trim($kategoriArtikel));
-
-                            if (
-                                str_contains($kategoriLower, 'budaya') ||
-                                str_contains($kategoriLower, 'cerita')
-                            ) {
-                                $kategoriFilter = 'budaya';
-                                $kategoriIkon = 'fa-masks-theater';
-                            } elseif (str_contains($kategoriLower, 'opini')) {
-                                $kategoriFilter = 'opini';
-                                $kategoriIkon = 'fa-comments';
-                            } elseif (str_contains($kategoriLower, 'sosok')) {
-                                $kategoriFilter = 'sosok';
-                                $kategoriIkon = 'fa-user-group';
-                            } elseif (
-                                str_contains($kategoriLower, 'sudut kota') ||
-                                str_contains($kategoriLower, 'sudut-kota') ||
-                                str_contains($kategoriLower, 'sudut_kota') 
-                            ) {
-                                $kategoriFilter = 'sudut-kota';
-                                $kategoriIkon = 'fa-city';
-                            } elseif (
-                                str_contains($kategoriLower, 'potensi') || 
-                                str_contains($kategoriLower, 'ekonomi')
-                            ) {
-                                $kategoriFilter = 'potensi';
-                                $kategoriIkon = 'fa-chart-line';
-                            } elseif (str_contains($kategoriLower, 'teknologi')) {
-                                $kategoriFilter = 'teknologi';
-                                $kategoriIkon = 'fa-microchip';
-                            } elseif (str_contains($kategoriLower, 'humor')) {
-                                $kategoriFilter = 'humor';
-                                $kategoriIkon = 'fa-face-laugh';
-                            } else {
-                                $kategoriFilter = 'lainnya';
-                                $kategoriIkon = 'fa-images';
-                            }
-
-                            $tanggalArtikel = $artikel->published_at ?? $artikel->created_at;
-                        @endphp
-
-                        <article class="photo-card" data-category="{{ $kategoriFilter }}">
-                            <a
-                                class="photo-link"
-                                href="{{ route('articles.show', $artikel->slug) }}"
-                                aria-label="Baca artikel {{ $artikel->title }}"
+                            <article
+                                class="photo-card"
+                                data-category="{{ $kategoriFilter }}"
                             >
-                                @if ($artikel->cover_image_path)
+                                <a
+                                    href="{{ route('articles.show', $artikel->slug) }}"
+                                    class="photo-link"
+                                    aria-label="Lihat {{ $artikel->title }}"
+                                >
                                     <img
-                                        class="photo-image"
                                         src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($artikel->cover_image_path) }}"
                                         alt="{{ $artikel->title }}"
+                                        class="photo-image"
                                         loading="lazy"
-                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
                                     >
-                                    <div class="photo-placeholder" style="display:none">
-                                        <i class="fa-regular fa-image"></i>
-                                    </div>
-                                @else
-                                    <div class="photo-placeholder">
-                                        <i class="fa-regular fa-image"></i>
-                                    </div>
-                                @endif
-
-                                <div class="photo-overlay">
-                                    <span class="photo-category">
-                                        <i class="fa-solid {{ $kategoriIkon }}"></i>
-                                        {{ $kategoriArtikel }}
-                                    </span>
-
-                                    <h3 class="photo-title">{{ $artikel->title }}</h3>
-
-                                    <div class="photo-meta">
-                                        <span>
-                                            <i class="fa-regular fa-calendar"></i>
-                                            {{ $tanggalArtikel ? \Illuminate\Support\Carbon::parse($tanggalArtikel)->translatedFormat('d M Y') : 'Derap Serayu' }}
-                                        </span>
-
-                                        <span>
-                                            <i class="fa-regular fa-eye"></i>
-                                            Visual cerita
-                                        </span>
-                                    </div>
-
-                                    <span class="photo-arrow">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </span>
-                                </div>
-                            </a>
-                        </article>
-
+                                </a>
+                            </article>
+                        @endif
                     @empty
                         <div class="empty-state" id="emptyState">
-                            <i class="fa-regular fa-images"></i>
-                            <h3>Galeri sedang disiapkan</h3>
-                            <p>Foto akan tampil di sini setelah artikel dengan gambar sampul diterbitkan.</p>
+                            <p>Belum ada foto yang tersedia di galeri.</p>
                         </div>
                     @endforelse
-
-                    <div class="empty-state" id="filterEmpty" style="display:none">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <h3>Belum ada foto di kategori ini</h3>
-                        <p>Coba pilih kategori lainnya untuk melihat koleksi visual.</p>
-                    </div>
-
                 </div>
+
 
                 @if (method_exists($artikels, 'links'))
                     <div class="pagination-wrap">
@@ -2912,8 +2793,8 @@
                 >
 
                     <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="Derap Serayu"
+                    src="{{ $siteLogoUrl }}"
+                    alt="{{ $siteSettings['site_name'] }}"
                     onerror="
                         this.style.display='none';
                         this.nextElementSibling.style.display='flex';
@@ -2923,20 +2804,23 @@
                 </a>
 
 
-                <p class="footer-description">
-
-                    Media informasi dan cerita Banjarnegara
-                    yang menghadirkan berita, budaya,
-                    wisata, potensi, serta kisah dari
-                    masyarakat.
-
-                </p>
+                <p class="footer-description">{{ $siteSettings['footer_description'] }}</p>
+@if($siteSettings['contact_email'] || $siteSettings['contact_phone'])
+    <p class="footer-description">
+        @if($siteSettings['contact_email'])
+            <a href="mailto:{{ $siteSettings['contact_email'] }}">{{ $siteSettings['contact_email'] }}</a>
+        @endif
+        @if($siteSettings['contact_phone'])
+            <br>{{ $siteSettings['contact_phone'] }}
+        @endif
+    </p>
+@endif
 
 
                 <div class="footer-social">
 
                     <a
-                        href="https://www.instagram.com/kabupatenbanjarnegara/"
+                        href="{{ $siteSettings['instagram_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Instagram Pemerintah Kabupaten Banjarnegara"
@@ -2946,7 +2830,7 @@
                     </a>
 
                     <a
-                        href="https://www.facebook.com/p/Akun-Resmi-Pemerintah-Kabupaten-Banjarnegara-100092687175359/"
+                        href="{{ $siteSettings['facebook_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Facebook Pemerintah Kabupaten Banjarnegara"
@@ -2956,7 +2840,7 @@
                     </a>
 
                     <a
-                        href="https://www.youtube.com/@pemkabbanjarnegara"
+                        href="{{ $siteSettings['youtube_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="YouTube Pemerintah Kabupaten Banjarnegara"
@@ -2966,7 +2850,7 @@
                     </a>
 
                     <a
-                        href="https://www.tiktok.com/@pemkabbanjarnegara"
+                        href="{{ $siteSettings['tiktok_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="TikTok Pemerintah Kabupaten Banjarnegara"
@@ -2976,7 +2860,7 @@
                     </a>
 
                     <a
-                        href="https://x.com/pemkab_bna"
+                        href="{{ $siteSettings['x_url'] }}"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="X Pemerintah Kabupaten Banjarnegara"
@@ -3009,6 +2893,10 @@
 
                 <a href="{{ route('articles.index') }}">
                     Berita
+                </a>
+
+                <a href="{{ route('galeri') }}">
+                    Galeri
                 </a>
 
             </div>
@@ -3179,14 +3067,12 @@
 
             <p>
 
-                Dari gunung hingga lembah,
-                setiap sudut Banjarnegara
-                punya cerita.
+                {{ $siteSettings['footer_quote'] }}
 
             </p>
 
             <small>
-                DERAP SERAYU — BANJARNEGARA
+                {{ mb_strtoupper($siteSettings['site_name']) }} — BANJARNEGARA
             </small>
 
         </div>
@@ -3200,8 +3086,8 @@
             <div>
 
                 © {{ date('Y') }}
-                Derap Serayu.
-                Semua hak dilindungi.
+                {{ $siteSettings['site_name'] }}.
+                {{ $siteSettings['footer_copyright'] }}
 
             </div>
 
@@ -3357,6 +3243,78 @@
             }
         }
     });
+
+    
+document.addEventListener('DOMContentLoaded', function () {
+    const filterButtons = document.querySelectorAll(
+        '.filter-button[data-filter]'
+    );
+
+    const photoCards = document.querySelectorAll(
+        '.photo-card[data-category]'
+    );
+
+    const filterEmpty = document.getElementById('filterEmpty');
+    const galleryCount = document.getElementById('galleryCount');
+    const initialEmpty = document.getElementById('emptyState');
+
+    function filterGallery(selectedCategory) {
+        let visibleCount = 0;
+
+        photoCards.forEach(function (card) {
+            const category = (
+                card.dataset.category || 'lainnya'
+            ).trim().toLowerCase();
+
+            const show =
+                selectedCategory === 'all' ||
+                category === selectedCategory;
+
+            card.hidden = !show;
+
+            if (show) visibleCount++;
+        });
+
+        if (filterEmpty) {
+            filterEmpty.style.display =
+                photoCards.length > 0 && visibleCount === 0
+                    ? 'block'
+                    : 'none';
+        }
+
+        if (initialEmpty) {
+            initialEmpty.style.display =
+                photoCards.length === 0 ? 'block' : 'none';
+        }
+
+        if (galleryCount) {
+            galleryCount.textContent =
+                visibleCount + ' foto ditampilkan';
+        }
+    }
+
+    filterButtons.forEach(function (button) {
+        button.setAttribute(
+            'aria-pressed',
+            String(button.classList.contains('active'))
+        );
+
+        button.addEventListener('click', function () {
+            filterButtons.forEach(function (item) {
+                const active = item === button;
+
+                item.classList.toggle('active', active);
+                item.setAttribute('aria-pressed', String(active));
+            });
+
+            filterGallery(button.dataset.filter || 'all');
+        });
+    });
+
+    filterGallery('all');
+});
+
 </script>
+@include('partials.search-script')
 </body>
 </html>

@@ -3,61 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Illuminate\View\View;
 
 class AdminArtikelController extends Controller
 {
-    public function dashboard(): View
-    {
-        $totalArtikel = Article::count();
-        $menungguTinjauan = Article::where('status', 'review')->count();
-        $totalTerbit = Article::where('status', 'published')->count();
-        $perluRevisi = Article::where('status', 'rejected')->count();
-        $totalPenulis = User::where('role', 'writer')->count();
-        $artikelTerbaru = Article::latest()
-            ->take(8)
-            ->get();
-        $antreanTinjauan = Article::where('status', 'review')
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('admin.dashboard', compact(
-            'totalArtikel',
-            'menungguTinjauan',
-            'totalTerbit',
-            'perluRevisi',
-            'totalPenulis',
-            'artikelTerbaru',
-            'antreanTinjauan'
-        ));
-    }
-
     public function index(Request $request)
     {
         $statusAktif = $request->query('status', 'review');
 
         $statusValid = ['review', 'published', 'rejected', 'draft'];
 
-        if (!in_array($statusAktif, $statusValid, true)) {
+        if (! in_array($statusAktif, $statusValid, true)) {
             $statusAktif = 'review';
         }
 
         $query = Article::query()
+            ->with('user:id,name,email')
             ->where('status', $statusAktif);
 
-        // Fitur pencarian judul artikel, jika digunakan
-        if ($request->filled('search')) {
-            $query->where(
-                'title',
-                'like',
-                '%' . $request->search . '%'
-            );
+        $search = trim((string) $request->query('search', ''));
+
+        if ($search !== '') {
+            $query->where(function ($query) use ($search): void {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('summary', 'like', "%{$search}%")
+                    ->orWhere('author_name', 'like', "%{$search}%");
+            });
         }
 
         $articles = $query

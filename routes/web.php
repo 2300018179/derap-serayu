@@ -1,8 +1,16 @@
 <?php
 
+use App\Http\Controllers\AccountProfileController;
 use App\Http\Controllers\AdminArtikelController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminSiteSettingController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\ArticleInteractionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CeritaController;
+use App\Http\Controllers\EditorDashboardController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HumorController;
 use App\Http\Controllers\InformationPageController;
@@ -15,7 +23,7 @@ use App\Http\Controllers\ReaderAccountController;
 use App\Http\Controllers\SosokController;
 use App\Http\Controllers\SudutKotaController;
 use App\Http\Controllers\TeknologiController;
-use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\WeatherController;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,10 +36,9 @@ Route::get('/daftar/pembaca', function () {
     return view('auth.register-pembaca');
 })->name('register.pembaca');
 
-Route::get('/daftar/pembaca/verifikasi', function () {
-    return view('auth.register-pembaca-verifikasi');
-})->name('register.pembaca.verifikasi');
-
+Route::get('/daftar/pembaca/verifikasi', [AuthController::class, 'showReaderVerification'])->name('register.pembaca.verifikasi');
+Route::post('/daftar/pembaca/verifikasi', [AuthController::class, 'verifyReaderOtp'])->name('register.pembaca.verify');
+Route::post('/daftar/pembaca/kirim-ulang', [AuthController::class, 'resendReaderOtp'])->name('register.pembaca.resend');
 Route::get('/daftar/pembaca/selesai', function () {
     return view('auth.register-pembaca-selesai');
 })->name('register.pembaca.selesai');
@@ -40,10 +47,9 @@ Route::get('/daftar/penulis', function () {
     return view('auth.register-penulis');
 })->name('register.penulis');
 
-Route::get('/daftar/penulis/verifikasi', function () {
-    return view('auth.register-penulis-verifikasi');
-})->name('register.penulis.verifikasi');
-
+Route::get('/daftar/penulis/verifikasi', [AuthController::class, 'showWriterVerification'])->name('register.penulis.verifikasi');
+Route::post('/daftar/penulis/verifikasi', [AuthController::class, 'verifyWriterOtp'])->name('register.penulis.verify');
+Route::post('/daftar/penulis/kirim-ulang', [AuthController::class, 'resendWriterOtp'])->name('register.penulis.resend');
 Route::get('/daftar/penulis/selesai', function () {
     return view('auth.register-penulis-selesai');
 })->name('register.penulis.selesai');
@@ -70,6 +76,12 @@ Route::post('/login', [AuthController::class, 'storeLogin'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
+    ->middleware(['guest', 'throttle:10,1'])
+    ->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])
+    ->middleware(['guest', 'throttle:10,1'])
+    ->name('google.callback');
 Route::post('/daftar/penulis', [AuthController::class, 'registerWriter'])
     ->middleware('guest')
     ->name('register.penulis.store');
@@ -82,14 +94,17 @@ Route::get('/lupa-password', function () {
 })->name('password.request');
 
 Route::post('/lupa-password', [AuthController::class, 'sendPasswordResetLink'])
-    ->middleware(['guest', 'throttle:password-reset'])
+    ->middleware('throttle:password-reset')
     ->name('password.email');
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])
-    ->middleware('guest')
     ->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])
-    ->middleware(['guest', 'throttle:password-reset'])
+    ->middleware('throttle:password-reset')
     ->name('password.update');
+
+Route::get('/api/cuaca-dieng', [WeatherController::class, 'dieng'])
+    ->middleware('throttle:60,1')
+    ->name('weather.dieng');
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -98,6 +113,19 @@ Route::view('/tentang-kami', 'about')
     ->name('about');
 
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+
+Route::get('/kecamatan', function () {
+    $districts = config('kecamatan');
+
+    $articleCounts = Article::query()
+        ->where('status', 'published')
+        ->whereIn('kecamatan', $districts)
+        ->selectRaw('kecamatan, count(*) as total')
+        ->groupBy('kecamatan')
+        ->pluck('total', 'kecamatan');
+
+    return view('kecamatan', compact('districts', 'articleCounts'));
+})->name('kecamatan.index');
 
 Route::get('/informasi/{page}', [InformationPageController::class, 'show'])
     ->whereIn('page', ['privasi', 'syarat-ketentuan', 'pedoman-media-siber'])
@@ -140,7 +168,7 @@ Route::get('/artikel/{article:slug}/lampiran', [PublicArtikelController::class, 
 Route::get('/artikel/{article:slug}', [PublicArtikelController::class, 'show'])
     ->name('articles.show');
 Route::middleware(['auth', 'role:reader'])->prefix('pembaca')->name('pembaca.')->group(function () {
-    Route::get('/profil', [ReaderAccountController::class, 'profile'])->name('profile');
+    Route::get('/profil', [AccountProfileController::class, 'show'])->name('profile');
     Route::get('/tersimpan', [ReaderAccountController::class, 'savedArticles'])->name('saved.index');
     Route::post('/artikel/{article:slug}/simpan', [ReaderAccountController::class, 'storeSavedArticle'])
         ->name('saved.store');
@@ -153,6 +181,7 @@ Route::post('/newsletter/langganan', [NewsletterSubscriptionController::class, '
 
 Route::middleware(['auth', 'role:writer'])->prefix('penulis')->name('penulis.')->group(function () {
     Route::get('/dashboard', [PenulisArtikelController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profil', [PenulisArtikelController::class, 'profile'])->name('profile');
     Route::get('/artikel', [PenulisArtikelController::class, 'index'])->name('articles.index');
     Route::get('/create', [PenulisArtikelController::class, 'create'])->name('artikel.create');
     Route::post('/artikel', [PenulisArtikelController::class, 'store'])->name('artikel.store');
@@ -163,9 +192,55 @@ Route::middleware(['auth', 'role:writer'])->prefix('penulis')->name('penulis.')-
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminArtikelController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/pengaturan-website', [AdminSiteSettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/pengaturan-website', [AdminSiteSettingController::class, 'update'])->name('settings.update');
+    Route::get('/profil', [AccountProfileController::class, 'show'])->name('profile');
+    Route::get('/pengguna', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/pengguna/create', [AdminUserController::class, 'create'])->name('users.create');
+    Route::post('/pengguna', [AdminUserController::class, 'store'])->name('users.store');
+    Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::patch('/pengguna/{user}/status', [AdminUserController::class, 'toggleStatus'])->name('users.status');
+    Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     Route::get('/artikel', [AdminArtikelController::class, 'index'])->name('articles.index');
     Route::post('/artikel/{article}/terbitkan', [AdminArtikelController::class, 'publish'])->name('articles.publish');
     Route::post('/artikel/{article}/tolak', [AdminArtikelController::class, 'reject'])->name('articles.reject');
     Route::get('/artikel/{article}/dokumen', [AdminArtikelController::class, 'downloadDocument'])->name('articles.document');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::post(
+        '/artikel/{article:slug}/suka',
+        [ArticleInteractionController::class, 'toggleLike']
+    )->name('articles.like');
+
+    Route::post(
+        '/artikel/{article:slug}/komentar',
+        [ArticleInteractionController::class, 'storeComment']
+    )->name('articles.comments.store');
+});
+
+Route::middleware(['auth', 'role:editor'])
+    ->prefix('editor')
+    ->name('editor.')
+    ->group(function () {
+        Route::get('/dashboard', [EditorDashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('/profil', [AccountProfileController::class, 'show'])->name('profile');
+        Route::get('/artikel', [EditorDashboardController::class, 'index'])->name('articles.index');
+        Route::get('/artikel/create', [PenulisArtikelController::class, 'create'])->name('articles.create');
+        Route::post('/artikel', [PenulisArtikelController::class, 'store'])->name('articles.store');
+        Route::get('/artikel/{article}/edit', [PenulisArtikelController::class, 'edit'])->name('articles.edit');
+        Route::get('/artikel/{article}/dokumen', [PenulisArtikelController::class, 'downloadDocument'])->name('articles.document');
+        Route::put('/artikel/{article}', [PenulisArtikelController::class, 'update'])->name('articles.update');
+        Route::delete('/artikel/{article}', [PenulisArtikelController::class, 'destroy'])->name('articles.destroy');
+        Route::get('/tinjauan', [EditorDashboardController::class, 'reviewIndex'])
+            ->name('articles.review');
+
+        Route::patch('/artikel/{article}/terbitkan', [EditorDashboardController::class, 'publish'])
+            ->name('articles.publish');
+
+        Route::patch('/artikel/{article}/revisi', [EditorDashboardController::class, 'requestRevision'])
+            ->name('articles.revision');
+
+    });
